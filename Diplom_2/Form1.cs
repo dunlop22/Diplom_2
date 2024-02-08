@@ -41,7 +41,11 @@ namespace Diplom_2
             }
         }
 
-        
+        //Открытие формы для создания нового подключения
+        private void new_connection_Main_Menu_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
     //проверка интернет-подключения

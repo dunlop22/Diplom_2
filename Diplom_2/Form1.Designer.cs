@@ -34,7 +34,7 @@ namespace Diplom_2
             this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьКакToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.новоеПодключениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.new_connection_Main_Menu = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.Internet_connect_status_image = new System.Windows.Forms.PictureBox();
@@ -48,7 +48,7 @@ namespace Diplom_2
             this.MainMenu.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.файлToolStripMenuItem,
-            this.новоеПодключениеToolStripMenuItem});
+            this.new_connection_Main_Menu});
             this.MainMenu.Location = new System.Drawing.Point(0, 0);
             this.MainMenu.Name = "MainMenu";
             this.MainMenu.Size = new System.Drawing.Size(800, 29);
@@ -83,12 +83,13 @@ namespace Diplom_2
             this.сохранитьКакToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.сохранитьКакToolStripMenuItem.Text = "Сохранить как";
             // 
-            // новоеПодключениеToolStripMenuItem
+            // new_connection_Main_Menu
             // 
-            this.новоеПодключениеToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.новоеПодключениеToolStripMenuItem.Name = "новоеПодключениеToolStripMenuItem";
-            this.новоеПодключениеToolStripMenuItem.Size = new System.Drawing.Size(170, 25);
-            this.новоеПодключениеToolStripMenuItem.Text = "Новое подключение";
+            this.new_connection_Main_Menu.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.new_connection_Main_Menu.Name = "new_connection_Main_Menu";
+            this.new_connection_Main_Menu.Size = new System.Drawing.Size(170, 25);
+            this.new_connection_Main_Menu.Text = "Новое подключение";
+            this.new_connection_Main_Menu.Click += new System.EventHandler(this.new_connection_Main_Menu_Click);
             // 
             // statusStrip1
             // 
@@ -140,7 +141,7 @@ namespace Diplom_2
 
         private System.Windows.Forms.MenuStrip MainMenu;
         private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem новоеПодключениеToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem new_connection_Main_Menu;
         private System.Windows.Forms.ToolStripMenuItem открытьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem сохранитьКакToolStripMenuItem;
