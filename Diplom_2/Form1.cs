@@ -16,5 +16,7 @@ namespace Diplom_2
         {
             InitializeComponent();
         }
+
+        
     }
 }
