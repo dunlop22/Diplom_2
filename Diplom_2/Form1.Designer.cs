@@ -37,10 +37,10 @@ namespace Diplom_2
             this.новоеПодключениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.Internet_connect_status_image = new System.Windows.Forms.PictureBox();
             this.MainMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Internet_connect_status_image)).BeginInit();
             this.SuspendLayout();
             // 
             // MainMenu
@@ -107,20 +107,20 @@ namespace Diplom_2
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(86, 21);
             this.toolStripStatusLabel1.Text = "Интернет: ";
             // 
-            // pictureBox1
+            // Internet_connect_status_image
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(84, 430);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
+            this.Internet_connect_status_image.Location = new System.Drawing.Point(84, 430);
+            this.Internet_connect_status_image.Name = "Internet_connect_status_image";
+            this.Internet_connect_status_image.Size = new System.Drawing.Size(16, 16);
+            this.Internet_connect_status_image.TabIndex = 2;
+            this.Internet_connect_status_image.TabStop = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.Internet_connect_status_image);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.MainMenu);
             this.MainMenuStrip = this.MainMenu;
@@ -130,7 +130,7 @@ namespace Diplom_2
             this.MainMenu.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Internet_connect_status_image)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -146,7 +146,7 @@ namespace Diplom_2
         private System.Windows.Forms.ToolStripMenuItem сохранитьКакToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox Internet_connect_status_image;
     }
 }
 
