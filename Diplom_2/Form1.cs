@@ -18,13 +18,16 @@ namespace Diplom_2
         {
             InitializeComponent();
             //Создание потока для отслеживания наличия интернета
+            
             Thread thread = new Thread(check_internet);
             thread.Start();
+            
         }
+        bool work = true;
 
         void check_internet()
         {
-            while (true)
+            while (work)
             {
                 InternetConnectionChecker check = new InternetConnectionChecker();
                 if (check.IsConnected())    //подключение есть
@@ -39,11 +42,20 @@ namespace Diplom_2
 
                 Thread.Sleep(400);  //пауза потока
             }
+            
         }
 
         //Открытие формы для создания нового подключения
         private void new_connection_Main_Menu_Click(object sender, EventArgs e)
         {
+            NewConnectionForm newForm = new NewConnectionForm(this);
+            newForm.Show();
+        }
+
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            System.Environment.Exit(1); //принудительное удаление всех потоков (thread)
 
         }
     }

@@ -127,6 +127,7 @@ namespace Diplom_2
             this.MainMenuStrip = this.MainMenu;
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.MainMenu.ResumeLayout(false);
             this.MainMenu.PerformLayout();
             this.statusStrip1.ResumeLayout(false);

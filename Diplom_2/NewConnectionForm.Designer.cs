@@ -29,6 +29,7 @@ namespace Diplom_2
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewConnectionForm));
             this.ip_label = new System.Windows.Forms.Label();
             this.ip_textBox = new System.Windows.Forms.TextBox();
             this.port_textBox = new System.Windows.Forms.TextBox();
@@ -39,6 +40,12 @@ namespace Diplom_2
             this.password_label = new System.Windows.Forms.Label();
             this.test_button = new System.Windows.Forms.Button();
             this.connect_button = new System.Windows.Forms.Button();
+            this.test_ip_pictureBox = new System.Windows.Forms.PictureBox();
+            this.port_pictureBox = new System.Windows.Forms.PictureBox();
+            this.login_pictureBox = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.test_ip_pictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.port_pictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.login_pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // ip_label
@@ -56,6 +63,7 @@ namespace Diplom_2
             this.ip_textBox.Name = "ip_textBox";
             this.ip_textBox.Size = new System.Drawing.Size(158, 26);
             this.ip_textBox.TabIndex = 1;
+            this.ip_textBox.Leave += new System.EventHandler(this.ip_textBox_Leave);
             // 
             // port_textBox
             // 
@@ -63,6 +71,7 @@ namespace Diplom_2
             this.port_textBox.Name = "port_textBox";
             this.port_textBox.Size = new System.Drawing.Size(100, 26);
             this.port_textBox.TabIndex = 2;
+            this.port_textBox.Leave += new System.EventHandler(this.port_textBox_Leave);
             // 
             // login_textBox
             // 
@@ -70,6 +79,7 @@ namespace Diplom_2
             this.login_textBox.Name = "login_textBox";
             this.login_textBox.Size = new System.Drawing.Size(181, 26);
             this.login_textBox.TabIndex = 3;
+            this.login_textBox.Leave += new System.EventHandler(this.login_textBox_Leave);
             // 
             // password_textBox
             // 
@@ -117,18 +127,45 @@ namespace Diplom_2
             // 
             // connect_button
             // 
-            this.connect_button.Location = new System.Drawing.Point(626, 451);
+            this.connect_button.Location = new System.Drawing.Point(590, 451);
             this.connect_button.Name = "connect_button";
             this.connect_button.Size = new System.Drawing.Size(108, 41);
             this.connect_button.TabIndex = 9;
             this.connect_button.Text = "CONNECT";
             this.connect_button.UseVisualStyleBackColor = true;
             // 
+            // test_ip_pictureBox
+            // 
+            this.test_ip_pictureBox.Location = new System.Drawing.Point(551, 130);
+            this.test_ip_pictureBox.Name = "test_ip_pictureBox";
+            this.test_ip_pictureBox.Size = new System.Drawing.Size(36, 26);
+            this.test_ip_pictureBox.TabIndex = 10;
+            this.test_ip_pictureBox.TabStop = false;
+            // 
+            // port_pictureBox
+            // 
+            this.port_pictureBox.Location = new System.Drawing.Point(790, 130);
+            this.port_pictureBox.Name = "port_pictureBox";
+            this.port_pictureBox.Size = new System.Drawing.Size(33, 26);
+            this.port_pictureBox.TabIndex = 11;
+            this.port_pictureBox.TabStop = false;
+            // 
+            // login_pictureBox
+            // 
+            this.login_pictureBox.Location = new System.Drawing.Point(671, 213);
+            this.login_pictureBox.Name = "login_pictureBox";
+            this.login_pictureBox.Size = new System.Drawing.Size(29, 26);
+            this.login_pictureBox.TabIndex = 12;
+            this.login_pictureBox.TabStop = false;
+            // 
             // NewConnectionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1200, 692);
+            this.Controls.Add(this.login_pictureBox);
+            this.Controls.Add(this.port_pictureBox);
+            this.Controls.Add(this.test_ip_pictureBox);
             this.Controls.Add(this.connect_button);
             this.Controls.Add(this.test_button);
             this.Controls.Add(this.password_label);
@@ -140,9 +177,14 @@ namespace Diplom_2
             this.Controls.Add(this.ip_textBox);
             this.Controls.Add(this.ip_label);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "NewConnectionForm";
             this.Text = "NewConnectionForm";
+            this.Load += new System.EventHandler(this.NewConnectionForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.test_ip_pictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.port_pictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.login_pictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -160,5 +202,8 @@ namespace Diplom_2
         private System.Windows.Forms.Label password_label;
         private System.Windows.Forms.Button test_button;
         private System.Windows.Forms.Button connect_button;
+        private System.Windows.Forms.PictureBox test_ip_pictureBox;
+        private System.Windows.Forms.PictureBox port_pictureBox;
+        private System.Windows.Forms.PictureBox login_pictureBox;
     }
 }
