@@ -17,114 +17,140 @@ namespace Diplom_2
         public NewConnectionForm(Form1 f1)
         {
             InitializeComponent();
-            
+            this.port_textBox.Text = "22";
+            func.check_port(this.port_textBox.Text);
         }
         Func_Class func = new Func_Class();
 
         private void test_button_Click(object sender, EventArgs e)
         {
+            
+            /*
             //проверка IP
-            check_ip();
+            if (func.ip_or_domen(this.ip_textBox.Text) != 0)
+            {
+                if (func.ping_host(this.ip_textBox.Text))
+                {
+                    //link to host ok
+                }
+                else
+                {
+                    //link to host bad
+                }
+
+            }
 
             //проверка порта
+            port_text();
+
+            */
+
+
 
             //попытка подключения
-        }
-
-        //проверка ip для подключения
-        bool check_ip()
-        {
-            //проверка на наличие введенных данных
-            if (this.ip_textBox.Text.Length > 0)
+            if (func.test_connect("109.195.38.77", 22, "Admin_Adm_Adm", "GfhjkzYtn1"))
             {
-                //разбивка введенного ip адреса на октеты
-                string ip = this.ip_textBox.Text;
-                string[] octets = ip.Split(new char[] { '.' });
-
-
-                if (octets.Length != 4)
-                {
-                    return false;
-                }
-                else
-                {
-                    for (int i = 0; i < 4; i++)
-                    {
-                        if ((Int32.Parse(octets[i]) < 0) && (Int32.Parse(octets[i]) > 255))
-                        {
-                            return false;
-                        }
-                    }
-                }
-
-
-                //Объекта класса с инструментами работы
-                
-                /*
-                if (func.ping_ip(this.ip_textBox.Text))
-                {
-
-                }
-                else
-                {
-
-                }
-                */
-
-                return true; 
-                
-                //this.linkLabel_test.Text = octets.Length.ToString();
+                this.linkLabel1.Text = "Подключение успешно!";
             }
             else
             {
-                return false;
+                this.linkLabel1.Text = "Подключение НЕуспешно!";
             }
+
         }
+
+        ////проверка ip для подключения
+        //bool check_ip()
+        //{
+        //    //проверка на наличие введенных данных
+        //    if (this.ip_textBox.Text.Length > 0)
+        //    {
+        //        //разбивка введенного ip адреса на октеты
+        //        string ip = this.ip_textBox.Text;
+        //        string[] octets = ip.Split(new char[] { '.' });
+
+
+        //        if (octets.Length != 4)
+        //        {
+        //            return false;
+        //        }
+        //        else
+        //        {
+        //            for (int i = 0; i < 4; i++)
+        //            {
+        //                if ((Int32.Parse(octets[i]) < 0) && (Int32.Parse(octets[i]) > 255))
+        //                {
+        //                    return false;
+        //                }
+        //            }
+        //        }
+
+        //        return true; 
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
 
         
-        //Проверка порта подключения
-        bool check_port()
-        {
-            if (this.port_textBox.Text.Length > 0)
-            {
-                if ((Int32.Parse(this.port_textBox.Text) > 0) && (Int32.Parse(this.port_textBox.Text) < 65536))
-                {
-                    return true;
-                }
-                return false;
-            }
-            return false;
-            
-        }
+        ////Проверка порта подключения
+        //bool check_port()
+        //{
+        //    if (this.port_textBox.Text.Length > 0)
+        //    {
+        //        //проверка на посторонние символы
+        //        for (int i=0; i< this.port_textBox.Text.Length; i++)
+        //        {
+        //            if (char.IsDigit(this.port_textBox.Text[i]))
+        //            {
+        //            }
+        //            else
+        //            {
+        //                return false;
+        //            }
+        //        }
+                
+        //        if ((Int32.Parse(this.port_textBox.Text) > 0) && (Int32.Parse(this.port_textBox.Text) < 65536))
+        //        {
+        //            return true;
+        //        }
+        //        return false;
+        //    }
+        //    return false;
+        //}
 
+
+
+
+        //проверка ip адреса
         private void ip_textBox_Leave(object sender, EventArgs e)
         {
-            this.test_ip_pictureBox.SizeMode = PictureBoxSizeMode.Zoom;       //ReSize изображения под размер элемента (PictureBox)
-            //this.test_ip_pictureBox.Image = Properties.Resources.good_connect;
-            
-            //проверка ip (IP адрес или ДОМЕННОЕ ИМЯ?????)
-            if (check_ip())
-            {
-                this.test_ip_pictureBox.Image = Properties.Resources.good_connect;
 
-                if (func.ping_ip(this.ip_textBox.Text))
+            if (this.ip_textBox.Text.Length > 0)
+            {
+
+                //проверка ip (IP адрес или ДОМЕННОЕ ИМЯ?????)
+                if (func.ip_or_domen(this.ip_textBox.Text) != 0)
                 {
-                    this.test_ip_pictureBox.Image = Properties.Resources.good_connect;
-                    
+                    this.test_ip_pictureBox.Image = Properties.Resources.link_warning;
+
+                    //создание thread (???)
+                    if (func.ping_host(this.ip_textBox.Text))
+                    {
+                        this.test_ip_pictureBox.Image = Properties.Resources.link_ok;
+                    }
+                    else
+                    {
+                        this.test_ip_pictureBox.Image = Properties.Resources.link_error;
+                    }
                 }
                 else
                 {
-                    this.test_ip_pictureBox.Image = Properties.Resources.good_connect;
+                    this.test_ip_pictureBox.Image = Properties.Resources.error_connect;
                 }
+                this.test_ip_pictureBox.SizeMode = PictureBoxSizeMode.Zoom;       //ReSize изображения под размер элемента (PictureBox)
             }
-            else
-            {
-                this.test_ip_pictureBox.Image = Properties.Resources.error_connect;
-                
-
-            }
-            this.test_ip_pictureBox.SizeMode = PictureBoxSizeMode.Zoom;       //ReSize изображения под размер элемента (PictureBox)
-
         }
 
         private void NewConnectionForm_Load(object sender, EventArgs e)
@@ -134,16 +160,18 @@ namespace Diplom_2
 
         private void login_textBox_Leave(object sender, EventArgs e)
         {
+            /*
             if (this.login_textBox.Text.Length == 0)
             {
                 this.login_pictureBox.Image = Properties.Resources.error_connect;
             }
-            this.login_pictureBox.SizeMode = PictureBoxSizeMode.Zoom;       //ReSize изображения под размер элемента (PictureBox)
-        }
 
-        private void port_textBox_Leave(object sender, EventArgs e)
+            this.login_pictureBox.SizeMode = PictureBoxSizeMode.Zoom;       //ReSize изображения под размер элемента (PictureBox)
+            */
+        }
+        private void port_text()
         {
-            if (check_port())
+            if (func.check_port(this.port_textBox.Text))
             {
                 this.port_pictureBox.Image = Properties.Resources.good_connect;
             }
@@ -153,5 +181,29 @@ namespace Diplom_2
             }
             this.port_pictureBox.SizeMode = PictureBoxSizeMode.Zoom;       //ReSize изображения под размер элемента (PictureBox)
         }
+
+
+        private void port_textBox_TextChanged(object sender, EventArgs e)
+        {
+            port_text();
+        }
+
+        //быстрая проверка введенных данных
+        private void ip_textBox_TextChanged(object sender, EventArgs e)
+        {
+            this.test_ip_pictureBox.Image = null;
+            this.test_ip_pictureBox.Invalidate();
+
+            if (this.ip_textBox.Text.Length > 0)
+            {
+                if (!(func.check_valid_host(this.ip_textBox.Text)))
+                {
+                    this.test_ip_pictureBox.Image = Properties.Resources.error_connect;
+                    this.test_ip_pictureBox.SizeMode = PictureBoxSizeMode.Zoom;       //ReSize изображения под размер элемента (PictureBox)
+                    return;
+                }
+            }
+        }   
+
     }
 }

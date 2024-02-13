@@ -58,6 +58,13 @@ namespace Diplom_2
             System.Environment.Exit(1); //принудительное удаление всех потоков (thread)
 
         }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            //изменение расположения индикатора подключения интернета
+            var temp = this.Size.Height - 59;
+            this.Internet_connect_status_image.Location = new Point(this.Internet_connect_status_image.Location.X, temp);
+        }
     }
 
     //проверка интернет-подключения

@@ -43,6 +43,7 @@ namespace Diplom_2
             this.test_ip_pictureBox = new System.Windows.Forms.PictureBox();
             this.port_pictureBox = new System.Windows.Forms.PictureBox();
             this.login_pictureBox = new System.Windows.Forms.PictureBox();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.test_ip_pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.port_pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.login_pictureBox)).BeginInit();
@@ -59,19 +60,20 @@ namespace Diplom_2
             // 
             // ip_textBox
             // 
-            this.ip_textBox.Location = new System.Drawing.Point(387, 130);
+            this.ip_textBox.Location = new System.Drawing.Point(373, 130);
             this.ip_textBox.Name = "ip_textBox";
             this.ip_textBox.Size = new System.Drawing.Size(158, 26);
             this.ip_textBox.TabIndex = 1;
+            this.ip_textBox.TextChanged += new System.EventHandler(this.ip_textBox_TextChanged);
             this.ip_textBox.Leave += new System.EventHandler(this.ip_textBox_Leave);
             // 
             // port_textBox
             // 
             this.port_textBox.Location = new System.Drawing.Point(684, 130);
             this.port_textBox.Name = "port_textBox";
-            this.port_textBox.Size = new System.Drawing.Size(100, 26);
+            this.port_textBox.Size = new System.Drawing.Size(78, 26);
             this.port_textBox.TabIndex = 2;
-            this.port_textBox.Leave += new System.EventHandler(this.port_textBox_Leave);
+            this.port_textBox.TextChanged += new System.EventHandler(this.port_textBox_TextChanged);
             // 
             // login_textBox
             // 
@@ -85,6 +87,7 @@ namespace Diplom_2
             // 
             this.password_textBox.Location = new System.Drawing.Point(484, 319);
             this.password_textBox.Name = "password_textBox";
+            this.password_textBox.PasswordChar = '*';
             this.password_textBox.Size = new System.Drawing.Size(181, 26);
             this.password_textBox.TabIndex = 4;
             // 
@@ -136,7 +139,7 @@ namespace Diplom_2
             // 
             // test_ip_pictureBox
             // 
-            this.test_ip_pictureBox.Location = new System.Drawing.Point(551, 130);
+            this.test_ip_pictureBox.Location = new System.Drawing.Point(537, 130);
             this.test_ip_pictureBox.Name = "test_ip_pictureBox";
             this.test_ip_pictureBox.Size = new System.Drawing.Size(36, 26);
             this.test_ip_pictureBox.TabIndex = 10;
@@ -144,7 +147,7 @@ namespace Diplom_2
             // 
             // port_pictureBox
             // 
-            this.port_pictureBox.Location = new System.Drawing.Point(790, 130);
+            this.port_pictureBox.Location = new System.Drawing.Point(768, 130);
             this.port_pictureBox.Name = "port_pictureBox";
             this.port_pictureBox.Size = new System.Drawing.Size(33, 26);
             this.port_pictureBox.TabIndex = 11;
@@ -158,11 +161,22 @@ namespace Diplom_2
             this.login_pictureBox.TabIndex = 12;
             this.login_pictureBox.TabStop = false;
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(414, 552);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(80, 20);
+            this.linkLabel1.TabIndex = 13;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "linkLabel1";
+            // 
             // NewConnectionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1200, 692);
+            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.login_pictureBox);
             this.Controls.Add(this.port_pictureBox);
             this.Controls.Add(this.test_ip_pictureBox);
@@ -205,5 +219,6 @@ namespace Diplom_2
         private System.Windows.Forms.PictureBox test_ip_pictureBox;
         private System.Windows.Forms.PictureBox port_pictureBox;
         private System.Windows.Forms.PictureBox login_pictureBox;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }

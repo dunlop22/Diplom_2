@@ -36,6 +36,9 @@
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
+    <Reference Include="Mikrotik.Net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mikrotik.Net.1.3.0\lib\netstandard2.0\Mikrotik.Net.dll</HintPath>
+    </Reference>
     <Reference Include="Renci.SshNet, Version=2023.0.1.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
       <HintPath>..\packages\SSH.NET.2023.0.1\lib\net462\Renci.SshNet.dll</HintPath>
     </Reference>
@@ -125,6 +128,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icons8-удалить-480.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-ссылка-64 %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-ссылка-64 %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-ссылка-64.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
