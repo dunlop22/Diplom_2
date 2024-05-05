@@ -22,30 +22,19 @@ namespace Diplom_2
         }
         Func_Class func = new Func_Class();
 
+        
         private void test_button_Click(object sender, EventArgs e)
         {
             
-            /*
-            //проверка IP
-            if (func.ip_or_domen(this.ip_textBox.Text) != 0)
+            if (func.check_port_open("109.195.38.77", 8728))
             {
-                if (func.ping_host(this.ip_textBox.Text))
-                {
-                    //link to host ok
-                }
-                else
-                {
-                    //link to host bad
-                }
-
+                this.linkLabel1.Text = "Порт открыт!";
             }
-
-            //проверка порта
-            port_text();
-
-            */
-
-
+            else
+            {
+                this.linkLabel1.Text = "Порт закрыт!";
+            }
+            return;
 
             //попытка подключения
             if (func.test_connect("109.195.38.77", 22, "Admin_Adm_Adm", "GfhjkzYtn1"))
@@ -203,7 +192,14 @@ namespace Diplom_2
                     return;
                 }
             }
-        }   
+        }
 
+        private void port_textBox_Leave(object sender, EventArgs e)
+        {
+            if (func.check_port(this.port_textBox.Text))
+            {
+
+            }
+        }
     }
 }

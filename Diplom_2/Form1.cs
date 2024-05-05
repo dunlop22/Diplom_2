@@ -65,6 +65,70 @@ namespace Diplom_2
             var temp = this.Size.Height - 59;
             this.Internet_connect_status_image.Location = new Point(this.Internet_connect_status_image.Location.X, temp);
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            //Обработка сессии (новая или из файла)
+            file_work file = new file_work();
+            if (file.check_file())
+            {
+                this.label1.Text = "good";
+            }
+            else
+            {
+                this.label1.Text = "bad";
+            }
+
+
+
+            string plainText = "sayonara";
+
+            string passPhrase = "TestPassphrase";        //Может быть любой строкой
+            string saltValue = "TestSaltValue";        // Может быть любой строкой
+            string hashAlgorithm = "SHA256";             // может быть "MD5"
+            int passwordIterations = 2;                //Может быть любым числом
+            string initVector = "!1A3g2D4s9K556g7"; // Должно быть 16 байт
+            int keySize = 256;                // Может быть 192 или 128
+
+            string cipherText = Shifr.Encrypt
+            (
+                plainText,
+                passPhrase,
+                saltValue,
+                hashAlgorithm,
+                passwordIterations,
+                initVector,
+                keySize
+            );
+
+            this.label1.Text = cipherText;
+
+        }
+
+        private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "Text Files | *.txt";
+            if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
+            {
+                return;
+            }
+            //Путь до выбранного файла
+            string filename = openFileDialog1.FileName;
+            this.label1.Text = filename;
+        }
+
+        private void сохранитьКакToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "Text Files | *.txt";
+            if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
+            {
+                return;
+            }
+            string filename = saveFileDialog1.FileName;
+            this.label1.Text = filename;
+        }
     }
 
     //проверка интернет-подключения
