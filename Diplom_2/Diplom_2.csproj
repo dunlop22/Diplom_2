@@ -40,17 +40,22 @@
     <Reference Include="Mikrotik.Net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Mikrotik.Net.1.3.0\lib\netstandard2.0\Mikrotik.Net.dll</HintPath>
     </Reference>
+    <Reference Include="MndpTray.Protocol, Version=2.2.0.0, Culture=neutral, PublicKeyToken=2a72e0db0d8472e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\MndpTray.Protocol.2.2.0\lib\net462\MndpTray.Protocol.dll</HintPath>
+    </Reference>
     <Reference Include="Renci.SshNet, Version=2023.0.1.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
       <HintPath>..\packages\SSH.NET.2023.0.1\lib\net462\Renci.SshNet.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -62,6 +67,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddUserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddUserForm.Designer.cs">
+      <DependentUpon>AddUserForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddUserGroupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddUserGroupForm.Designer.cs">
+      <DependentUpon>AddUserGroupForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="file_work.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -70,6 +87,13 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Func_Class.cs" />
+    <Compile Include="Info.cs" />
+    <Compile Include="InputPasswordForFile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InputPasswordForFile.Designer.cs">
+      <DependentUpon>InputPasswordForFile.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewConnectionForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,8 +103,17 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shifr.cs" />
+    <EmbeddedResource Include="AddUserForm.resx">
+      <DependentUpon>AddUserForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddUserGroupForm.resx">
+      <DependentUpon>AddUserGroupForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputPasswordForFile.resx">
+      <DependentUpon>InputPasswordForFile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewConnectionForm.resx">
       <DependentUpon>NewConnectionForm.cs</DependentUpon>
@@ -95,6 +128,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -140,6 +174,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icons8-ссылка-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\favicon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

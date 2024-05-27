@@ -6,6 +6,17 @@ using System.Threading.Tasks;
 using System.IO;        //Работа с файлами (File)
 using System.Security.Cryptography;  //Шифровка-дешифровка файлов
 
+
+//структура файла
+// key-проход
+
+// {наименование, 
+// IP, 
+// Порт, 
+// Логин, 
+// Пароль, 
+// (Пустая строка)}
+
 namespace Diplom_2
 {
     class file_work
@@ -58,6 +69,18 @@ namespace Diplom_2
             return false;
         }
 
+        public bool CheckInfoFile()
+        {
+            //проверка считанных данных (IP, port)
+
+            return false;
+        }
+
+        public bool CheckFormatFile()
+        {
+            // узнать количество строк
+            return false;
+        }
 
 
         //Запись нового подключения к файл

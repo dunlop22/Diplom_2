@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Diplom_2.AddUserForm">
+    <Position X="14.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAgAACAAABAAAACAAAACAAKAABAABAABAAAAWAA=</HashCode>
+      <FileName>AddUserForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Diplom_2.AddUserGroupForm">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EIAAIAiAAGBAQBAAAACABAAGgAABIggARCAQACCBAAA=</HashCode>
+      <FileName>AddUserGroupForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Diplom_2.file_work">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAgAAAAAAgAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>file_work.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Diplom_2.Form1">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>8hRBFlrq5nBKUTiJQgaYBEAywM5/sRmISLW0mEgoKFc=</HashCode>
+      <FileName>Form1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Diplom_2.InternetConnectionChecker">
+    <Position X="17.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Form1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Diplom_2.MK">
+    <Position X="4" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAEABAQAgAgAAAAAAAAAQAACAAAA=</HashCode>
+      <FileName>Func_Class.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Diplom_2.Func_Class">
+    <Position X="8.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAACQAAQABAIAACAAAAAgAAAA=</HashCode>
+      <FileName>Func_Class.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Diplom_2.Info">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Struct Name="Diplom_2.Info.Connection" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Info.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Struct Name="Diplom_2.Info.Interface" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Info.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Struct Name="Diplom_2.Info.User" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Info.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Struct Name="Diplom_2.Info.UserGroup" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Info.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Struct Name="Diplom_2.Info.Machine" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Info.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Struct Name="Diplom_2.Info.LogMes" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Info.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Struct Name="Diplom_2.Info.Service" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Info.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>gAAETKAACCAAACQgAYIQAUlBAAwQBoIgAQAAjCgAAAQ=</HashCode>
+      <FileName>Info.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Diplom_2.InputPasswordForFile">
+    <Position X="5.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAABAAAACAAAACAAAIAAAAEEAAACAAAAA=</HashCode>
+      <FileName>InputPasswordForFile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Diplom_2.NewConnectionForm">
+    <Position X="19.5" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Struct Name="Diplom_2.NewConnectionForm.device" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>NewConnectionForm.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>gAQBEQAECC0hAJGJAASJMCICUAIAA0vAECABgKgGhEE=</HashCode>
+      <FileName>NewConnectionForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Diplom_2.Program">
+    <Position X="12.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Diplom_2.Shifr">
+    <Position X="8.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Shifr.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Diplom_2.Properties.Resources">
+    <Position X="12" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAACAAAAAAAAAgBEAAAAYAAAAAAAgAAAwAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Diplom_2.Properties.Settings">
+    <Position X="5.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
