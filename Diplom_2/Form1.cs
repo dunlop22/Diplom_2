@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using NETWORKLIST;      //для проверки интернет-подключения
 using System.Threading;     //использование и создание потоков
 
+using Renci.SshNet;
 //using MndpTray.Protocol;    //поиск оборудования Mikrotik в окружении (Neighbours)
 
 namespace Diplom_2
@@ -160,12 +161,10 @@ namespace Diplom_2
             information.FirstStart();
 
             //Отдельный поток для прослушивания ответов оборудования
-            /*
             thread_read_api_answer = new Thread(information.ReadAnswer);
             thread_read_api_answer.Start();
             
             this.timer1.Enabled = true; //постоянное обновление ресурсов
-            */
 
             return;
 
@@ -606,35 +605,69 @@ namespace Diplom_2
             check_internet();
         }
 
-        private async void Countdown()
+        private async void Countdown(double time)
         {
+            //time - количество секунд для обратного отсчета
             var start = DateTime.UtcNow;
-            var end = start.AddSeconds(900);
-            var diff = TimeSpan.FromSeconds(900);
+            var end = start.AddSeconds(time);
+            var diff = TimeSpan.FromSeconds(time);
+
+            this.label_timer_safemode.Visible = true;
 
             while ((DateTime.UtcNow - start) < diff)
             {
-                this.label_timer_safemode.Text = (diff - (DateTime.UtcNow - start)).ToString();
+                this.label_timer_safemode.Text = (diff - (DateTime.UtcNow - start)).ToString(@"mm\:ss");
                 await Task.Delay(1000);
             }
-
+            this.label_timer_safemode.Visible = false;
             //Close();
+        }
+
+        private void StartSafeMode()
+        {
+            //выполнить скрипт
+            var client = new SshClient("109.195.38.77", "Admin_Adm_Adm", "GfhjkzYtn1");
+            client.Connect();
+            var command = client.CreateCommand("/system script run safe");
+            command.Execute();
+            client.Disconnect();
+        }
+
+        private void EndSafeMode()
+        {
+            //выполнить скрипт
+            var client = new SshClient("109.195.38.77", "test", "test");
+            client.Connect();
+            var command = client.CreateCommand("/system script run del_safe");
+            command.Execute();
+            client.Disconnect();
         }
 
         private void button_SafeMode_Click(object sender, EventArgs e)
         {
             if (SafeMode == false)
             {
+                Info info = new Info();
+                info.SetConnCred(information.GetCred());
+                info.FirstStart();
+
+
                 //Включение режима SafeMode
-                information.SendStartSafeMode();
+                info.SendStartSafeMode();
                 this.button_SafeMode.BackColor = System.Drawing.SystemColors.ButtonShadow;
                 
                 SafeMode = true;        //изменить значение флага
 
-                //Countdown();  //начало отсчета в обратном порядке (15 минут)
+                Thread tr = new Thread(StartSafeMode);
+                tr.Start();
+                Countdown(900);  //начало отсчета в обратном порядке (15 минут)
             }
             else
             {
+                Thread tr = new Thread(EndSafeMode);
+                tr.Start();
+                SafeMode = false;
+                return;
                 Info info = new Info();
                 info.SetConnCred(information.GetCred());
                 info.FirstStart();
@@ -642,7 +675,7 @@ namespace Diplom_2
                 //Отключение режима SafeMode
                 info.SendEndSafeMode();
                 this.button_SafeMode.BackColor = System.Drawing.SystemColors.ButtonFace;
-                SafeMode = false;
+                
             }
         }
 

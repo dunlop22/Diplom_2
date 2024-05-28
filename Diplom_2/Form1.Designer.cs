@@ -36,12 +36,15 @@ namespace Diplom_2
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьКакToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.new_connection_Main_Menu = new System.Windows.Forms.ToolStripMenuItem();
+            this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.label1 = new System.Windows.Forms.Label();
@@ -152,8 +155,6 @@ namespace Diplom_2
             this.timer_CheckInternet = new System.Windows.Forms.Timer(this.components);
             this.button_SafeMode = new System.Windows.Forms.Button();
             this.label_timer_safemode = new System.Windows.Forms.Label();
-            this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Internet_connect_status_image)).BeginInit();
@@ -243,6 +244,20 @@ namespace Diplom_2
             this.new_connection_Main_Menu.Size = new System.Drawing.Size(152, 23);
             this.new_connection_Main_Menu.Text = "Новое подключение";
             // 
+            // справкаToolStripMenuItem
+            // 
+            this.справкаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.оПрограммеToolStripMenuItem});
+            this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
+            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(74, 23);
+            this.справкаToolStripMenuItem.Text = "Справка";
+            // 
+            // оПрограммеToolStripMenuItem
+            // 
+            this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
+            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.оПрограммеToolStripMenuItem.Text = "О программе";
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -263,7 +278,7 @@ namespace Diplom_2
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(611, 42);
+            this.label1.Location = new System.Drawing.Point(556, 51);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 3;
@@ -498,7 +513,7 @@ namespace Diplom_2
             this.groupBox8.Location = new System.Drawing.Point(13, 10);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.groupBox8.Size = new System.Drawing.Size(527, 541);
+            this.groupBox8.Size = new System.Drawing.Size(527, 483);
             this.groupBox8.TabIndex = 2;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Физические интерфейсы";
@@ -518,7 +533,7 @@ namespace Diplom_2
             this.dataGridView_PhysicalInterface.Name = "dataGridView_PhysicalInterface";
             this.dataGridView_PhysicalInterface.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.dataGridView_PhysicalInterface.RowHeadersVisible = false;
-            this.dataGridView_PhysicalInterface.Size = new System.Drawing.Size(503, 509);
+            this.dataGridView_PhysicalInterface.Size = new System.Drawing.Size(503, 458);
             this.dataGridView_PhysicalInterface.TabIndex = 0;
             // 
             // InterfaceName
@@ -1331,20 +1346,6 @@ namespace Diplom_2
             this.label_timer_safemode.Text = "label2";
             this.label_timer_safemode.Visible = false;
             // 
-            // справкаToolStripMenuItem
-            // 
-            this.справкаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.оПрограммеToolStripMenuItem});
-            this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
-            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(74, 23);
-            this.справкаToolStripMenuItem.Text = "Справка";
-            // 
-            // оПрограммеToolStripMenuItem
-            // 
-            this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
-            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
-            this.оПрограммеToolStripMenuItem.Text = "О программе";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1357,6 +1358,7 @@ namespace Diplom_2
             this.Controls.Add(this.Internet_connect_status_image);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.MainMenu);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.MainMenu;
             this.Name = "Form1";
             this.Text = "Панель управления MikroTik";

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
-
+using Renci.SshNet;
 
 namespace Diplom_2
 {
@@ -85,7 +85,6 @@ namespace Diplom_2
         private bool InterfaceEnd = true;
 
 
-        MikrotikAPI mikr;
         MK mikrotik;
         //ресурсы устройства
         private string[,] resource = new string[19, 2];
@@ -126,9 +125,6 @@ namespace Diplom_2
             mikrotik = new MK(conn.host, conn.port);
             mikrotik.Login(conn.login, conn.password);
 
-            mikr = new MikrotikAPI(conn.host);
-            mikr.Connect();
-            mikr.Login("test", "test", out string str);
 
 
 
@@ -401,48 +397,35 @@ namespace Diplom_2
         {
             Thread.Sleep(500);
 
-            //Сездание скрипта для деактивации существующего скрипта и удаления записей
-            mikr.Send("/system/script/add");
-            mikr.Send("=name=del_safe");
-            mikr.Send("=source=/system script job remove [ find where script=\"safe\" ]\r\ndelay 4\r\nsystem script remove safe\r\nsystem script remove del_safe", true);
-            
-            //Создание скрипта для активации safe mode
-            mikr.Send("/system/script/add");
-            mikr.Send("=name=safe");
-            mikr.Send("=source=system backup save name=backup_api\r\ndelay 900 \r\nsystem backup load name=backup_api", true);
-            Thread.Sleep(500);
-            foreach (string h in mikr.Receive())
-            {
-            }
-
-            //выполнить скрипт
-            mikr.Send("/system/script/run");
-            mikr.Send("=.id=safe", true);
-            mikr.Receive();
-            mikr.ReceiveList();
-            foreach (string h in mikr.Receive())
-            {
-            }
-
-            /*
+            //Создание скрипта для деактивации существующего скрипта и удаления записей
             mikrotik.Send("/system/script/add");
             mikrotik.Send("=name=del_safe");
-            mikrotik.Send("=source=/system script job remove [ find where script=\"safe\" ]\r\ndelay 4\r\nsystem script remove safe\r\nsystem script remove del_safe", true);
+            mikrotik.Send("=source=/system script job remove [ find where script=\"safe\" ]\r\n\r\nsystem script remove safe\r\nsystem script remove del_safe", true);
+            //mikrotik.Send("=source=/system script job remove", true);
 
             //Создание скрипта для активации safe mode
             mikrotik.Send("/system/script/add");
             mikrotik.Send("=name=safe");
-            mikrotik.Send("=source=system backup save name=backup_api\r\ndelay 900 \r\nsystem backup load name=backup_api", true);
+            mikrotik.Send("=source=system backup save name=backup_api\r\ndelay 900\r\nsystem backup load name=backup_api", true);
             Thread.Sleep(500);
-
+            /*
             //выполнить скрипт
-            mikrotik.Send("/system/script/run");
-            mikrotik.Send("=.id=safe", true);
+            var client = new SshClient("109.195.38.77", "Admin_Adm_Adm", "GfhjkzYtn1");
+            client.Connect();
+            var command = client.CreateCommand("/system script run safe");
+            command.Execute();
+            client.Disconnect();
             */
+
 
         }
         internal void SendEndSafeMode()
         {
+            var client = new SshClient("109.195.38.77", "Admin_Adm_Adm", "GfhjkzYtn1");
+            client.Connect();
+            var command = client.CreateCommand("/system script run del_safe");
+            command.Execute();
+            client.Disconnect();
             //Thread.Sleep(500);
             /*
             //добавить скрипт
@@ -453,9 +436,7 @@ namespace Diplom_2
             */
 
             //Thread.Sleep(500);
-            mikrotik.Login(conn.login, conn.password);
-            mikrotik.Send("/system/script/run");
-            mikrotik.Send("=.id=del_safe", true);
+            //mikrotik.Login(conn.login, conn.password);
             
         }
 
