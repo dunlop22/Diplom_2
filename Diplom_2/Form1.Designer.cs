@@ -85,7 +85,7 @@ namespace Diplom_2
             this.dataGridView_ARP = new System.Windows.Forms.DataGridView();
             this.ip = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MAC = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DHCP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DHCP = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.InterfaceARP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.dataGridView_WiFi = new System.Windows.Forms.DataGridView();
@@ -199,7 +199,7 @@ namespace Diplom_2
             this.справкаToolStripMenuItem});
             this.MainMenu.Location = new System.Drawing.Point(0, 0);
             this.MainMenu.Name = "MainMenu";
-            this.MainMenu.Size = new System.Drawing.Size(880, 27);
+            this.MainMenu.Size = new System.Drawing.Size(1173, 27);
             this.MainMenu.TabIndex = 0;
             this.MainMenu.Text = "menuStrip1";
             // 
@@ -255,7 +255,7 @@ namespace Diplom_2
             // оПрограммеToolStripMenuItem
             // 
             this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
-            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(164, 24);
             this.оПрограммеToolStripMenuItem.Text = "О программе";
             // 
             // statusStrip1
@@ -264,7 +264,7 @@ namespace Diplom_2
             this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 613);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(880, 26);
+            this.statusStrip1.Size = new System.Drawing.Size(1173, 26);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -317,7 +317,7 @@ namespace Diplom_2
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(823, 507);
+            this.tabControl2.Size = new System.Drawing.Size(1135, 513);
             this.tabControl2.TabIndex = 0;
             this.tabControl2.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl2_Selected);
             // 
@@ -331,7 +331,7 @@ namespace Diplom_2
             this.Main_tab.Name = "Main_tab";
             this.Main_tab.Padding = new System.Windows.Forms.Padding(3);
             this.Main_tab.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Main_tab.Size = new System.Drawing.Size(794, 499);
+            this.Main_tab.Size = new System.Drawing.Size(1106, 505);
             this.Main_tab.TabIndex = 0;
             this.Main_tab.Text = "Главная";
             this.Main_tab.UseVisualStyleBackColor = true;
@@ -501,7 +501,7 @@ namespace Diplom_2
             this.Interface_tab.Location = new System.Drawing.Point(25, 4);
             this.Interface_tab.Name = "Interface_tab";
             this.Interface_tab.Padding = new System.Windows.Forms.Padding(3);
-            this.Interface_tab.Size = new System.Drawing.Size(794, 499);
+            this.Interface_tab.Size = new System.Drawing.Size(1106, 505);
             this.Interface_tab.TabIndex = 5;
             this.Interface_tab.Text = "Interface";
             this.Interface_tab.UseVisualStyleBackColor = true;
@@ -513,7 +513,7 @@ namespace Diplom_2
             this.groupBox8.Location = new System.Drawing.Point(13, 10);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.groupBox8.Size = new System.Drawing.Size(527, 483);
+            this.groupBox8.Size = new System.Drawing.Size(537, 483);
             this.groupBox8.TabIndex = 2;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Физические интерфейсы";
@@ -533,18 +533,20 @@ namespace Diplom_2
             this.dataGridView_PhysicalInterface.Name = "dataGridView_PhysicalInterface";
             this.dataGridView_PhysicalInterface.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.dataGridView_PhysicalInterface.RowHeadersVisible = false;
-            this.dataGridView_PhysicalInterface.Size = new System.Drawing.Size(503, 458);
+            this.dataGridView_PhysicalInterface.Size = new System.Drawing.Size(513, 458);
             this.dataGridView_PhysicalInterface.TabIndex = 0;
             // 
             // InterfaceName
             // 
             this.InterfaceName.HeaderText = "Наименование";
             this.InterfaceName.Name = "InterfaceName";
+            this.InterfaceName.Width = 110;
             // 
             // InterfaceMac
             // 
             this.InterfaceMac.HeaderText = "MAC-адрес";
             this.InterfaceMac.Name = "InterfaceMac";
+            this.InterfaceMac.Width = 140;
             // 
             // InterfaceType
             // 
@@ -555,20 +557,22 @@ namespace Diplom_2
             // 
             this.InterfaceDownload.HeaderText = "Download";
             this.InterfaceDownload.Name = "InterfaceDownload";
+            this.InterfaceDownload.Width = 80;
             // 
             // InterfaceUpload
             // 
             this.InterfaceUpload.HeaderText = "Upload";
             this.InterfaceUpload.Name = "InterfaceUpload";
+            this.InterfaceUpload.Width = 80;
             // 
             // groupBox7
             // 
             this.groupBox7.Controls.Add(this.dataGridView_VirtualInterface);
             this.groupBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.groupBox7.Location = new System.Drawing.Point(562, 10);
+            this.groupBox7.Location = new System.Drawing.Point(556, 10);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.groupBox7.Size = new System.Drawing.Size(527, 541);
+            this.groupBox7.Size = new System.Drawing.Size(541, 483);
             this.groupBox7.TabIndex = 1;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Виртуальные интерфейсы";
@@ -588,18 +592,20 @@ namespace Diplom_2
             this.dataGridView_VirtualInterface.Name = "dataGridView_VirtualInterface";
             this.dataGridView_VirtualInterface.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.dataGridView_VirtualInterface.RowHeadersVisible = false;
-            this.dataGridView_VirtualInterface.Size = new System.Drawing.Size(504, 507);
+            this.dataGridView_VirtualInterface.Size = new System.Drawing.Size(513, 456);
             this.dataGridView_VirtualInterface.TabIndex = 1;
             // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.HeaderText = "Наименование";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Width = 110;
             // 
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.HeaderText = "MAC-адрес";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.Width = 140;
             // 
             // dataGridViewTextBoxColumn3
             // 
@@ -610,11 +616,13 @@ namespace Diplom_2
             // 
             this.dataGridViewTextBoxColumn4.HeaderText = "Download";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.Width = 80;
             // 
             // dataGridViewTextBoxColumn5
             // 
             this.dataGridViewTextBoxColumn5.HeaderText = "Upload";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.Width = 80;
             // 
             // ARP_tab
             // 
@@ -622,7 +630,7 @@ namespace Diplom_2
             this.ARP_tab.Location = new System.Drawing.Point(25, 4);
             this.ARP_tab.Name = "ARP_tab";
             this.ARP_tab.Padding = new System.Windows.Forms.Padding(3);
-            this.ARP_tab.Size = new System.Drawing.Size(794, 499);
+            this.ARP_tab.Size = new System.Drawing.Size(1106, 505);
             this.ARP_tab.TabIndex = 1;
             this.ARP_tab.Text = "ARP";
             this.ARP_tab.UseVisualStyleBackColor = true;
@@ -676,6 +684,8 @@ namespace Diplom_2
             this.DHCP.HeaderText = "DHCP";
             this.DHCP.Name = "DHCP";
             this.DHCP.ReadOnly = true;
+            this.DHCP.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.DHCP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // InterfaceARP
             // 
@@ -689,7 +699,7 @@ namespace Diplom_2
             this.tabPage5.Controls.Add(this.dataGridView_CapsMan);
             this.tabPage5.Location = new System.Drawing.Point(25, 4);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(794, 499);
+            this.tabPage5.Size = new System.Drawing.Size(1106, 505);
             this.tabPage5.TabIndex = 2;
             this.tabPage5.Text = "Wi-Fi";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -722,7 +732,7 @@ namespace Diplom_2
             this.User_tab.Controls.Add(this.groupBox4);
             this.User_tab.Location = new System.Drawing.Point(25, 4);
             this.User_tab.Name = "User_tab";
-            this.User_tab.Size = new System.Drawing.Size(794, 499);
+            this.User_tab.Size = new System.Drawing.Size(1106, 505);
             this.User_tab.TabIndex = 4;
             this.User_tab.Text = "User";
             this.User_tab.UseVisualStyleBackColor = true;
@@ -1007,7 +1017,7 @@ namespace Diplom_2
             this.firewall_tab.Location = new System.Drawing.Point(25, 4);
             this.firewall_tab.Name = "firewall_tab";
             this.firewall_tab.Padding = new System.Windows.Forms.Padding(3);
-            this.firewall_tab.Size = new System.Drawing.Size(794, 499);
+            this.firewall_tab.Size = new System.Drawing.Size(1106, 505);
             this.firewall_tab.TabIndex = 6;
             this.firewall_tab.Text = "Firewall";
             this.firewall_tab.UseVisualStyleBackColor = true;
@@ -1064,7 +1074,7 @@ namespace Diplom_2
             this.Tools_tab.Location = new System.Drawing.Point(25, 4);
             this.Tools_tab.Name = "Tools_tab";
             this.Tools_tab.Padding = new System.Windows.Forms.Padding(3);
-            this.Tools_tab.Size = new System.Drawing.Size(794, 499);
+            this.Tools_tab.Size = new System.Drawing.Size(1106, 505);
             this.Tools_tab.TabIndex = 7;
             this.Tools_tab.Text = "Tools";
             this.Tools_tab.UseVisualStyleBackColor = true;
@@ -1134,7 +1144,7 @@ namespace Diplom_2
             this.Service_tab.Location = new System.Drawing.Point(25, 4);
             this.Service_tab.Name = "Service_tab";
             this.Service_tab.Padding = new System.Windows.Forms.Padding(3);
-            this.Service_tab.Size = new System.Drawing.Size(794, 499);
+            this.Service_tab.Size = new System.Drawing.Size(1106, 505);
             this.Service_tab.TabIndex = 8;
             this.Service_tab.Text = "Сервисы";
             this.Service_tab.UseVisualStyleBackColor = true;
@@ -1350,7 +1360,7 @@ namespace Diplom_2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(880, 639);
+            this.ClientSize = new System.Drawing.Size(1173, 639);
             this.Controls.Add(this.label_timer_safemode);
             this.Controls.Add(this.button_SafeMode);
             this.Controls.Add(this.tabControl2);
@@ -1450,23 +1460,9 @@ namespace Diplom_2
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TabPage Interface_tab;
         private System.Windows.Forms.DataGridView dataGridView_PhysicalInterface;
-        private System.Windows.Forms.DataGridViewTextBoxColumn InterfaceName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn InterfaceMac;
-        private System.Windows.Forms.DataGridViewTextBoxColumn InterfaceType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn InterfaceDownload;
-        private System.Windows.Forms.DataGridViewTextBoxColumn InterfaceUpload;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ip;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MAC;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DHCP;
-        private System.Windows.Forms.DataGridViewTextBoxColumn InterfaceARP;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.DataGridView dataGridView_VirtualInterface;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.TabPage firewall_tab;
         private System.Windows.Forms.DataGridView dataGridView_firewall;
         private System.Windows.Forms.DataGridViewTextBoxColumn AddressList_IP;
@@ -1528,6 +1524,20 @@ namespace Diplom_2
         private System.Windows.Forms.Button button_save;
         private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn InterfaceName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn InterfaceMac;
+        private System.Windows.Forms.DataGridViewTextBoxColumn InterfaceType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn InterfaceDownload;
+        private System.Windows.Forms.DataGridViewTextBoxColumn InterfaceUpload;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ip;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MAC;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn DHCP;
+        private System.Windows.Forms.DataGridViewTextBoxColumn InterfaceARP;
     }
 }
 

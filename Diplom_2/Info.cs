@@ -30,6 +30,7 @@ namespace Diplom_2
             internal string mac;
             internal string download;
             internal string upload;
+            internal string status;
         }
         private List<Interface> Interfaces = new List<Interface>();
 
@@ -203,6 +204,7 @@ namespace Diplom_2
                 temp.Add(Interfaces[i].type);
                 temp.Add((Math.Round((Convert.ToDouble(Interfaces[i].download) / 1024 / 1024 / 953.7), 2).ToString()) + " GB");
                 temp.Add((Math.Round((Convert.ToDouble(Interfaces[i].upload) / 1024 / 1024 / 953.7), 2).ToString()) + " GB");
+                temp.Add(Interfaces[i].status);
                 all.Add(temp);
             }
             return all;
@@ -556,7 +558,7 @@ namespace Diplom_2
         internal bool stop_send = false;
         internal void ReadAnswer()
         {
-            bool rez = false;
+            //bool rez = false;
             int g = 0;
             while (true)
             {
@@ -873,6 +875,10 @@ namespace Diplom_2
                                         else if (words[j] == "tx-byte")
                                         {
                                             temp.upload = words[j + 1];
+                                        }
+                                        else if (words[j] == "disabled")
+                                        {
+                                            temp.status = words[j + 1];
                                         }
 
                                     }

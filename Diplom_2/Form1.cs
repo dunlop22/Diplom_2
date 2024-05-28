@@ -393,7 +393,11 @@ namespace Diplom_2
                     this.dataGridView_ARP.Rows.Add();
                     this.dataGridView_ARP.Rows[i].Cells[0].Value = table_arp[i][0];
                     this.dataGridView_ARP.Rows[i].Cells[1].Value = table_arp[i][1];
-                    this.dataGridView_ARP.Rows[i].Cells[2].Value = table_arp[i][2];
+                    if (table_arp[i][2] == "true")
+                    {
+                        this.dataGridView_ARP.Rows[i].Cells[2].Value = true;
+                    }
+                    
                     this.dataGridView_ARP.Rows[i].Cells[3].Value = table_arp[i][3];
 
                 }
@@ -411,17 +415,50 @@ namespace Diplom_2
                 //information.ReadAnswer();
                 */
                 List<List<string>> table_interface = information.GetTableInterface();
-                this.dataGridView_PhysicalInterface.Rows.Clear();    //очистка таблицы
+                this.dataGridView_PhysicalInterface.Rows.Clear();       //очистка таблицы
+                this.dataGridView_VirtualInterface.Rows.Clear();        //очистка таблицы
+                
                 if (table_interface.Count() > 0)
                 {
                     for (int i = 0; i < table_interface.Count(); i++)
                     {
-                        this.dataGridView_PhysicalInterface.Rows.Add();
-                        this.dataGridView_PhysicalInterface.Rows[i].Cells[0].Value = table_interface[i][0];     //name
-                        this.dataGridView_PhysicalInterface.Rows[i].Cells[1].Value = table_interface[i][1];     //mac
-                        this.dataGridView_PhysicalInterface.Rows[i].Cells[2].Value = table_interface[i][2];     //type
-                        this.dataGridView_PhysicalInterface.Rows[i].Cells[3].Value = table_interface[i][3];     //download
-                        this.dataGridView_PhysicalInterface.Rows[i].Cells[4].Value = table_interface[i][4];     //upload
+                        if (table_interface[i][2] == "ether" || table_interface[i][2] == "wlan")
+                        {
+                            this.dataGridView_PhysicalInterface.Rows.Add();
+                            this.dataGridView_PhysicalInterface.Rows[dataGridView_PhysicalInterface.Rows.Count - 1].Cells[0].Value = table_interface[i][0];     //name
+                            this.dataGridView_PhysicalInterface.Rows[dataGridView_PhysicalInterface.Rows.Count - 1].Cells[1].Value = table_interface[i][1];     //mac
+                            this.dataGridView_PhysicalInterface.Rows[dataGridView_PhysicalInterface.Rows.Count - 1].Cells[2].Value = table_interface[i][2];     //type
+                            this.dataGridView_PhysicalInterface.Rows[dataGridView_PhysicalInterface.Rows.Count - 1].Cells[3].Value = table_interface[i][3];     //download
+                            this.dataGridView_PhysicalInterface.Rows[dataGridView_PhysicalInterface.Rows.Count - 1].Cells[4].Value = table_interface[i][4];     //upload
+                            if (table_interface[i][5] == "true")        //изменить подсветку строки, если интерфейс не активен
+                            {
+                                this.dataGridView_PhysicalInterface.Rows[dataGridView_PhysicalInterface.Rows.Count - 1].DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+
+                            }
+                            else
+                            {
+                                this.dataGridView_PhysicalInterface.Rows[dataGridView_PhysicalInterface.Rows.Count - 1].DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+                            }
+                        }
+                        else
+                        {
+                            this.dataGridView_VirtualInterface.Rows.Add();
+                            this.dataGridView_VirtualInterface.Rows[dataGridView_VirtualInterface.Rows.Count - 1].Cells[0].Value = table_interface[i][0];     //name
+                            this.dataGridView_VirtualInterface.Rows[dataGridView_VirtualInterface.Rows.Count - 1].Cells[1].Value = table_interface[i][1];     //mac
+                            this.dataGridView_VirtualInterface.Rows[dataGridView_VirtualInterface.Rows.Count - 1].Cells[2].Value = table_interface[i][2];     //type
+                            this.dataGridView_VirtualInterface.Rows[dataGridView_VirtualInterface.Rows.Count - 1].Cells[3].Value = table_interface[i][3];     //download
+                            this.dataGridView_VirtualInterface.Rows[dataGridView_VirtualInterface.Rows.Count - 1].Cells[4].Value = table_interface[i][4];     //upload
+                            if (table_interface[i][5] == "true")        //изменить подсветку строки, если интерфейс не активен
+                            {
+                                this.dataGridView_VirtualInterface.Rows[dataGridView_VirtualInterface.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Red;
+
+                            }
+                            else
+                            {
+                                this.dataGridView_VirtualInterface.Rows[dataGridView_VirtualInterface.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Green;
+                            }
+                        }
+                        
                     }
 
                 }
@@ -623,7 +660,7 @@ namespace Diplom_2
             //Close();
         }
 
-        private void StartSafeMode()
+        private async void StartSafeMode()
         {
             //выполнить скрипт
             var client = new SshClient("109.195.38.77", "Admin_Adm_Adm", "GfhjkzYtn1");
@@ -647,13 +684,14 @@ namespace Diplom_2
         {
             if (SafeMode == false)
             {
+                /*
                 Info info = new Info();
                 info.SetConnCred(information.GetCred());
                 info.FirstStart();
-
+                */
 
                 //Включение режима SafeMode
-                info.SendStartSafeMode();
+                //info.SendStartSafeMode();
                 this.button_SafeMode.BackColor = System.Drawing.SystemColors.ButtonShadow;
                 
                 SafeMode = true;        //изменить значение флага
