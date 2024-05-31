@@ -6,11 +6,19 @@ using System.Threading.Tasks;
 using System.Threading;
 using Renci.SshNet;
 using System.Globalization;     //форматирование времени
+using System.Net;   //работа с FTP
+using System.IO;    //работа с FileStream 
 
 namespace Diplom_2
 {
     class Info
     {
+        //Переменные
+
+        //Наименование конфигурации при выгрузке
+        string config_name = "api_config";
+
+
 
         //данные для подключения к устройству
         struct Connection
@@ -417,6 +425,62 @@ namespace Diplom_2
             mikrotik.Send(".tag=user", true);
         }
 
+        internal void DownloadConfig()
+        {
+
+            string inputfilepath = @"C:\!___TEST\" + config_name + ".backup";
+            string ftphost = "192.168.0.1";
+            string ftpfilepath = "/" + config_name + ".backup";
+
+            string ftpfullpath = "ftp://" + ftphost + ftpfilepath + ":5100";
+
+            using (WebClient request = new WebClient())
+            {
+                request.Credentials = new NetworkCredential(conn.login, conn.password);
+                byte[] fileData = request.DownloadData(ftpfullpath);
+
+                using (FileStream file = File.Create(inputfilepath))
+                {
+                    file.Write(fileData, 0, fileData.Length);
+                    file.Close();
+                }
+                //MessageBox.Show("Download Complete");
+            }
+            System.IO.File.SetAttributes(@"C:\!___TEST\" + config_name + ".backup", System.IO.FileAttributes.Hidden);
+        }
+
+        internal void SendSaveConfig()
+        {
+            //Создание скрипта создания конфигурации оборудования
+            mikrotik.Send("/system/script/add");
+            mikrotik.Send("=name=CreateConfigApi");
+            
+            
+            mikrotik.Send("=source=" +
+                "/file remove [find name=\"" + config_name + "\"]\r\n\r\n" + 
+                //Создание конфигурации
+                "/system backup save name=\"" + config_name + "\";\r\n\r\n" +
+                //Задержка перед удалением скрипта
+                ":delay 5\r\n\r\n\r\n" +
+                //Удаление скрипта
+                ":local arrIdScr [:toarray [/system script job find where script~\"[a-zA-Z0-9]{1,}\"]]\r\n" +
+                ":local ScriptName [/system script job get ($arrIdScr->([:len $arrIdScr] - 1)) value-name=script]\r\n\r\n" +
+                "system script remove $ScriptName", true);
+            
+            //Запуск скрипта
+            Thread.Sleep(200);
+            mikrotik.Send("/system/script/run");
+            mikrotik.Send("=.id=CreateConfigApi", true);
+
+
+
+
+
+            //Загрузка файла через FTP
+            DownloadConfig();
+
+        }
+
         //Запуск SafeMode
         internal void SendStartSafeMode()
         {
@@ -578,21 +642,6 @@ namespace Diplom_2
         }
 
 
-        internal void sendServicetemp()
-        {
-            if (mikrotik.Login(conn.login, conn.password))
-            {
-                mikrotik.Send("/ip/service/set");
-                mikrotik.Send("=.id=*1");
-                mikrotik.Send("=disabled=false");
-                mikrotik.Send("=port=1", true);
-            }
-            else
-            {
-                return;
-            }
-        }
-
 
         internal void GetGlobalIP()
         {
@@ -708,7 +757,7 @@ namespace Diplom_2
                 {
                     this.SendService();
                 }
-                else if (g % 7 == 6)
+                else if (g % 10 == 6)
                 {
                     this.SendLog();
                 }

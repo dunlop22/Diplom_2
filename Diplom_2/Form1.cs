@@ -1126,6 +1126,15 @@ namespace Diplom_2
                 }
             }
         }
+
+
+        //Загрузка конфигурации оборудования на компьютер
+        private void button_save_config_Click(object sender, EventArgs e)
+        {
+            //Создать конфигурацию на роутере (через скрипт)
+            information.SendSaveConfig();
+            //Подключиться к роутеру по FTP и скачать на компьютер конфигурацию
+        }
     }
 
     //проверка интернет-подключения

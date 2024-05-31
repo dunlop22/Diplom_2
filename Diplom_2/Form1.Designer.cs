@@ -143,7 +143,7 @@ namespace Diplom_2
             this.button3 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.Tools_tab = new System.Windows.Forms.TabPage();
-            this.button7 = new System.Windows.Forms.Button();
+            this.button_save_config = new System.Windows.Forms.Button();
             this.button_Shutdown = new System.Windows.Forms.Button();
             this.button_Reboot = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
@@ -181,6 +181,7 @@ namespace Diplom_2
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.Internet_connect_status_image = new System.Windows.Forms.PictureBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
             this.MainMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -230,7 +231,7 @@ namespace Diplom_2
             this.справкаToolStripMenuItem});
             this.MainMenu.Location = new System.Drawing.Point(0, 0);
             this.MainMenu.Name = "MainMenu";
-            this.MainMenu.Size = new System.Drawing.Size(1173, 27);
+            this.MainMenu.Size = new System.Drawing.Size(1246, 27);
             this.MainMenu.TabIndex = 0;
             this.MainMenu.Text = "menuStrip1";
             // 
@@ -294,9 +295,9 @@ namespace Diplom_2
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 613);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 599);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1173, 26);
+            this.statusStrip1.Size = new System.Drawing.Size(1246, 26);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -341,7 +342,7 @@ namespace Diplom_2
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(1135, 513);
+            this.tabControl2.Size = new System.Drawing.Size(1127, 499);
             this.tabControl2.TabIndex = 0;
             this.tabControl2.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl2_Selected);
             // 
@@ -355,7 +356,7 @@ namespace Diplom_2
             this.Main_tab.Name = "Main_tab";
             this.Main_tab.Padding = new System.Windows.Forms.Padding(3);
             this.Main_tab.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Main_tab.Size = new System.Drawing.Size(1106, 505);
+            this.Main_tab.Size = new System.Drawing.Size(1098, 491);
             this.Main_tab.TabIndex = 0;
             this.Main_tab.Text = "Главная";
             this.Main_tab.UseVisualStyleBackColor = true;
@@ -640,7 +641,7 @@ namespace Diplom_2
             this.Interface_tab.Location = new System.Drawing.Point(25, 4);
             this.Interface_tab.Name = "Interface_tab";
             this.Interface_tab.Padding = new System.Windows.Forms.Padding(3);
-            this.Interface_tab.Size = new System.Drawing.Size(1106, 505);
+            this.Interface_tab.Size = new System.Drawing.Size(1098, 491);
             this.Interface_tab.TabIndex = 5;
             this.Interface_tab.Text = "Interface";
             this.Interface_tab.UseVisualStyleBackColor = true;
@@ -770,7 +771,7 @@ namespace Diplom_2
             this.ARP_tab.Location = new System.Drawing.Point(25, 4);
             this.ARP_tab.Name = "ARP_tab";
             this.ARP_tab.Padding = new System.Windows.Forms.Padding(3);
-            this.ARP_tab.Size = new System.Drawing.Size(1106, 505);
+            this.ARP_tab.Size = new System.Drawing.Size(1098, 491);
             this.ARP_tab.TabIndex = 1;
             this.ARP_tab.Text = "ARP";
             this.ARP_tab.UseVisualStyleBackColor = true;
@@ -897,7 +898,7 @@ namespace Diplom_2
             this.tabPage5.Controls.Add(this.dataGridView_CapsMan);
             this.tabPage5.Location = new System.Drawing.Point(25, 4);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(1106, 505);
+            this.tabPage5.Size = new System.Drawing.Size(1098, 491);
             this.tabPage5.TabIndex = 2;
             this.tabPage5.Text = "Wi-Fi";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -930,7 +931,7 @@ namespace Diplom_2
             this.User_tab.Controls.Add(this.groupBox4);
             this.User_tab.Location = new System.Drawing.Point(25, 4);
             this.User_tab.Name = "User_tab";
-            this.User_tab.Size = new System.Drawing.Size(1106, 505);
+            this.User_tab.Size = new System.Drawing.Size(1098, 491);
             this.User_tab.TabIndex = 4;
             this.User_tab.Text = "User";
             this.User_tab.UseVisualStyleBackColor = true;
@@ -1234,7 +1235,7 @@ namespace Diplom_2
             this.firewall_tab.Location = new System.Drawing.Point(25, 4);
             this.firewall_tab.Name = "firewall_tab";
             this.firewall_tab.Padding = new System.Windows.Forms.Padding(3);
-            this.firewall_tab.Size = new System.Drawing.Size(1106, 505);
+            this.firewall_tab.Size = new System.Drawing.Size(1098, 491);
             this.firewall_tab.TabIndex = 6;
             this.firewall_tab.Text = "Firewall";
             this.firewall_tab.UseVisualStyleBackColor = true;
@@ -1282,7 +1283,7 @@ namespace Diplom_2
             // 
             // Tools_tab
             // 
-            this.Tools_tab.Controls.Add(this.button7);
+            this.Tools_tab.Controls.Add(this.button_save_config);
             this.Tools_tab.Controls.Add(this.button_Shutdown);
             this.Tools_tab.Controls.Add(this.button_Reboot);
             this.Tools_tab.Controls.Add(this.button6);
@@ -1291,25 +1292,26 @@ namespace Diplom_2
             this.Tools_tab.Location = new System.Drawing.Point(25, 4);
             this.Tools_tab.Name = "Tools_tab";
             this.Tools_tab.Padding = new System.Windows.Forms.Padding(3);
-            this.Tools_tab.Size = new System.Drawing.Size(1106, 505);
+            this.Tools_tab.Size = new System.Drawing.Size(1098, 491);
             this.Tools_tab.TabIndex = 7;
             this.Tools_tab.Text = "Tools";
             this.Tools_tab.UseVisualStyleBackColor = true;
             // 
-            // button7
+            // button_save_config
             // 
-            this.button7.Location = new System.Drawing.Point(69, 140);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(94, 55);
-            this.button7.TabIndex = 16;
-            this.button7.Text = "Скачать LOG";
-            this.button7.UseVisualStyleBackColor = true;
+            this.button_save_config.Location = new System.Drawing.Point(70, 205);
+            this.button_save_config.Name = "button_save_config";
+            this.button_save_config.Size = new System.Drawing.Size(94, 55);
+            this.button_save_config.TabIndex = 16;
+            this.button_save_config.Text = "Скачать Config";
+            this.button_save_config.UseVisualStyleBackColor = true;
+            this.button_save_config.Click += new System.EventHandler(this.button_save_config_Click);
             // 
             // button_Shutdown
             // 
             this.button_Shutdown.BackColor = System.Drawing.Color.LightCoral;
             this.button_Shutdown.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.button_Shutdown.Location = new System.Drawing.Point(952, 501);
+            this.button_Shutdown.Location = new System.Drawing.Point(69, 403);
             this.button_Shutdown.Name = "button_Shutdown";
             this.button_Shutdown.Size = new System.Drawing.Size(95, 39);
             this.button_Shutdown.TabIndex = 15;
@@ -1320,7 +1322,7 @@ namespace Diplom_2
             // 
             this.button_Reboot.BackColor = System.Drawing.Color.NavajoWhite;
             this.button_Reboot.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.button_Reboot.Location = new System.Drawing.Point(1141, 501);
+            this.button_Reboot.Location = new System.Drawing.Point(215, 403);
             this.button_Reboot.Name = "button_Reboot";
             this.button_Reboot.Size = new System.Drawing.Size(95, 39);
             this.button_Reboot.TabIndex = 14;
@@ -1347,7 +1349,7 @@ namespace Diplom_2
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(602, 166);
+            this.button4.Location = new System.Drawing.Point(941, 273);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(94, 55);
             this.button4.TabIndex = 0;
@@ -1361,7 +1363,7 @@ namespace Diplom_2
             this.Service_tab.Location = new System.Drawing.Point(25, 4);
             this.Service_tab.Name = "Service_tab";
             this.Service_tab.Padding = new System.Windows.Forms.Padding(3);
-            this.Service_tab.Size = new System.Drawing.Size(1106, 505);
+            this.Service_tab.Size = new System.Drawing.Size(1098, 491);
             this.Service_tab.TabIndex = 8;
             this.Service_tab.Text = "Сервисы";
             this.Service_tab.UseVisualStyleBackColor = true;
@@ -1555,7 +1557,7 @@ namespace Diplom_2
             this.Log_tab.Location = new System.Drawing.Point(25, 4);
             this.Log_tab.Name = "Log_tab";
             this.Log_tab.Padding = new System.Windows.Forms.Padding(3);
-            this.Log_tab.Size = new System.Drawing.Size(1106, 505);
+            this.Log_tab.Size = new System.Drawing.Size(1098, 491);
             this.Log_tab.TabIndex = 9;
             this.Log_tab.Text = "Log";
             this.Log_tab.UseVisualStyleBackColor = true;
@@ -1652,7 +1654,7 @@ namespace Diplom_2
             // Internet_connect_status_image
             // 
             this.Internet_connect_status_image.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Internet_connect_status_image.Location = new System.Drawing.Point(84, 619);
+            this.Internet_connect_status_image.Location = new System.Drawing.Point(84, 605);
             this.Internet_connect_status_image.Name = "Internet_connect_status_image";
             this.Internet_connect_status_image.Size = new System.Drawing.Size(16, 16);
             this.Internet_connect_status_image.TabIndex = 2;
@@ -1662,7 +1664,7 @@ namespace Diplom_2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1173, 639);
+            this.ClientSize = new System.Drawing.Size(1246, 625);
             this.Controls.Add(this.label_timer_safemode);
             this.Controls.Add(this.button_SafeMode);
             this.Controls.Add(this.tabControl2);
@@ -1799,7 +1801,7 @@ namespace Diplom_2
         private System.Windows.Forms.Button button_Shutdown;
         private System.Windows.Forms.Button button_Reboot;
         private System.Windows.Forms.GroupBox groupBox11;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button_save_config;
         private System.Windows.Forms.TextBox textBox_www_ssl_port;
         private System.Windows.Forms.TextBox textBox_www_port;
         private System.Windows.Forms.TextBox textBox_winbox_port;
@@ -1874,6 +1876,7 @@ namespace Diplom_2
         private System.Windows.Forms.DataGridViewTextBoxColumn Address_Address;
         private System.Windows.Forms.DataGridViewTextBoxColumn Network_Address;
         private System.Windows.Forms.DataGridViewTextBoxColumn Interface_Address;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog2;
     }
 }
 
