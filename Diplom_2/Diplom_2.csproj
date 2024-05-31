@@ -49,6 +49,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Management.Instrumentation" />
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
@@ -67,6 +68,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutSoftwareForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutSoftwareForm.Designer.cs">
+      <DependentUpon>AboutSoftwareForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddUserForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,6 +101,18 @@
     <Compile Include="InputPasswordForFile.Designer.cs">
       <DependentUpon>InputPasswordForFile.cs</DependentUpon>
     </Compile>
+    <Compile Include="LoadLogoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoadLogoForm.Designer.cs">
+      <DependentUpon>LoadLogoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoadLogoForm2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoadLogoForm2.Designer.cs">
+      <DependentUpon>LoadLogoForm2.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewConnectionForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,6 +122,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shifr.cs" />
+    <EmbeddedResource Include="AboutSoftwareForm.resx">
+      <DependentUpon>AboutSoftwareForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AddUserForm.resx">
       <DependentUpon>AddUserForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -114,6 +136,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InputPasswordForFile.resx">
       <DependentUpon>InputPasswordForFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoadLogoForm.resx">
+      <DependentUpon>LoadLogoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoadLogoForm2.resx">
+      <DependentUpon>LoadLogoForm2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewConnectionForm.resx">
       <DependentUpon>NewConnectionForm.cs</DependentUpon>
@@ -177,6 +205,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\favicon.ico" />
+    <None Include="Resources\70e21443cc50e98f5db7d44246f508ab.jpg" />
+    <None Include="Resources\CRS125-24G-1S.png" />
+    <None Include="Resources\default.jpg" />
+    <None Include="Resources\hAP ac^2.jpg" />
+    <None Include="Resources\hAP lite %281%29.jpg" />
+    <None Include="Resources\hAP lite.jpg" />
+    <Content Include="Resources\MikroTik-Logo.png" />
+    <None Include="Resources\mikrotik_logo.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

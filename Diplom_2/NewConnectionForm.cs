@@ -24,6 +24,7 @@ namespace Diplom_2
             new_info = info;
             thread = new Thread(CheckNeighbors);
             thread.Start();
+            this.Visible = false;
         }
 
         Thread thread;
@@ -175,8 +176,9 @@ namespace Diplom_2
         }
 
 
-        private async void TebleNeighbors()
+        private void TebleNeighbors()
         {
+            this.dataGridView_Neighbors.Rows.Clear();       //очистка таблицы
             for (int i = 0; i < Devices.Count(); i++)
             {
                 this.dataGridView_Neighbors.Rows.Add();
@@ -455,6 +457,21 @@ namespace Diplom_2
                 this.radioButton_api_ssl.Checked = false;
                 this.port_textBox.Text = "8728";
             }
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            int i = 0;
+            while (i < 100)
+            {
+                System.Threading.Thread.Sleep(25);
+                i++;
+            }
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            this.Visible = true;
         }
     }
 }

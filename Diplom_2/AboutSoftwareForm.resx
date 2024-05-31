@@ -117,44 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="CRS125-24G-1S" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CRS125-24G-1S.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="error_connect" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-удалить-480.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="good_connect" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\good connect.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="green_circle" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Зеленый круг (Подключение интернета).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="hAP ac^2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\hAP ac^2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="hAP lite" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\hAP lite.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="hAP_lite__1_" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\hAP lite (1).jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="link_error" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-ссылка-64 (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="link_ok" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-ссылка-64 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="link_warning" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-ссылка-64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mikrotik_logo_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\70e21443cc50e98f5db7d44246f508ab.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="red_circle" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Красный круг (Подключение интернета).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_default" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\default.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
 </root>

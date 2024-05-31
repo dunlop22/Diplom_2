@@ -63,6 +63,26 @@ namespace Diplom_2.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _default {
+            get {
+                object obj = ResourceManager.GetObject("_default", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap CRS125_24G_1S {
+            get {
+                object obj = ResourceManager.GetObject("CRS125-24G-1S", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap error_connect {
             get {
                 object obj = ResourceManager.GetObject("error_connect", resourceCulture);
@@ -93,6 +113,36 @@ namespace Diplom_2.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap hAP_ac_2 {
+            get {
+                object obj = ResourceManager.GetObject("hAP ac^2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap hAP_lite {
+            get {
+                object obj = ResourceManager.GetObject("hAP lite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap hAP_lite__1_ {
+            get {
+                object obj = ResourceManager.GetObject("hAP_lite__1_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap link_error {
             get {
                 object obj = ResourceManager.GetObject("link_error", resourceCulture);
@@ -116,6 +166,16 @@ namespace Diplom_2.Properties {
         internal static System.Drawing.Bitmap link_warning {
             get {
                 object obj = ResourceManager.GetObject("link_warning", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mikrotik_logo_2 {
+            get {
+                object obj = ResourceManager.GetObject("mikrotik_logo_2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -54,12 +54,13 @@ namespace Diplom_2
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.label_ip_for_mac = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.radioButton_api = new System.Windows.Forms.RadioButton();
             this.radioButton_api_ssl = new System.Windows.Forms.RadioButton();
+            this.radioButton_api = new System.Windows.Forms.RadioButton();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.login_pictureBox = new System.Windows.Forms.PictureBox();
             this.port_pictureBox = new System.Windows.Forms.PictureBox();
             this.test_ip_pictureBox = new System.Windows.Forms.PictureBox();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Neighbors)).BeginInit();
             this.groupBox_neighbors.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -290,19 +291,6 @@ namespace Diplom_2
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Параметры подключения";
             // 
-            // radioButton_api
-            // 
-            this.radioButton_api.AutoSize = true;
-            this.radioButton_api.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.radioButton_api.Location = new System.Drawing.Point(397, 18);
-            this.radioButton_api.Name = "radioButton_api";
-            this.radioButton_api.Size = new System.Drawing.Size(47, 21);
-            this.radioButton_api.TabIndex = 20;
-            this.radioButton_api.TabStop = true;
-            this.radioButton_api.Text = "API";
-            this.radioButton_api.UseVisualStyleBackColor = true;
-            this.radioButton_api.CheckedChanged += new System.EventHandler(this.radioButton_api_CheckedChanged);
-            // 
             // radioButton_api_ssl
             // 
             this.radioButton_api_ssl.AutoSize = true;
@@ -315,6 +303,19 @@ namespace Diplom_2
             this.radioButton_api_ssl.Text = "API-SSL";
             this.radioButton_api_ssl.UseVisualStyleBackColor = true;
             this.radioButton_api_ssl.CheckedChanged += new System.EventHandler(this.radioButton_api_ssl_CheckedChanged);
+            // 
+            // radioButton_api
+            // 
+            this.radioButton_api.AutoSize = true;
+            this.radioButton_api.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.radioButton_api.Location = new System.Drawing.Point(397, 18);
+            this.radioButton_api.Name = "radioButton_api";
+            this.radioButton_api.Size = new System.Drawing.Size(47, 21);
+            this.radioButton_api.TabIndex = 20;
+            this.radioButton_api.TabStop = true;
+            this.radioButton_api.Text = "API";
+            this.radioButton_api.UseVisualStyleBackColor = true;
+            this.radioButton_api.CheckedChanged += new System.EventHandler(this.radioButton_api_CheckedChanged);
             // 
             // login_pictureBox
             // 
@@ -339,6 +340,11 @@ namespace Diplom_2
             this.test_ip_pictureBox.Size = new System.Drawing.Size(36, 26);
             this.test_ip_pictureBox.TabIndex = 10;
             this.test_ip_pictureBox.TabStop = false;
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
             // NewConnectionForm
             // 
@@ -403,5 +409,6 @@ namespace Diplom_2
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.RadioButton radioButton_api_ssl;
         private System.Windows.Forms.RadioButton radioButton_api;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }

@@ -49,21 +49,31 @@ namespace Diplom_2
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.Internet_connect_status_image = new System.Windows.Forms.PictureBox();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.Main_tab = new System.Windows.Forms.TabPage();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.label_factory_soft = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label_Arch = new System.Windows.Forms.Label();
             this.label_UpTime = new System.Windows.Forms.Label();
             this.label_RouterOS = new System.Windows.Forms.Label();
             this.label_Model = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label_hhd_load = new System.Windows.Forms.Label();
+            this.label_bad_blocks = new System.Windows.Forms.Label();
+            this.label_total_sector = new System.Windows.Forms.Label();
             this.label_Memory = new System.Windows.Forms.Label();
+            this.label_sector_reboot = new System.Windows.Forms.Label();
             this.chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label_RAM_load = new System.Windows.Forms.Label();
             this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.label_RAM = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label_cpu_num_core = new System.Windows.Forms.Label();
+            this.label_cpu_mhz = new System.Windows.Forms.Label();
+            this.label_cpu_name = new System.Windows.Forms.Label();
+            this.label_CPU_load = new System.Windows.Forms.Label();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.Interface_tab = new System.Windows.Forms.TabPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
@@ -81,6 +91,12 @@ namespace Diplom_2
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ARP_tab = new System.Windows.Forms.TabPage();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.dataGridView_address = new System.Windows.Forms.DataGridView();
+            this.Dynamic_Address = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Address_Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Network_Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Interface_Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.dataGridView_ARP = new System.Windows.Forms.DataGridView();
             this.ip = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -152,15 +168,25 @@ namespace Diplom_2
             this.checkBox_ftp = new System.Windows.Forms.CheckBox();
             this.checkBox_apissl = new System.Windows.Forms.CheckBox();
             this.checkBox_api = new System.Windows.Forms.CheckBox();
+            this.Log_tab = new System.Windows.Forms.TabPage();
+            this.button_update_log = new System.Windows.Forms.Button();
+            this.button_save_log = new System.Windows.Forms.Button();
+            this.dataGridView_log = new System.Windows.Forms.DataGridView();
+            this.Time_Log = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.topics_Log = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Event_Log = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.timer_CheckInternet = new System.Windows.Forms.Timer(this.components);
             this.button_SafeMode = new System.Windows.Forms.Button();
             this.label_timer_safemode = new System.Windows.Forms.Label();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.Internet_connect_status_image = new System.Windows.Forms.PictureBox();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.MainMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Internet_connect_status_image)).BeginInit();
             this.tabControl2.SuspendLayout();
             this.Main_tab.SuspendLayout();
             this.groupBox11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart3)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -173,6 +199,8 @@ namespace Diplom_2
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_VirtualInterface)).BeginInit();
             this.ARP_tab.SuspendLayout();
+            this.groupBox10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_address)).BeginInit();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_ARP)).BeginInit();
             this.tabPage5.SuspendLayout();
@@ -188,6 +216,9 @@ namespace Diplom_2
             this.Tools_tab.SuspendLayout();
             this.Service_tab.SuspendLayout();
             this.groupBox9.SuspendLayout();
+            this.Log_tab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_log)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Internet_connect_status_image)).BeginInit();
             this.SuspendLayout();
             // 
             // MainMenu
@@ -257,6 +288,7 @@ namespace Diplom_2
             this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
             this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(164, 24);
             this.оПрограммеToolStripMenuItem.Text = "О программе";
+            this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
@@ -289,15 +321,6 @@ namespace Diplom_2
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // Internet_connect_status_image
-            // 
-            this.Internet_connect_status_image.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Internet_connect_status_image.Location = new System.Drawing.Point(84, 619);
-            this.Internet_connect_status_image.Name = "Internet_connect_status_image";
-            this.Internet_connect_status_image.Size = new System.Drawing.Size(16, 16);
-            this.Internet_connect_status_image.TabIndex = 2;
-            this.Internet_connect_status_image.TabStop = false;
-            // 
             // tabControl2
             // 
             this.tabControl2.AccessibleRole = System.Windows.Forms.AccessibleRole.TitleBar;
@@ -310,6 +333,7 @@ namespace Diplom_2
             this.tabControl2.Controls.Add(this.firewall_tab);
             this.tabControl2.Controls.Add(this.Tools_tab);
             this.tabControl2.Controls.Add(this.Service_tab);
+            this.tabControl2.Controls.Add(this.Log_tab);
             this.tabControl2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.tabControl2.HotTrack = true;
             this.tabControl2.Location = new System.Drawing.Point(26, 86);
@@ -338,23 +362,42 @@ namespace Diplom_2
             // 
             // groupBox11
             // 
+            this.groupBox11.Controls.Add(this.label_factory_soft);
+            this.groupBox11.Controls.Add(this.pictureBox1);
             this.groupBox11.Controls.Add(this.label_Arch);
             this.groupBox11.Controls.Add(this.label_UpTime);
             this.groupBox11.Controls.Add(this.label_RouterOS);
             this.groupBox11.Controls.Add(this.label_Model);
             this.groupBox11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.groupBox11.Location = new System.Drawing.Point(409, 261);
+            this.groupBox11.Location = new System.Drawing.Point(587, 261);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(364, 223);
+            this.groupBox11.Size = new System.Drawing.Size(503, 223);
             this.groupBox11.TabIndex = 6;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Ресурсы";
+            // 
+            // label_factory_soft
+            // 
+            this.label_factory_soft.AutoSize = true;
+            this.label_factory_soft.Location = new System.Drawing.Point(15, 186);
+            this.label_factory_soft.Name = "label_factory_soft";
+            this.label_factory_soft.Size = new System.Drawing.Size(134, 20);
+            this.label_factory_soft.TabIndex = 12;
+            this.label_factory_soft.Text = "Factory Software:";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(288, 25);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(197, 192);
+            this.pictureBox1.TabIndex = 11;
+            this.pictureBox1.TabStop = false;
             // 
             // label_Arch
             // 
             this.label_Arch.AutoSize = true;
             this.label_Arch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label_Arch.Location = new System.Drawing.Point(36, 128);
+            this.label_Arch.Location = new System.Drawing.Point(40, 103);
             this.label_Arch.Name = "label_Arch";
             this.label_Arch.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.label_Arch.Size = new System.Drawing.Size(109, 20);
@@ -365,7 +408,7 @@ namespace Diplom_2
             // 
             this.label_UpTime.AutoSize = true;
             this.label_UpTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label_UpTime.Location = new System.Drawing.Point(24, 180);
+            this.label_UpTime.Location = new System.Drawing.Point(27, 148);
             this.label_UpTime.Name = "label_UpTime";
             this.label_UpTime.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.label_UpTime.Size = new System.Drawing.Size(122, 20);
@@ -376,7 +419,7 @@ namespace Diplom_2
             // 
             this.label_RouterOS.AutoSize = true;
             this.label_RouterOS.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label_RouterOS.Location = new System.Drawing.Point(60, 84);
+            this.label_RouterOS.Location = new System.Drawing.Point(60, 60);
             this.label_RouterOS.Name = "label_RouterOS";
             this.label_RouterOS.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.label_RouterOS.Size = new System.Drawing.Size(89, 20);
@@ -387,7 +430,7 @@ namespace Diplom_2
             // 
             this.label_Model.AutoSize = true;
             this.label_Model.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label_Model.Location = new System.Drawing.Point(71, 40);
+            this.label_Model.Location = new System.Drawing.Point(71, 25);
             this.label_Model.Name = "label_Model";
             this.label_Model.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.label_Model.Size = new System.Drawing.Size(78, 20);
@@ -396,26 +439,67 @@ namespace Diplom_2
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.label_hhd_load);
+            this.groupBox3.Controls.Add(this.label_bad_blocks);
+            this.groupBox3.Controls.Add(this.label_total_sector);
             this.groupBox3.Controls.Add(this.label_Memory);
+            this.groupBox3.Controls.Add(this.label_sector_reboot);
             this.groupBox3.Controls.Add(this.chart3);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.groupBox3.Location = new System.Drawing.Point(18, 261);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.groupBox3.Size = new System.Drawing.Size(364, 223);
+            this.groupBox3.Size = new System.Drawing.Size(546, 223);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Накопитель";
+            // 
+            // label_hhd_load
+            // 
+            this.label_hhd_load.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.label_hhd_load.Location = new System.Drawing.Point(87, 98);
+            this.label_hhd_load.Name = "label_hhd_load";
+            this.label_hhd_load.Size = new System.Drawing.Size(56, 29);
+            this.label_hhd_load.TabIndex = 3;
+            this.label_hhd_load.Text = "100%";
+            this.label_hhd_load.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_bad_blocks
+            // 
+            this.label_bad_blocks.AutoSize = true;
+            this.label_bad_blocks.Location = new System.Drawing.Point(254, 180);
+            this.label_bad_blocks.Name = "label_bad_blocks";
+            this.label_bad_blocks.Size = new System.Drawing.Size(93, 20);
+            this.label_bad_blocks.TabIndex = 3;
+            this.label_bad_blocks.Text = "Bad Blocks:";
+            // 
+            // label_total_sector
+            // 
+            this.label_total_sector.AutoSize = true;
+            this.label_total_sector.Location = new System.Drawing.Point(248, 128);
+            this.label_total_sector.Name = "label_total_sector";
+            this.label_total_sector.Size = new System.Drawing.Size(99, 40);
+            this.label_total_sector.TabIndex = 5;
+            this.label_total_sector.Text = "Total Sector \nWrite:";
             // 
             // label_Memory
             // 
             this.label_Memory.AutoSize = true;
             this.label_Memory.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label_Memory.Location = new System.Drawing.Point(206, 99);
+            this.label_Memory.Location = new System.Drawing.Point(200, 40);
             this.label_Memory.Name = "label_Memory";
             this.label_Memory.Size = new System.Drawing.Size(51, 20);
             this.label_Memory.TabIndex = 3;
             this.label_Memory.Text = "label2";
+            // 
+            // label_sector_reboot
+            // 
+            this.label_sector_reboot.AutoSize = true;
+            this.label_sector_reboot.Location = new System.Drawing.Point(242, 73);
+            this.label_sector_reboot.Name = "label_sector_reboot";
+            this.label_sector_reboot.Size = new System.Drawing.Size(105, 40);
+            this.label_sector_reboot.TabIndex = 4;
+            this.label_sector_reboot.Text = "Sector Writes\nAfter Reboot:";
             // 
             // chart3
             // 
@@ -423,8 +507,9 @@ namespace Diplom_2
             this.chart3.ChartAreas.Add(chartArea1);
             this.chart3.Location = new System.Drawing.Point(15, 25);
             this.chart3.Name = "chart3";
+            this.chart3.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
             series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
             series1.Name = "CPU";
             this.chart3.Series.Add(series1);
             this.chart3.Size = new System.Drawing.Size(200, 175);
@@ -433,16 +518,27 @@ namespace Diplom_2
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label_RAM_load);
             this.groupBox2.Controls.Add(this.chart2);
             this.groupBox2.Controls.Add(this.label_RAM);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.groupBox2.Location = new System.Drawing.Point(409, 14);
+            this.groupBox2.Location = new System.Drawing.Point(587, 14);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.groupBox2.Size = new System.Drawing.Size(364, 223);
+            this.groupBox2.Size = new System.Drawing.Size(503, 223);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Оперативная память";
+            // 
+            // label_RAM_load
+            // 
+            this.label_RAM_load.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.label_RAM_load.Location = new System.Drawing.Point(90, 98);
+            this.label_RAM_load.Name = "label_RAM_load";
+            this.label_RAM_load.Size = new System.Drawing.Size(56, 29);
+            this.label_RAM_load.TabIndex = 2;
+            this.label_RAM_load.Text = "100%";
+            this.label_RAM_load.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // chart2
             // 
@@ -450,8 +546,9 @@ namespace Diplom_2
             this.chart2.ChartAreas.Add(chartArea2);
             this.chart2.Location = new System.Drawing.Point(18, 25);
             this.chart2.Name = "chart2";
+            this.chart2.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
             series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
             series2.Name = "CPU";
             this.chart2.Series.Add(series2);
             this.chart2.Size = new System.Drawing.Size(200, 175);
@@ -462,7 +559,7 @@ namespace Diplom_2
             // 
             this.label_RAM.AutoSize = true;
             this.label_RAM.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label_RAM.Location = new System.Drawing.Point(214, 99);
+            this.label_RAM.Location = new System.Drawing.Point(224, 25);
             this.label_RAM.Name = "label_RAM";
             this.label_RAM.Size = new System.Drawing.Size(87, 20);
             this.label_RAM.TabIndex = 2;
@@ -470,15 +567,56 @@ namespace Diplom_2
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label_cpu_num_core);
+            this.groupBox1.Controls.Add(this.label_cpu_mhz);
+            this.groupBox1.Controls.Add(this.label_cpu_name);
+            this.groupBox1.Controls.Add(this.label_CPU_load);
             this.groupBox1.Controls.Add(this.chart1);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.groupBox1.Location = new System.Drawing.Point(18, 14);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.groupBox1.Size = new System.Drawing.Size(364, 223);
+            this.groupBox1.Size = new System.Drawing.Size(546, 223);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Процессор";
+            // 
+            // label_cpu_num_core
+            // 
+            this.label_cpu_num_core.AutoSize = true;
+            this.label_cpu_num_core.Location = new System.Drawing.Point(257, 160);
+            this.label_cpu_num_core.Name = "label_cpu_num_core";
+            this.label_cpu_num_core.Size = new System.Drawing.Size(43, 20);
+            this.label_cpu_num_core.TabIndex = 4;
+            this.label_cpu_num_core.Text = "Core";
+            // 
+            // label_cpu_mhz
+            // 
+            this.label_cpu_mhz.AutoSize = true;
+            this.label_cpu_mhz.Location = new System.Drawing.Point(258, 103);
+            this.label_cpu_mhz.Name = "label_cpu_mhz";
+            this.label_cpu_mhz.Size = new System.Drawing.Size(42, 20);
+            this.label_cpu_mhz.TabIndex = 3;
+            this.label_cpu_mhz.Text = "MHz";
+            // 
+            // label_cpu_name
+            // 
+            this.label_cpu_name.AutoSize = true;
+            this.label_cpu_name.Location = new System.Drawing.Point(254, 52);
+            this.label_cpu_name.Name = "label_cpu_name";
+            this.label_cpu_name.Size = new System.Drawing.Size(46, 20);
+            this.label_cpu_name.TabIndex = 2;
+            this.label_cpu_name.Text = "CPU:";
+            // 
+            // label_CPU_load
+            // 
+            this.label_CPU_load.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.label_CPU_load.Location = new System.Drawing.Point(87, 96);
+            this.label_CPU_load.Name = "label_CPU_load";
+            this.label_CPU_load.Size = new System.Drawing.Size(56, 33);
+            this.label_CPU_load.TabIndex = 1;
+            this.label_CPU_load.Text = "100%";
+            this.label_CPU_load.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // chart1
             // 
@@ -486,8 +624,9 @@ namespace Diplom_2
             this.chart1.ChartAreas.Add(chartArea3);
             this.chart1.Location = new System.Drawing.Point(15, 25);
             this.chart1.Name = "chart1";
+            this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
             series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
             series3.Name = "CPU";
             this.chart1.Series.Add(series3);
             this.chart1.Size = new System.Drawing.Size(200, 175);
@@ -626,6 +765,7 @@ namespace Diplom_2
             // 
             // ARP_tab
             // 
+            this.ARP_tab.Controls.Add(this.groupBox10);
             this.ARP_tab.Controls.Add(this.groupBox6);
             this.ARP_tab.Location = new System.Drawing.Point(25, 4);
             this.ARP_tab.Name = "ARP_tab";
@@ -635,14 +775,72 @@ namespace Diplom_2
             this.ARP_tab.Text = "ARP";
             this.ARP_tab.UseVisualStyleBackColor = true;
             // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.dataGridView_address);
+            this.groupBox10.Location = new System.Drawing.Point(7, 21);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(512, 478);
+            this.groupBox10.TabIndex = 3;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "Address";
+            // 
+            // dataGridView_address
+            // 
+            this.dataGridView_address.AllowUserToAddRows = false;
+            this.dataGridView_address.AllowUserToDeleteRows = false;
+            this.dataGridView_address.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_address.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Dynamic_Address,
+            this.Address_Address,
+            this.Network_Address,
+            this.Interface_Address});
+            this.dataGridView_address.Location = new System.Drawing.Point(10, 21);
+            this.dataGridView_address.Name = "dataGridView_address";
+            this.dataGridView_address.ReadOnly = true;
+            this.dataGridView_address.RowHeadersVisible = false;
+            this.dataGridView_address.Size = new System.Drawing.Size(493, 450);
+            this.dataGridView_address.TabIndex = 0;
+            // 
+            // Dynamic_Address
+            // 
+            this.Dynamic_Address.HeaderText = "Dynamic";
+            this.Dynamic_Address.Name = "Dynamic_Address";
+            this.Dynamic_Address.ReadOnly = true;
+            this.Dynamic_Address.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Dynamic_Address.Width = 70;
+            // 
+            // Address_Address
+            // 
+            this.Address_Address.HeaderText = "Address";
+            this.Address_Address.Name = "Address_Address";
+            this.Address_Address.ReadOnly = true;
+            this.Address_Address.Width = 150;
+            // 
+            // Network_Address
+            // 
+            this.Network_Address.HeaderText = "Network";
+            this.Network_Address.Name = "Network_Address";
+            this.Network_Address.ReadOnly = true;
+            this.Network_Address.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Network_Address.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Network_Address.Width = 150;
+            // 
+            // Interface_Address
+            // 
+            this.Interface_Address.HeaderText = "Interface";
+            this.Interface_Address.Name = "Interface_Address";
+            this.Interface_Address.ReadOnly = true;
+            this.Interface_Address.Width = 120;
+            // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.dataGridView_ARP);
             this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.groupBox6.Location = new System.Drawing.Point(17, 21);
+            this.groupBox6.Location = new System.Drawing.Point(547, 21);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.groupBox6.Size = new System.Drawing.Size(1111, 486);
+            this.groupBox6.Size = new System.Drawing.Size(542, 478);
             this.groupBox6.TabIndex = 2;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Список подключенных устройств";
@@ -657,12 +855,12 @@ namespace Diplom_2
             this.MAC,
             this.DHCP,
             this.InterfaceARP});
-            this.dataGridView_ARP.Location = new System.Drawing.Point(18, 34);
+            this.dataGridView_ARP.Location = new System.Drawing.Point(6, 22);
             this.dataGridView_ARP.Name = "dataGridView_ARP";
             this.dataGridView_ARP.ReadOnly = true;
             this.dataGridView_ARP.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.dataGridView_ARP.RowHeadersVisible = false;
-            this.dataGridView_ARP.Size = new System.Drawing.Size(523, 409);
+            this.dataGridView_ARP.Size = new System.Drawing.Size(525, 449);
             this.dataGridView_ARP.TabIndex = 0;
             // 
             // ip
@@ -745,7 +943,7 @@ namespace Diplom_2
             this.groupBox5.Location = new System.Drawing.Point(14, 3);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.groupBox5.Size = new System.Drawing.Size(380, 495);
+            this.groupBox5.Size = new System.Drawing.Size(346, 495);
             this.groupBox5.TabIndex = 4;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Пользователи";
@@ -759,12 +957,12 @@ namespace Diplom_2
             this.NameLogin,
             this.Group,
             this.LastLogin});
-            this.dataGridView_User.Location = new System.Drawing.Point(13, 35);
+            this.dataGridView_User.Location = new System.Drawing.Point(6, 35);
             this.dataGridView_User.Name = "dataGridView_User";
             this.dataGridView_User.ReadOnly = true;
             this.dataGridView_User.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.dataGridView_User.RowHeadersVisible = false;
-            this.dataGridView_User.Size = new System.Drawing.Size(355, 368);
+            this.dataGridView_User.Size = new System.Drawing.Size(333, 368);
             this.dataGridView_User.TabIndex = 0;
             // 
             // NameLogin
@@ -778,18 +976,19 @@ namespace Diplom_2
             this.Group.HeaderText = "Группа";
             this.Group.Name = "Group";
             this.Group.ReadOnly = true;
+            this.Group.Width = 70;
             // 
             // LastLogin
             // 
             this.LastLogin.HeaderText = "Последний вход";
             this.LastLogin.Name = "LastLogin";
             this.LastLogin.ReadOnly = true;
-            this.LastLogin.Width = 150;
+            this.LastLogin.Width = 160;
             // 
             // button_AddNewUser
             // 
-            this.button_AddNewUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.button_AddNewUser.Location = new System.Drawing.Point(113, 428);
+            this.button_AddNewUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.button_AddNewUser.Location = new System.Drawing.Point(86, 428);
             this.button_AddNewUser.Name = "button_AddNewUser";
             this.button_AddNewUser.Size = new System.Drawing.Size(137, 50);
             this.button_AddNewUser.TabIndex = 1;
@@ -802,10 +1001,10 @@ namespace Diplom_2
             this.groupBox4.Controls.Add(this.dataGridView_UserGroup);
             this.groupBox4.Controls.Add(this.button2);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.groupBox4.Location = new System.Drawing.Point(410, 3);
+            this.groupBox4.Location = new System.Drawing.Point(366, 3);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.groupBox4.Size = new System.Drawing.Size(834, 495);
+            this.groupBox4.Size = new System.Drawing.Size(737, 495);
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Группы";
@@ -836,11 +1035,11 @@ namespace Diplom_2
             this.policy_romon,
             this.policy_dude,
             this.policy_tikapp});
-            this.dataGridView_UserGroup.Location = new System.Drawing.Point(20, 35);
+            this.dataGridView_UserGroup.Location = new System.Drawing.Point(6, 35);
             this.dataGridView_UserGroup.Name = "dataGridView_UserGroup";
             this.dataGridView_UserGroup.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.dataGridView_UserGroup.RowHeadersVisible = false;
-            this.dataGridView_UserGroup.Size = new System.Drawing.Size(792, 368);
+            this.dataGridView_UserGroup.Size = new System.Drawing.Size(725, 368);
             this.dataGridView_UserGroup.TabIndex = 3;
             // 
             // GroupName
@@ -861,6 +1060,7 @@ namespace Diplom_2
             this.policy_local.ReadOnly = true;
             this.policy_local.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.policy_local.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.policy_local.Width = 50;
             // 
             // policy_telnet
             // 
@@ -869,6 +1069,7 @@ namespace Diplom_2
             this.policy_telnet.ReadOnly = true;
             this.policy_telnet.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.policy_telnet.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.policy_telnet.Width = 50;
             // 
             // policy_ssh
             // 
@@ -877,6 +1078,7 @@ namespace Diplom_2
             this.policy_ssh.ReadOnly = true;
             this.policy_ssh.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.policy_ssh.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.policy_ssh.Width = 30;
             // 
             // policy_ftp
             // 
@@ -885,6 +1087,7 @@ namespace Diplom_2
             this.policy_ftp.ReadOnly = true;
             this.policy_ftp.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.policy_ftp.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.policy_ftp.Width = 30;
             // 
             // policy_reboot
             // 
@@ -893,6 +1096,7 @@ namespace Diplom_2
             this.policy_reboot.ReadOnly = true;
             this.policy_reboot.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.policy_reboot.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.policy_reboot.Width = 60;
             // 
             // policy_read
             // 
@@ -901,6 +1105,7 @@ namespace Diplom_2
             this.policy_read.ReadOnly = true;
             this.policy_read.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.policy_read.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.policy_read.Width = 40;
             // 
             // policy_write
             // 
@@ -909,6 +1114,7 @@ namespace Diplom_2
             this.policy_write.ReadOnly = true;
             this.policy_write.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.policy_write.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.policy_write.Width = 40;
             // 
             // policy_policy
             // 
@@ -917,6 +1123,7 @@ namespace Diplom_2
             this.policy_policy.ReadOnly = true;
             this.policy_policy.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.policy_policy.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.policy_policy.Width = 50;
             // 
             // policy_test
             // 
@@ -925,6 +1132,7 @@ namespace Diplom_2
             this.policy_test.ReadOnly = true;
             this.policy_test.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.policy_test.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.policy_test.Width = 40;
             // 
             // policy_winbox
             // 
@@ -933,6 +1141,7 @@ namespace Diplom_2
             this.policy_winbox.ReadOnly = true;
             this.policy_winbox.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.policy_winbox.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.policy_winbox.Width = 60;
             // 
             // policy_password
             // 
@@ -941,6 +1150,7 @@ namespace Diplom_2
             this.policy_password.ReadOnly = true;
             this.policy_password.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.policy_password.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.policy_password.Width = 70;
             // 
             // policy_web
             // 
@@ -949,6 +1159,7 @@ namespace Diplom_2
             this.policy_web.ReadOnly = true;
             this.policy_web.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.policy_web.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.policy_web.Width = 40;
             // 
             // policy_sniff
             // 
@@ -957,6 +1168,7 @@ namespace Diplom_2
             this.policy_sniff.ReadOnly = true;
             this.policy_sniff.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.policy_sniff.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.policy_sniff.Width = 40;
             // 
             // policy_sensitive
             // 
@@ -965,6 +1177,7 @@ namespace Diplom_2
             this.policy_sensitive.ReadOnly = true;
             this.policy_sensitive.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.policy_sensitive.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.policy_sensitive.Width = 70;
             // 
             // policy_api
             // 
@@ -973,6 +1186,7 @@ namespace Diplom_2
             this.policy_api.ReadOnly = true;
             this.policy_api.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.policy_api.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.policy_api.Width = 40;
             // 
             // policy_romon
             // 
@@ -981,6 +1195,7 @@ namespace Diplom_2
             this.policy_romon.ReadOnly = true;
             this.policy_romon.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.policy_romon.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.policy_romon.Width = 50;
             // 
             // policy_dude
             // 
@@ -989,6 +1204,7 @@ namespace Diplom_2
             this.policy_dude.ReadOnly = true;
             this.policy_dude.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.policy_dude.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.policy_dude.Width = 40;
             // 
             // policy_tikapp
             // 
@@ -997,11 +1213,12 @@ namespace Diplom_2
             this.policy_tikapp.ReadOnly = true;
             this.policy_tikapp.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.policy_tikapp.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.policy_tikapp.Width = 60;
             // 
             // button2
             // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.button2.Location = new System.Drawing.Point(340, 428);
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.button2.Location = new System.Drawing.Point(307, 428);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(137, 50);
             this.button2.TabIndex = 2;
@@ -1047,7 +1264,7 @@ namespace Diplom_2
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(734, 492);
+            this.button3.Location = new System.Drawing.Point(643, 358);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(146, 36);
             this.button3.TabIndex = 1;
@@ -1056,7 +1273,7 @@ namespace Diplom_2
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(419, 492);
+            this.button1.Location = new System.Drawing.Point(382, 358);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(146, 36);
             this.button1.TabIndex = 0;
@@ -1317,6 +1534,7 @@ namespace Diplom_2
             this.checkBox_apissl.TabIndex = 1;
             this.checkBox_apissl.Text = "api ssl";
             this.checkBox_apissl.UseVisualStyleBackColor = true;
+            this.checkBox_apissl.CheckedChanged += new System.EventHandler(this.checkBox_apissl_CheckedChanged);
             // 
             // checkBox_api
             // 
@@ -1327,6 +1545,77 @@ namespace Diplom_2
             this.checkBox_api.TabIndex = 0;
             this.checkBox_api.Text = "api";
             this.checkBox_api.UseVisualStyleBackColor = true;
+            this.checkBox_api.CheckedChanged += new System.EventHandler(this.checkBox_api_CheckedChanged);
+            // 
+            // Log_tab
+            // 
+            this.Log_tab.Controls.Add(this.button_update_log);
+            this.Log_tab.Controls.Add(this.button_save_log);
+            this.Log_tab.Controls.Add(this.dataGridView_log);
+            this.Log_tab.Location = new System.Drawing.Point(25, 4);
+            this.Log_tab.Name = "Log_tab";
+            this.Log_tab.Padding = new System.Windows.Forms.Padding(3);
+            this.Log_tab.Size = new System.Drawing.Size(1106, 505);
+            this.Log_tab.TabIndex = 9;
+            this.Log_tab.Text = "Log";
+            this.Log_tab.UseVisualStyleBackColor = true;
+            // 
+            // button_update_log
+            // 
+            this.button_update_log.Location = new System.Drawing.Point(13, 16);
+            this.button_update_log.Name = "button_update_log";
+            this.button_update_log.Size = new System.Drawing.Size(101, 33);
+            this.button_update_log.TabIndex = 7;
+            this.button_update_log.Text = "Update";
+            this.button_update_log.UseVisualStyleBackColor = true;
+            this.button_update_log.Click += new System.EventHandler(this.button_update_log_Click);
+            // 
+            // button_save_log
+            // 
+            this.button_save_log.Location = new System.Drawing.Point(981, 16);
+            this.button_save_log.Name = "button_save_log";
+            this.button_save_log.Size = new System.Drawing.Size(101, 33);
+            this.button_save_log.TabIndex = 6;
+            this.button_save_log.Text = "Save To File";
+            this.button_save_log.UseVisualStyleBackColor = true;
+            this.button_save_log.Click += new System.EventHandler(this.button_save_log_Click);
+            // 
+            // dataGridView_log
+            // 
+            this.dataGridView_log.AllowUserToAddRows = false;
+            this.dataGridView_log.AllowUserToDeleteRows = false;
+            this.dataGridView_log.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_log.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Time_Log,
+            this.topics_Log,
+            this.Event_Log});
+            this.dataGridView_log.Location = new System.Drawing.Point(13, 55);
+            this.dataGridView_log.Name = "dataGridView_log";
+            this.dataGridView_log.ReadOnly = true;
+            this.dataGridView_log.RowHeadersVisible = false;
+            this.dataGridView_log.Size = new System.Drawing.Size(1069, 427);
+            this.dataGridView_log.TabIndex = 0;
+            // 
+            // Time_Log
+            // 
+            this.Time_Log.HeaderText = "Время";
+            this.Time_Log.Name = "Time_Log";
+            this.Time_Log.ReadOnly = true;
+            this.Time_Log.Width = 150;
+            // 
+            // topics_Log
+            // 
+            this.topics_Log.HeaderText = "Topics";
+            this.topics_Log.Name = "topics_Log";
+            this.topics_Log.ReadOnly = true;
+            this.topics_Log.Width = 150;
+            // 
+            // Event_Log
+            // 
+            this.Event_Log.HeaderText = "Событие";
+            this.Event_Log.Name = "Event_Log";
+            this.Event_Log.ReadOnly = true;
+            this.Event_Log.Width = 760;
             // 
             // timer_CheckInternet
             // 
@@ -1356,6 +1645,19 @@ namespace Diplom_2
             this.label_timer_safemode.Text = "label2";
             this.label_timer_safemode.Visible = false;
             // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            // 
+            // Internet_connect_status_image
+            // 
+            this.Internet_connect_status_image.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Internet_connect_status_image.Location = new System.Drawing.Point(84, 619);
+            this.Internet_connect_status_image.Name = "Internet_connect_status_image";
+            this.Internet_connect_status_image.Size = new System.Drawing.Size(16, 16);
+            this.Internet_connect_status_image.TabIndex = 2;
+            this.Internet_connect_status_image.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1371,18 +1673,20 @@ namespace Diplom_2
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.MainMenu;
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Панель управления MikroTik";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.MainMenu.ResumeLayout(false);
             this.MainMenu.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Internet_connect_status_image)).EndInit();
             this.tabControl2.ResumeLayout(false);
             this.Main_tab.ResumeLayout(false);
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart3)).EndInit();
@@ -1390,6 +1694,7 @@ namespace Diplom_2
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.Interface_tab.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
@@ -1397,6 +1702,8 @@ namespace Diplom_2
             this.groupBox7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_VirtualInterface)).EndInit();
             this.ARP_tab.ResumeLayout(false);
+            this.groupBox10.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_address)).EndInit();
             this.groupBox6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_ARP)).EndInit();
             this.tabPage5.ResumeLayout(false);
@@ -1413,6 +1720,9 @@ namespace Diplom_2
             this.Service_tab.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
+            this.Log_tab.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_log)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Internet_connect_status_image)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1474,29 +1784,6 @@ namespace Diplom_2
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn GroupName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Policy;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_local;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_telnet;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_ssh;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_ftp;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_reboot;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_read;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_write;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_policy;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_test;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_winbox;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_password;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_web;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_sniff;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_sensitive;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_api;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_romon;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_dude;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_tikapp;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NameLogin;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Group;
-        private System.Windows.Forms.DataGridViewTextBoxColumn LastLogin;
         private System.Windows.Forms.TabPage Service_tab;
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.CheckBox checkBox_wwwssl;
@@ -1538,6 +1825,55 @@ namespace Diplom_2
         private System.Windows.Forms.DataGridViewTextBoxColumn MAC;
         private System.Windows.Forms.DataGridViewCheckBoxColumn DHCP;
         private System.Windows.Forms.DataGridViewTextBoxColumn InterfaceARP;
+        private System.Windows.Forms.Label label_CPU_load;
+        private System.Windows.Forms.Label label_RAM_load;
+        private System.Windows.Forms.Label label_bad_blocks;
+        private System.Windows.Forms.Label label_total_sector;
+        private System.Windows.Forms.Label label_sector_reboot;
+        private System.Windows.Forms.Label label_cpu_num_core;
+        private System.Windows.Forms.Label label_cpu_mhz;
+        private System.Windows.Forms.Label label_cpu_name;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.Label label_hhd_load;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label_factory_soft;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GroupName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Policy;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_local;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_telnet;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_ssh;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_ftp;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_reboot;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_read;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_write;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_policy;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_test;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_winbox;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_password;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_web;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_sniff;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_sensitive;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_api;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_romon;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_dude;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn policy_tikapp;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NameLogin;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Group;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LastLogin;
+        private System.Windows.Forms.TabPage Log_tab;
+        private System.Windows.Forms.DataGridView dataGridView_log;
+        private System.Windows.Forms.Button button_save_log;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Time_Log;
+        private System.Windows.Forms.DataGridViewTextBoxColumn topics_Log;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Event_Log;
+        private System.Windows.Forms.Button button_update_log;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.DataGridView dataGridView_address;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Dynamic_Address;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Address_Address;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Network_Address;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Interface_Address;
     }
 }
 

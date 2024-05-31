@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using Renci.SshNet;
+using System.Globalization;     //форматирование времени
 
 namespace Diplom_2
 {
@@ -34,6 +35,17 @@ namespace Diplom_2
         }
         private List<Interface> Interfaces = new List<Interface>();
 
+        struct Address
+        {
+            internal string id;
+            internal string address;
+            internal string network;
+            internal string inter;
+            internal string dynamic;
+            internal string status;
+        }
+
+        private List<Address> Addresses = new List<Address>();
 
         //Сервисы (API, SSH, WWW, Winbox,...)
         struct Service
@@ -44,7 +56,7 @@ namespace Diplom_2
             internal string status;      //bool?
 
         }
-        List <Service> Services = new List<Service>();
+        List<Service> Services = new List<Service>();
 
         struct User
         {
@@ -78,13 +90,13 @@ namespace Diplom_2
 
         }
         private List<UserGroup> UserGroups = new List<UserGroup>();
-
+        private bool LogEnd = true;
         private bool UserEnd = true;
         private bool ServiceEnd = true;
         private bool UserGroupEnd = true;
         private bool ARPEnd = true;
         private bool InterfaceEnd = true;
-
+        private bool AddressEnd = true;
 
         MK mikrotik;
         //ресурсы устройства
@@ -104,11 +116,11 @@ namespace Diplom_2
         //Логи / События
         private struct LogMes
         {
-            string id;
-            string time;
-            string topics;
-            string message;
-            string level;   //error / info / message / warning
+            internal string id;
+            internal string time;
+            internal string topics;
+            internal string message;
+            internal string level;   //error / info / message / warning
         }
         List<LogMes> Log = new List<LogMes>();
 
@@ -122,7 +134,7 @@ namespace Diplom_2
         }
         internal void FirstStart()
         {
-            
+
             mikrotik = new MK(conn.host, conn.port);
             mikrotik.Login(conn.login, conn.password);
 
@@ -141,7 +153,7 @@ namespace Diplom_2
             /*
              MK mikrotik = new MK(conn.host);
             */
-            
+
             /*
             if (mikrotik.Login(conn.login, conn.password))
             {
@@ -168,15 +180,44 @@ namespace Diplom_2
             }
             */
         }
+        internal List<List<string>> GetTableAddress()
+        {
+            List<List<string>> all = new List<List<string>>();
+            for (int i = 0; i < Addresses.Count(); i++)
+            {
+                List<string> temp = new List<string>();
+                temp.Add(Addresses[i].address);
+                temp.Add(Addresses[i].network);
+                temp.Add(Addresses[i].inter);
+                temp.Add(Addresses[i].dynamic);
+                temp.Add(Addresses[i].status);
+                all.Add(temp);
+            }
+            return all;
+        }
 
+        internal List<List<string>> GetLog()
+        {
+            List<List<string>> all = new List<List<string>>();
+            for (int i = 0; i < Log.Count(); i++)
+            {
+                List<string> tr = new List<string>();
+                LogMes temp = Log[i];
+                tr.Add(temp.time);
+                tr.Add(temp.topics);
+                tr.Add(temp.message);
+                all.Add(tr);
+            }
+            return all;
+        }
 
         internal List<string> GetResource()
         {
-            
+
             List<string> res = new List<string>();
             res.Add(resource[10, 1]);   //Нагрузка процессора
 
-            res.Add(resource[5, 1]);    //занятая RAM
+            res.Add(resource[5, 1]);    //свободная RAM
             res.Add(resource[6, 1]);    //Общая RAM
 
             res.Add(resource[11, 1]);    //занятая память
@@ -187,6 +228,16 @@ namespace Diplom_2
             res.Add(resource[2, 1]);    //RouterOS
             res.Add(resource[16, 1]);    //Архитектура
             res.Add(resource[17, 1]);    //Модель
+
+            res.Add(resource[7, 1]);    //Архитектура процессора
+            res.Add(resource[9, 1]);    //Частота процессора
+            res.Add(resource[8, 1]);    //Количество ядер
+
+            res.Add(resource[13, 1]);    //сектора после reboot
+            res.Add(resource[14, 1]);    //сектора всего
+            res.Add(resource[15, 1]);    //bad blocks
+            res.Add(resource[4, 1]);    //factory software
+
 
             return res;
         }
@@ -305,29 +356,29 @@ namespace Diplom_2
             temp.Add(conn.password);
             return temp;
         }
+
+        //Обновление вкладки IP --> Service
         internal async void SendUpdateService(List<List<string>> command)
         {
-            
-            
-            if (mikrotik.Login(conn.login, conn.password))
+            for (int i = 0; i < command.Count(); i++)
             {
-                for (int i = 0; i < command.Count(); i++)
+                for (int j = 0; j < command[i].Count(); j++)
                 {
-                    for (int j = 0; j < command[i].Count(); j++)
+                    if (j < command[i].Count() - 1)
                     {
                         mikrotik.Send(command[i][j]);
-                        //this.ReadAnswer();
-
                     }
-
+                    else
+                    {
+                        mikrotik.Send(command[i][j], true);
+                    }
                 }
             }
-
         }
 
 
-
-            internal void SendCreateNewGroup(List<string> inform)
+        //Создание новой группы пользователей
+        internal void SendCreateNewGroup(List<string> inform)
         {
             if (mikrotik.Login(conn.login, conn.password))
             {
@@ -344,72 +395,48 @@ namespace Diplom_2
             }
         }
 
+
+        //отправка запроса на получение log
+        internal void SendLog()
+        {
+            mikrotik.Send("/log/print");
+            mikrotik.Send(".tag=log", true);
+        }
+
+        //Получение статусов из IP --> Service
         internal void SendService()
         {
             mikrotik.Send("/ip/service/print");
             mikrotik.Send(".tag=ipservice", true);
-            /*
-            if (mikrotik.Login(conn.login, conn.password))
-            {
-                //успешное подключение
-                //log print where!(message ~"api")
-                mikrotik.Send("/ip/service/print");
-                mikrotik.Send(".tag=ipservice", true);
-            }
-            else
-            {
-
-                //неудачное подключение
-                return;
-            }
-            */
         }
 
-        internal void SendLog()
-        {
-            if (mikrotik.Login(conn.login, conn.password))
-            {
-                //успешное подключение
-                //log print where!(message ~"api")
-                mikrotik.Send("/log/print");
-                mikrotik.Send(".tag=log", true);
-            }
-            else
-            {
-                //неудачное подключение
-                return;
-            }
-        }
-
+        //Получение списка пользователей
         internal void SendUser()
         {
             mikrotik.Send("/user/print");
             mikrotik.Send(".tag=user", true);
-
-            /*
-            if (mikrotik.Login(conn.login, conn.password))
-            {
-                mikrotik.Send("/user/print");
-                mikrotik.Send(".tag=user", true);
-            }
-            */
         }
 
+        //Запуск SafeMode
         internal void SendStartSafeMode()
         {
-            Thread.Sleep(500);
+            //Thread.Sleep(200);
 
             //Создание скрипта для деактивации существующего скрипта и удаления записей
             mikrotik.Send("/system/script/add");
             mikrotik.Send("=name=del_safe");
-            mikrotik.Send("=source=/system script job remove [ find where script=\"safe\" ]\r\n\r\nsystem script remove safe\r\nsystem script remove del_safe", true);
-            //mikrotik.Send("=source=/system script job remove", true);
+            mikrotik.Send("=source=/system script job remove [find where script=\"safe\"]\r\n\r\nsystem script remove safe\r\nsystem script remove del_safe", true);
 
             //Создание скрипта для активации safe mode
             mikrotik.Send("/system/script/add");
-            mikrotik.Send("=name=safe");
+            mikrotik.Send("=name=api_safe_mode");
             mikrotik.Send("=source=system backup save name=backup_api\r\ndelay 900\r\nsystem backup load name=backup_api", true);
-            Thread.Sleep(500);
+
+
+            mikrotik.Send("/system/script/run");
+            mikrotik.Send("=.id=api_safe_mode", true);
+            //Thread.Sleep(200);
+
             /*
             //выполнить скрипт
             var client = new SshClient("109.195.38.77", "Admin_Adm_Adm", "GfhjkzYtn1");
@@ -421,13 +448,18 @@ namespace Diplom_2
 
 
         }
+
+        //Прекращение работы SafeMode
         internal void SendEndSafeMode()
         {
-            var client = new SshClient("109.195.38.77", "Admin_Adm_Adm", "GfhjkzYtn1");
+            /*
+             * var client = new SshClient(conn.host, conn.login, conn.password);
             client.Connect();
             var command = client.CreateCommand("/system script run del_safe");
             command.Execute();
             client.Disconnect();
+            */
+
             //Thread.Sleep(500);
             /*
             //добавить скрипт
@@ -439,7 +471,7 @@ namespace Diplom_2
 
             //Thread.Sleep(500);
             //mikrotik.Login(conn.login, conn.password);
-            
+
         }
 
         internal void SendUserGroup()
@@ -457,6 +489,11 @@ namespace Diplom_2
             */
         }
 
+        internal void SendAddress()
+        {
+            mikrotik.Send("/ip/address/print");
+            mikrotik.Send(".tag=address", true);
+        }
         internal void SendARP()
         {
             mikrotik.Send("/ip/arp/print");
@@ -555,6 +592,77 @@ namespace Diplom_2
                 return;
             }
         }
+
+
+        internal void GetGlobalIP()
+        {
+            //Добавление скрипта на устройство
+
+            //Удаленное подключение по SSH
+            /*
+            var client = new SshClient(conn.host, conn.login, conn.password);
+            client.Connect();
+             */
+            /*
+            mikrotik.Send("/system/script/add");
+            mikrotik.Send("=name=GetGlobalIP");
+            */
+            ////mikr.Send("=source=/tool fetch mode = http address = \"checkip.dyndns.org\" src - path = \" / \" dst - path = \" / dyndns.checkip.html\" :local result[/ file get dyndns.checkip.html contents] :local resultLen[:len $result] :local startLoc[:find $result \": \" - 1] :set startLoc($startLoc + 2) :local endLoc[:find $result \"</body>\" - 1] :global currentIP[:pick $result $startLoc $endLoc]", true);
+            /*
+            mikrotik.Send("=source=/global currentIP\r\n/file remove [find name=\"dyndns.checkip.html\"]\r\n" +
+                "/tool fetch mode=http address=\"checkip.dyndns.org\" src-path=\"/\" dst-path=\"/dyndns.checkip.html\";\r\n" +
+                ":delay 2\r\n" +
+                ":local result [/file get dyndns.checkip.html contents]\r\n" +
+                ":global currentIP [:pick $result ([:find $result \": \" -1]+2) [:find $result \"</body>\" -1]]\r\n" +
+                "/file remove dyndns.checkip.html\r\n" +
+                ":delay 2\r\n\r\n" +
+                ":local arrIdScr [:toarray [/system script job find where script~\"[a-zA-Z0-9]{1,}\"]]\r\n" +
+                ":local ScriptName [/system script job get ($arrIdScr->([:len $arrIdScr] - 1)) value-name=script]\r\n\r\n" +
+                "/system script remove $ScriptName", true);
+            */
+
+            /*
+            mikrotik.Send("=source=:delay 1;\r\n:global currentIP \"0\";\r\n/file remove [find name=\"dyndns.checkip.html\"]\r\n" +
+                "/tool fetch mode=http address=\"checkip.dyndns.org\" src-path=\"/\" dst-path=\"/dyndns.checkip.html\";\r\n" +
+                ":delay 2\r\n" +
+                ":local result [/file get dyndns.checkip.html contents]\r\n" +
+                ":global currentIP [:pick $result ([:find $result \": \" -1]+2) [:find $result \"</body>\" -1]]\r\n" +
+                "/file remove dyndns.checkip.html\r\n" +
+                ":delay 2\r\n\r\n" +
+                ":local arrIdScr [:toarray [/system script job find where script~\"[a-zA-Z0-9]{1,}\"]]\r\n" +
+                ":local ScriptName [/system script job get ($arrIdScr->([:len $arrIdScr] - 1)) value-name=script]\r\n\r\n", true);
+            */
+            Thread.Sleep(500);
+
+            mikrotik.Send("/system/script/run");
+            mikrotik.Send("=.id=GetGlobalIP", true);
+            /*
+            / tool fetch mode = http address = "checkip.dyndns.org" src - path = "/" dst - path = "/dyndns.checkip.html"
+            :local result[/ file get dyndns.checkip.html contents]
+            :local resultLen[:len $result]
+            :local startLoc[:find $result ": " - 1]
+            :set startLoc($startLoc +2)
+            :local endLoc[:find $result "</body>" - 1]
+            :global currentIP[:pick $result $startLoc $endLoc]
+            */
+
+
+
+            //Добавление скрипта
+            //var command = client.CreateCommand("/system script run del_safe");
+            
+            /*
+            command.Execute();
+            client.Disconnect();
+            */
+
+            //Выполнение скрипта
+
+            //Ожидание ответа
+
+            //Получение IP из глобальной переменной
+        }
+        
         internal bool stop_send = false;
         internal void ReadAnswer()
         {
@@ -574,34 +682,39 @@ namespace Diplom_2
                     }
                 }
                 */
-                if (g % 6 == 0)
+                if (g % 7 == 0)
                 {
                     this.SendResource();
                 }
 
-                else if (g % 6 == 1)
+                else if (g % 7 == 1)
                 {
                     this.SendARP();
+                    this.SendAddress();
                 }
-                else if (g % 6 == 2)
+                else if (g % 7 == 2)
                 {
                     this.SendUser();
                 }
-                else if (g % 6 == 3)
+                else if (g % 7 == 3)
                 {
                     this.SendUserGroup();
                 }
-                else if (g % 6 == 4)
+                else if (g % 7 == 4)
                 {
                     this.SendInterface();
                 }
-                else if (g % 6 == 5)
+                else if (g % 7 == 5)
                 {
                     this.SendService();
                 }
+                else if (g % 7 == 6)
+                {
+                    this.SendLog();
+                }
 
 
-                
+
                 g++;
                 List<string> answer = new List<string>();
                 foreach (string h in mikrotik.Read())
@@ -677,18 +790,52 @@ namespace Diplom_2
                             }
                             else if (words[1] == "log")
                             {
-                                if (i == 0)
+                                if (words[0] != "!done.tag")
                                 {
-                                    //очистка текущего листа
-                                    Log.Clear();
-                                }
-                                LogMes temp = new LogMes();
-                                for (int j = 0; j < words.Length; j++)
-                                {
-                                    if (j == 0)
+                                    //Получение списка пользователей
+                                    if (this.LogEnd == true)
                                     {
-                                        ;
+                                        //очистка текущего листа
+                                        Log.Clear();
+                                        this.LogEnd = false;
                                     }
+
+                                    LogMes temp = new LogMes();
+                                    for (int j = 0; j < words.Length; j++)
+                                    {
+                                        if (words[j] == ".id")
+                                        {
+                                            temp.id = words[j + 1];     //id
+                                        }
+                                        if (words[j] == "time")
+                                        {
+                                            //проверка форматирования
+                                            if (words[j + 1].Length < 10)
+                                            {
+
+                                                temp.time = (DateTime.Now.ToString("MMM/d ", CultureInfo.GetCultureInfo("en-US"))).ToLower() + words[j + 1];     //time
+                                            }
+                                            else
+                                            {
+                                                temp.time = words[j + 1];     //time
+                                            }
+                                        }
+                                        if (words[j] == "topics")
+                                        {
+                                            temp.topics = words[j + 1];     //topics
+                                        }
+                                        if (words[j] == "message")
+                                        {
+                                            temp.message = words[j + 1];     //messaage
+                                        }
+                                    }
+                                    Log.Add(temp);
+
+                                }
+                                else
+                                {
+                                    //Весь список пользователей был заполнен
+                                    this.LogEnd = true;
                                 }
                             }
                             else if (words[1] == "user")
@@ -830,7 +977,7 @@ namespace Diplom_2
                                             //MessageBox: произошла внутренняя ошибка
                                             ;
                                         }
-                                        
+
                                     }
                                     //temp.policy = temp_policy;
                                     UserGroups.Add(temp);
@@ -927,6 +1074,51 @@ namespace Diplom_2
                                     this.ServiceEnd = true;
                                 }
                             }
+                            else if (words[1] == "address")
+                            {
+                                if (words[0] != "!done.tag")
+                                {
+                                    if (this.AddressEnd == true)
+                                    {
+                                        this.Addresses.Clear();
+                                        this.AddressEnd = false;
+                                    }
+                                    Address temp = new Address();
+                                    for (int j = 0; j < words.Length; j++)
+                                    {
+                                        if (words[j] == ".id")      
+                                        {
+                                            temp.id = words[j + 1];     //id
+                                        }
+                                        else if (words[j] == "address")
+                                        {
+                                            temp.address = words[j + 1]; //address
+                                        }
+                                        else if (words[j] == "network")
+                                        {
+                                            temp.network = words[j + 1];   //network
+                                        }
+                                        else if (words[j] == "interface")
+                                        {
+                                            temp.inter = words[j + 1];   //интерфейс
+                                        }
+                                        else if (words[j] == "dynamic")
+                                        {
+                                            temp.dynamic = words[j + 1];
+                                        }
+                                        else if (words[j] == "disabled")
+                                        {
+                                            temp.status = words[j + 1];
+                                        }
+                                    }
+                                    Addresses.Add(temp);
+                                }
+                                else
+                                {
+                                    this.AddressEnd = true;
+                                }
+                            }
+
                         }
                     }
                 }

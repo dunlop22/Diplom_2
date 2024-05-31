@@ -24,7 +24,7 @@
   <Class Name="Diplom_2.Form1">
     <Position X="10" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>8hRBFlrq5nBKUTiJQgaYBEAywM5/sRmISLW0mEgoKFc=</HashCode>
+      <HashCode>/hTBFlvq5nJKUTm5QwaYtMAywM7/sR+Ma7X8mkxoKFc=</HashCode>
       <FileName>Form1.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -45,7 +45,7 @@
   <Class Name="Diplom_2.Func_Class">
     <Position X="8.25" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAABAAAAAAAAAAAAAAAAACQAAQABAIAACAAAAAgAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAQABAIAACAAAAAgAAAA=</HashCode>
       <FileName>Func_Class.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -58,6 +58,11 @@
         </TypeIdentifier>
       </Struct>
       <Struct Name="Diplom_2.Info.Interface" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Info.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Struct Name="Diplom_2.Info.Service" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>Info.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -82,14 +87,14 @@
           <NewMemberFileName>Info.cs</NewMemberFileName>
         </TypeIdentifier>
       </Struct>
-      <Struct Name="Diplom_2.Info.Service" Collapsed="true">
+      <Struct Name="Diplom_2.Info.Address" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>Info.cs</NewMemberFileName>
         </TypeIdentifier>
       </Struct>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>gAAETKAACCAAACQgAYIQAUlBAAwQBoIgAQAAjCgAAAQ=</HashCode>
+      <HashCode>gABEzKAACCAAQCQmAYIQAclAAIwQBoIgQQAAjCgAAAQ=</HashCode>
       <FileName>Info.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -110,7 +115,7 @@
       </Struct>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>gAQBEQAECC0hAJGJAASJMCICUAIAA0vAECABgKgGhEE=</HashCode>
+      <HashCode>gAQBEQAECC1hBJGJAASJMCICUAIAA0/AUCABgKgGhEE=</HashCode>
       <FileName>NewConnectionForm.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -131,7 +136,7 @@
   <Class Name="Diplom_2.Properties.Resources">
     <Position X="12" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAACAAAAAAAAAgBEAAAAYAAAAAAAgAAAwAAAIA=</HashCode>
+      <HashCode>EBAAAAABCAAhAAAAAAgBEAAAAYAAAAAAAgAAAwAAAJI=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="Diplom_2.Properties.Settings">
