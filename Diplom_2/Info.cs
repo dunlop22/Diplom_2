@@ -31,6 +31,20 @@ namespace Diplom_2
         }
         Connection conn = new Connection();
 
+        struct Firewall
+        {
+            internal string id;
+            internal string chain;
+            internal string action;
+            internal string protocol;
+            internal string comment;    //последний столбец таблицы
+            internal string in_interface;
+            internal string src_address_list;
+            internal string dst_port;
+            internal string status;
+        }
+
+        private List<Firewall> Firewalls = new List<Firewall>();
         struct Interface
         {
             internal string id;
@@ -105,6 +119,7 @@ namespace Diplom_2
         private bool ARPEnd = true;
         private bool InterfaceEnd = true;
         private bool AddressEnd = true;
+        private bool FirewallEnd = true;
 
         MK mikrotik;
         //ресурсы устройства
@@ -285,6 +300,28 @@ namespace Diplom_2
             }
             return all;
         }
+
+
+        internal List<List<string>> GetTableFirewall()
+        {
+            List<List<string>> all = new List<List<string>>();
+            for (int i = 0; i < Firewalls.Count(); i++)
+            {
+                List<string> temp = new List<string>();
+                temp.Add(Firewalls[i].id);
+                temp.Add(Firewalls[i].action);
+                temp.Add(Firewalls[i].chain);
+                temp.Add(Firewalls[i].in_interface);
+                temp.Add(Firewalls[i].protocol);
+                temp.Add(Firewalls[i].dst_port);
+                
+                temp.Add(Firewalls[i].src_address_list);
+                temp.Add(Firewalls[i].comment);
+                temp.Add(Firewalls[i].status);
+                all.Add(temp);
+            }
+            return all;
+        }
         internal List<List<string>> GetTableUser()
         {
             List<List<string>> all = new List<List<string>>();
@@ -425,7 +462,7 @@ namespace Diplom_2
             mikrotik.Send(".tag=user", true);
         }
 
-        internal void DownloadConfig()
+        internal bool DownloadConfig()
         {
 
             string inputfilepath = @"C:\!___TEST\" + config_name + ".backup";
@@ -436,20 +473,30 @@ namespace Diplom_2
 
             using (WebClient request = new WebClient())
             {
-                request.Credentials = new NetworkCredential(conn.login, conn.password);
-                byte[] fileData = request.DownloadData(ftpfullpath);
-
-                using (FileStream file = File.Create(inputfilepath))
+                bool rez = false;
+                try
                 {
-                    file.Write(fileData, 0, fileData.Length);
-                    file.Close();
+                    request.Credentials = new NetworkCredential(conn.login, conn.password);
+                    byte[] fileData = request.DownloadData(ftpfullpath);
+
+                    using (FileStream file = File.Create(inputfilepath))
+                    {
+                        file.Write(fileData, 0, fileData.Length);
+                        file.Close();
+                    }
+                    return true;
+
                 }
-                //MessageBox.Show("Download Complete");
+                catch
+                {
+
+                }
+                return false;
             }
             System.IO.File.SetAttributes(@"C:\!___TEST\" + config_name + ".backup", System.IO.FileAttributes.Hidden);
         }
 
-        internal void SendSaveConfig()
+        internal bool SendSaveConfig()
         {
             //Создание скрипта создания конфигурации оборудования
             mikrotik.Send("/system/script/add");
@@ -473,17 +520,82 @@ namespace Diplom_2
             mikrotik.Send("=.id=CreateConfigApi", true);
 
 
+            //Загрузка файла через FTP и уведомление пользователя о результате
+            return (DownloadConfig());
 
-
-
-            //Загрузка файла через FTP
-            DownloadConfig();
 
         }
 
         //Запуск SafeMode
         internal void SendStartSafeMode()
         {
+            string time = DateTime.Now.ToString("g", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
+            //Создание скрипта (замена SafeMode)
+            mikrotik.Send("/system/script/add");
+            mikrotik.Send("=name=APISafeMode");
+            mikrotik.Send("=source=system backup save name=backup_api\r\n" +
+                //Удаление записи scheduler
+                "/syste scheduler remove \"API_" + time + "\"\r\n\r\n" +
+                ":delay 900\r\n" +
+                "/system backup load name=backup_api", true);
+
+            Thread.Sleep(150);
+            //Создание записи в планировщиеке для активации safe mode
+            mikrotik.Send("/system/script/add");
+            mikrotik.Send("=name=CreateScheduler");
+            //получение времени
+            mikrotik.Send("=source=:local a ([/sys clock get time] + 00:00:05)\r\n\r\n" +
+                //Создание scheduler
+                "/system scheduler add name=\"API_" + time + "\" start-time=$a on-event=APISafeMode\r\n\r\n" +
+                //удалить текущий скрипт
+                ":local arrIdScr [:toarray [/system script job find where script~\"[a-zA-Z0-9]{1,}\"]]\r\n" +
+                ":local ScriptName [/system script job get ($arrIdScr->([:len $arrIdScr] - 1)) value-name=script]\r\n" +
+                "/system script remove $ScriptName", true);
+            Thread.Sleep(150);
+
+            mikrotik.Send("/system/script/add");
+            mikrotik.Send("=name=del_safe");
+            mikrotik.Send("=source=/system script job remove [find where script=\"APISafeMode\"]\r\n" +
+                //":delay 4\r\n" +
+                "/system script remove APISafeMode\r\n" +
+                "/system script remove del_safe", true);
+
+            Thread.Sleep(150);
+            //удаление работающего скрипта
+            Thread.Sleep(50);
+            mikrotik.Send("/system/script/run");
+            mikrotik.Send("=.id=CreateScheduler", true);
+
+
+
+
+            /*
+            string time = DateTime.Now.ToString("g", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
+            //Создание скрипта (замена SafeMode)
+            mikrotik.Send("/system/script/add");
+            mikrotik.Send("=name=APISafeMode");
+            mikrotik.Send("=source=system backup save name=backup_api\r\n" +
+                //Удаление записи scheduler
+                "/syste scheduler remove \"API_" + time + "\"\r\n\r\n" +
+                ":delay 900\r\n" +
+                "/system backup load name=backup_api", true);
+
+            //Создание записи в планировщиеке для активации safe mode
+            mikrotik.Send("/system/script/add");
+            mikrotik.Send("=name=CreateScheduler");
+            //получение времени
+            mikrotik.Send("=source=:local a ([/sys clock get time] + 00:00:10)\r\n\r\n" +
+                //Создание scheduler
+                "/system scheduler add name=\"API_" + time + "\" start-time=$a on-event=APISafeMode\r\n\r\n" +
+                //удалить текущий скрипт
+                ":local arrIdScr [:toarray [/system script job find where script~\"[a-zA-Z0-9]{1,}\"]]\r\n" +
+                ":local ScriptName [/system script job get ($arrIdScr->([:len $arrIdScr] - 1)) value-name=script]\r\n" +
+                "/system script remove $ScriptName", true);
+
+            Thread.Sleep(50);
+            mikrotik.Send("/system/script/run");
+            mikrotik.Send("=.id=CreateScheduler", true);
+            /*
             //Thread.Sleep(200);
 
             //Создание скрипта для деактивации существующего скрипта и удаления записей
@@ -516,6 +628,27 @@ namespace Diplom_2
         //Прекращение работы SafeMode
         internal void SendEndSafeMode()
         {
+            /*
+            mikrotik.Send("/system/script/add");
+            mikrotik.Send("=name=del_safe");
+            mikrotik.Send("=source=/system script job remove [find where script=\"APISafeMode\"]\r\n" +
+                ":delay 4\r\n" +
+                "/system script remove APISafeMode\r\n" +
+                "/system script remove del_safe", true);
+            */
+
+            //Thread.Sleep(0);
+            mikrotik.Send("/system/script/add");
+            mikrotik.Send("=name=delsafe");
+            mikrotik.Send("=source=/system script run del_safe\r\n\r\n" +
+            //Удаление выполняемого скрипта
+            ":local arrIdScr [:toarray [/system script job find where script~\"[a-zA-Z0-9]{1,}\"]]\r\n" +
+            ":local ScriptName [/system script job get ($arrIdScr->([:len $arrIdScr] - 1)) value-name=script]\r\n" + 
+            "/system script remove $ScriptName", true);
+
+            Thread.Sleep(100);
+            mikrotik.Send("/system/script/run");
+            mikrotik.Send("=.id=delsafe", true);
             /*
              * var client = new SshClient(conn.host, conn.login, conn.password);
             client.Connect();
@@ -558,24 +691,64 @@ namespace Diplom_2
             mikrotik.Send("/ip/address/print");
             mikrotik.Send(".tag=address", true);
         }
+
+
+        internal void SendCreateRuleFirewall(string name_address, string chain, string action)
+        {
+            //place = 0 - самая верхняя стркоа правил
+            mikrotik.Send("/ip/firewall/filter/add");
+            mikrotik.Send("=chain=" + chain);
+            mikrotik.Send("=src-address-list=" + name_address);
+            mikrotik.Send("=action=" + action);
+            mikrotik.Send("=comment=API Create" + DateTime.Now.ToString(CultureInfo.CreateSpecificCulture("en-US")));
+            mikrotik.Send("=place-before=*0", true);
+        }
+
+
+        internal void SendDelFromFirewall()
+        {
+            mikrotik.Send("/system/script/add");
+            mikrotik.Send("=name=del_firewall");
+            ////mikr.Send("=source=/tool fetch mode = http address = \"checkip.dyndns.org\" src - path = \" / \" dst - path = \" / dyndns.checkip.html\" :local result[/ file get dyndns.checkip.html contents] :local resultLen[:len $result] :local startLoc[:find $result \": \" - 1] :set startLoc($startLoc + 2) :local endLoc[:find $result \"</body>\" - 1] :global currentIP[:pick $result $startLoc $endLoc]", true);
+            mikrotik.Send("=source=/ip firewall filter remove numbers=[find src-address=\"" + WorkFirewall.host + "\"]\r\n\r\n" +
+                "/ip firewal address-list remove [find address=\"" + WorkFirewall.host + "\"]\r\n\r\n" +
+                //задержка перед удалением скрипта
+                ":delay 2\r\n\r\n" +
+                //удаление скрипта
+                ":local arrIdScr [:toarray [/system script job find where script~\"[a-zA-Z0-9]{1,}\"]]\r\n" +
+                ":local ScriptName [/system script job get ($arrIdScr->([:len $arrIdScr] - 1)) value-name=script]\r\n" +
+                "system script remove $ScriptName", true);
+            Thread.Sleep(50);
+            mikrotik.Send("/system/script/run");
+            mikrotik.Send("=.id=del_firewall", true);
+        }
+
+
+        internal void SendCreateAddressList(int timeout, string host, string name)
+        {
+            //Создание нового address-list
+            mikrotik.Send("/ip/firewall/address-list/add");
+            mikrotik.Send("=list=" + name);
+            mikrotik.Send("=address=" + host);
+            if (timeout > 0)
+            {
+                mikrotik.Send("=timeout=" + timeout);       //timeout указывается в секундах
+            }
+            
+            mikrotik.Send("=disabled=no", true);
+        }
+        //Получение списка правил Firewall'а
+        internal void SendFirewall()
+        {
+            mikrotik.Send("/ip/firewall/filter/print");
+            mikrotik.Send(".tag=table_firewall", true);
+        }
+
+        //Получнение списка-таблицы ARP
         internal void SendARP()
         {
             mikrotik.Send("/ip/arp/print");
             mikrotik.Send(".tag=table_arp", true);
-            /*
-            if (mikrotik.Login(conn.login, conn.password))
-            {
-                //успешное подключение
-                mikrotik.Send("/ip/arp/print");
-                mikrotik.Send(".tag=table_arp", true);
-            }
-            else
-            {
-                //неудачное подключение
-                return;
-            }
-
-            */
         }
 
 
@@ -592,16 +765,6 @@ namespace Diplom_2
         internal void Reboot()
         {
             mikrotik.Send("/system/reboot", true);
-            /*
-            if (mikrotik.Login(conn.login, conn.password))
-            {
-                mikrotik.Send("/system/reboot", true);
-            }
-            else
-            {
-            return;
-            }
-            */
         }
 
 
@@ -711,6 +874,7 @@ namespace Diplom_2
 
             //Получение IP из глобальной переменной
         }
+
         
         internal bool stop_send = false;
         internal void ReadAnswer()
@@ -719,23 +883,10 @@ namespace Diplom_2
             int g = 0;
             while (true)
             {
-                /*
-                if (!rez)
-                {
-                    if (mikrotik.Login(conn.login, conn.password))
-                    {
-                        rez = true;
-                    }
-                    else
-                    { 
-                    }
-                }
-                */
                 if (g % 7 == 0)
                 {
-                    this.SendResource();
+                    this.SendResource();        //получение ресурсов
                 }
-
                 else if (g % 7 == 1)
                 {
                     this.SendARP();
@@ -757,12 +908,11 @@ namespace Diplom_2
                 {
                     this.SendService();
                 }
-                else if (g % 10 == 6)
+                else if (g % 13 == 6)
                 {
                     this.SendLog();
+                    this.SendFirewall();
                 }
-
-
 
                 g++;
                 List<string> answer = new List<string>();
@@ -783,10 +933,12 @@ namespace Diplom_2
                                 if (words[0] != "!done.tag")
                                 {
                                     //информация из ARP таблицы
-                                    if (i == 0)
+                                    //Получение списка групп пользователей
+                                    if (this.ARPEnd == true)
                                     {
                                         //очистка текущего листа
                                         ARP.Clear();
+                                        this.ARPEnd = false;
                                     }
                                     Machine temp = new Machine();
                                     for (int j = 0; j < words.Length; j++)
@@ -824,6 +976,11 @@ namespace Diplom_2
                                         }
                                     }
                                     ARP.Add(temp);
+                                }
+                                else
+                                {
+                                    //Вся таблица ARP была заполнена
+                                    this.ARPEnd = true;
                                 }
                             }
                             else if (words[1] == "res")
@@ -917,7 +1074,6 @@ namespace Diplom_2
                             {
                                 if (words[0] != "!done.tag")
                                 {
-
                                     //Получение списка групп пользователей
                                     if (this.UserGroupEnd == true)
                                     {
@@ -1135,7 +1291,7 @@ namespace Diplom_2
                                     Address temp = new Address();
                                     for (int j = 0; j < words.Length; j++)
                                     {
-                                        if (words[j] == ".id")      
+                                        if (words[j] == ".id")
                                         {
                                             temp.id = words[j + 1];     //id
                                         }
@@ -1167,7 +1323,65 @@ namespace Diplom_2
                                     this.AddressEnd = true;
                                 }
                             }
+                            else if (words[1] == "table_firewall")
+                            {
 
+                                if (words[0] != "!done.tag")
+                                {
+                                    if (this.FirewallEnd == true)
+                                    {
+                                        this.Firewalls.Clear();
+                                        this.FirewallEnd = false;
+                                    }
+                                    Firewall temp = new Firewall();
+                                    for (int j = 0; j < words.Length; j++)
+                                    {
+                                        if (words[j] == ".id")
+                                        {
+                                            temp.id = words[j + 1];     //id
+                                        }
+                                        else if (words[j] == "chain")
+                                        {
+                                            temp.chain = words[j + 1];
+                                        }    
+                                        else if (words[j] == "action")
+                                        {
+                                            temp.action = words[j + 1];
+                                        }
+                                        else if (words[j] == "in-interface")
+                                        {
+                                            temp.in_interface = words[j + 1];
+                                        }
+                                        else if (words[j] == "disabled")
+                                        {
+                                            temp.status = words[j + 1];
+                                        }
+                                        else if (words[j] == "protocol")
+                                        {
+                                            temp.protocol = words[j + 1];
+                                        }
+                                        else if (words[j] == "src-address-list")
+                                        {
+                                            temp.src_address_list = words[j + 1];
+                                        }
+                                        else if (words[j] == "dst-port")
+                                        {
+                                            temp.dst_port = words[j + 1];
+                                        }
+                                        else if (words[j] == "comment")
+                                        {
+                                            temp.comment = words[j + 1];
+                                        }
+                                        
+                                    }
+                                    Firewalls.Add(temp);
+                                }
+                                else
+                                {
+                                    this.FirewallEnd = true;
+                                }
+                                
+                            }
                         }
                     }
                 }

@@ -86,6 +86,18 @@
     <Compile Include="AddUserGroupForm.Designer.cs">
       <DependentUpon>AddUserGroupForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AllowFirewallForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllowFirewallForm.Designer.cs">
+      <DependentUpon>AllowFirewallForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DelFromFirewallForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DelFromFirewallForm.Designer.cs">
+      <DependentUpon>DelFromFirewallForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="file_work.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -130,6 +142,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddUserGroupForm.resx">
       <DependentUpon>AddUserGroupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllowFirewallForm.resx">
+      <DependentUpon>AllowFirewallForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DelFromFirewallForm.resx">
+      <DependentUpon>DelFromFirewallForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

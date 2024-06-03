@@ -103,9 +103,6 @@ namespace Diplom_2
             this.MAC = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DHCP = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.InterfaceARP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.dataGridView_WiFi = new System.Windows.Forms.DataGridView();
-            this.dataGridView_CapsMan = new System.Windows.Forms.DataGridView();
             this.User_tab = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.dataGridView_User = new System.Windows.Forms.DataGridView();
@@ -138,16 +135,13 @@ namespace Diplom_2
             this.button2 = new System.Windows.Forms.Button();
             this.firewall_tab = new System.Windows.Forms.TabPage();
             this.dataGridView_firewall = new System.Windows.Forms.DataGridView();
-            this.AddressList_IP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AddressList_Timeout = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.Tools_tab = new System.Windows.Forms.TabPage();
+            this.button_block_firewall = new System.Windows.Forms.Button();
             this.button_save_config = new System.Windows.Forms.Button();
             this.button_Shutdown = new System.Windows.Forms.Button();
             this.button_Reboot = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.button_allow_firewall = new System.Windows.Forms.Button();
+            this.button_del_firewall = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.Service_tab = new System.Windows.Forms.TabPage();
             this.button_save = new System.Windows.Forms.Button();
@@ -182,6 +176,13 @@ namespace Diplom_2
             this.Internet_connect_status_image = new System.Windows.Forms.PictureBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
+            this.Firewall_Action = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Firewall_chain = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Firewall_in_interface = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Firewall_protocol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Firewall_Dst_Port = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Firewall_dst_address_list = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Firewall_Comment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MainMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -204,9 +205,6 @@ namespace Diplom_2
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_address)).BeginInit();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_ARP)).BeginInit();
-            this.tabPage5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_WiFi)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_CapsMan)).BeginInit();
             this.User_tab.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_User)).BeginInit();
@@ -231,7 +229,7 @@ namespace Diplom_2
             this.справкаToolStripMenuItem});
             this.MainMenu.Location = new System.Drawing.Point(0, 0);
             this.MainMenu.Name = "MainMenu";
-            this.MainMenu.Size = new System.Drawing.Size(1246, 27);
+            this.MainMenu.Size = new System.Drawing.Size(1183, 27);
             this.MainMenu.TabIndex = 0;
             this.MainMenu.Text = "menuStrip1";
             // 
@@ -297,7 +295,7 @@ namespace Diplom_2
             this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 599);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1246, 26);
+            this.statusStrip1.Size = new System.Drawing.Size(1183, 26);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -329,7 +327,6 @@ namespace Diplom_2
             this.tabControl2.Controls.Add(this.Main_tab);
             this.tabControl2.Controls.Add(this.Interface_tab);
             this.tabControl2.Controls.Add(this.ARP_tab);
-            this.tabControl2.Controls.Add(this.tabPage5);
             this.tabControl2.Controls.Add(this.User_tab);
             this.tabControl2.Controls.Add(this.firewall_tab);
             this.tabControl2.Controls.Add(this.Tools_tab);
@@ -375,12 +372,12 @@ namespace Diplom_2
             this.groupBox11.Size = new System.Drawing.Size(503, 223);
             this.groupBox11.TabIndex = 6;
             this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "Ресурсы";
+            this.groupBox11.Text = "О системе";
             // 
             // label_factory_soft
             // 
             this.label_factory_soft.AutoSize = true;
-            this.label_factory_soft.Location = new System.Drawing.Point(15, 186);
+            this.label_factory_soft.Location = new System.Drawing.Point(15, 185);
             this.label_factory_soft.Name = "label_factory_soft";
             this.label_factory_soft.Size = new System.Drawing.Size(134, 20);
             this.label_factory_soft.TabIndex = 12;
@@ -398,7 +395,7 @@ namespace Diplom_2
             // 
             this.label_Arch.AutoSize = true;
             this.label_Arch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label_Arch.Location = new System.Drawing.Point(40, 103);
+            this.label_Arch.Location = new System.Drawing.Point(40, 105);
             this.label_Arch.Name = "label_Arch";
             this.label_Arch.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.label_Arch.Size = new System.Drawing.Size(109, 20);
@@ -409,7 +406,7 @@ namespace Diplom_2
             // 
             this.label_UpTime.AutoSize = true;
             this.label_UpTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label_UpTime.Location = new System.Drawing.Point(27, 148);
+            this.label_UpTime.Location = new System.Drawing.Point(27, 145);
             this.label_UpTime.Name = "label_UpTime";
             this.label_UpTime.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.label_UpTime.Size = new System.Drawing.Size(122, 20);
@@ -420,7 +417,7 @@ namespace Diplom_2
             // 
             this.label_RouterOS.AutoSize = true;
             this.label_RouterOS.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label_RouterOS.Location = new System.Drawing.Point(60, 60);
+            this.label_RouterOS.Location = new System.Drawing.Point(60, 65);
             this.label_RouterOS.Name = "label_RouterOS";
             this.label_RouterOS.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.label_RouterOS.Size = new System.Drawing.Size(89, 20);
@@ -468,7 +465,7 @@ namespace Diplom_2
             // label_bad_blocks
             // 
             this.label_bad_blocks.AutoSize = true;
-            this.label_bad_blocks.Location = new System.Drawing.Point(254, 180);
+            this.label_bad_blocks.Location = new System.Drawing.Point(254, 179);
             this.label_bad_blocks.Name = "label_bad_blocks";
             this.label_bad_blocks.Size = new System.Drawing.Size(93, 20);
             this.label_bad_blocks.TabIndex = 3;
@@ -477,7 +474,7 @@ namespace Diplom_2
             // label_total_sector
             // 
             this.label_total_sector.AutoSize = true;
-            this.label_total_sector.Location = new System.Drawing.Point(248, 128);
+            this.label_total_sector.Location = new System.Drawing.Point(248, 126);
             this.label_total_sector.Name = "label_total_sector";
             this.label_total_sector.Size = new System.Drawing.Size(99, 40);
             this.label_total_sector.TabIndex = 5;
@@ -587,23 +584,23 @@ namespace Diplom_2
             this.label_cpu_num_core.AutoSize = true;
             this.label_cpu_num_core.Location = new System.Drawing.Point(257, 160);
             this.label_cpu_num_core.Name = "label_cpu_num_core";
-            this.label_cpu_num_core.Size = new System.Drawing.Size(43, 20);
+            this.label_cpu_num_core.Size = new System.Drawing.Size(47, 20);
             this.label_cpu_num_core.TabIndex = 4;
-            this.label_cpu_num_core.Text = "Core";
+            this.label_cpu_num_core.Text = "Core:";
             // 
             // label_cpu_mhz
             // 
             this.label_cpu_mhz.AutoSize = true;
-            this.label_cpu_mhz.Location = new System.Drawing.Point(258, 103);
+            this.label_cpu_mhz.Location = new System.Drawing.Point(258, 106);
             this.label_cpu_mhz.Name = "label_cpu_mhz";
-            this.label_cpu_mhz.Size = new System.Drawing.Size(42, 20);
+            this.label_cpu_mhz.Size = new System.Drawing.Size(46, 20);
             this.label_cpu_mhz.TabIndex = 3;
-            this.label_cpu_mhz.Text = "MHz";
+            this.label_cpu_mhz.Text = "MHz:";
             // 
             // label_cpu_name
             // 
             this.label_cpu_name.AutoSize = true;
-            this.label_cpu_name.Location = new System.Drawing.Point(254, 52);
+            this.label_cpu_name.Location = new System.Drawing.Point(258, 52);
             this.label_cpu_name.Name = "label_cpu_name";
             this.label_cpu_name.Size = new System.Drawing.Size(46, 20);
             this.label_cpu_name.TabIndex = 2;
@@ -662,6 +659,8 @@ namespace Diplom_2
             // 
             this.dataGridView_PhysicalInterface.AllowUserToAddRows = false;
             this.dataGridView_PhysicalInterface.AllowUserToDeleteRows = false;
+            this.dataGridView_PhysicalInterface.AllowUserToResizeColumns = false;
+            this.dataGridView_PhysicalInterface.AllowUserToResizeRows = false;
             this.dataGridView_PhysicalInterface.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_PhysicalInterface.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.InterfaceName,
@@ -721,6 +720,8 @@ namespace Diplom_2
             // 
             this.dataGridView_VirtualInterface.AllowUserToAddRows = false;
             this.dataGridView_VirtualInterface.AllowUserToDeleteRows = false;
+            this.dataGridView_VirtualInterface.AllowUserToResizeColumns = false;
+            this.dataGridView_VirtualInterface.AllowUserToResizeRows = false;
             this.dataGridView_VirtualInterface.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_VirtualInterface.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
@@ -790,6 +791,8 @@ namespace Diplom_2
             // 
             this.dataGridView_address.AllowUserToAddRows = false;
             this.dataGridView_address.AllowUserToDeleteRows = false;
+            this.dataGridView_address.AllowUserToResizeColumns = false;
+            this.dataGridView_address.AllowUserToResizeRows = false;
             this.dataGridView_address.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_address.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Dynamic_Address,
@@ -850,6 +853,8 @@ namespace Diplom_2
             // 
             this.dataGridView_ARP.AllowUserToAddRows = false;
             this.dataGridView_ARP.AllowUserToDeleteRows = false;
+            this.dataGridView_ARP.AllowUserToResizeColumns = false;
+            this.dataGridView_ARP.AllowUserToResizeRows = false;
             this.dataGridView_ARP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_ARP.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ip,
@@ -892,39 +897,6 @@ namespace Diplom_2
             this.InterfaceARP.Name = "InterfaceARP";
             this.InterfaceARP.ReadOnly = true;
             // 
-            // tabPage5
-            // 
-            this.tabPage5.Controls.Add(this.dataGridView_WiFi);
-            this.tabPage5.Controls.Add(this.dataGridView_CapsMan);
-            this.tabPage5.Location = new System.Drawing.Point(25, 4);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(1098, 491);
-            this.tabPage5.TabIndex = 2;
-            this.tabPage5.Text = "Wi-Fi";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView_WiFi
-            // 
-            this.dataGridView_WiFi.AllowUserToAddRows = false;
-            this.dataGridView_WiFi.AllowUserToDeleteRows = false;
-            this.dataGridView_WiFi.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_WiFi.Location = new System.Drawing.Point(549, 67);
-            this.dataGridView_WiFi.Name = "dataGridView_WiFi";
-            this.dataGridView_WiFi.RowHeadersVisible = false;
-            this.dataGridView_WiFi.Size = new System.Drawing.Size(350, 244);
-            this.dataGridView_WiFi.TabIndex = 1;
-            // 
-            // dataGridView_CapsMan
-            // 
-            this.dataGridView_CapsMan.AllowUserToAddRows = false;
-            this.dataGridView_CapsMan.AllowUserToDeleteRows = false;
-            this.dataGridView_CapsMan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_CapsMan.Location = new System.Drawing.Point(48, 67);
-            this.dataGridView_CapsMan.Name = "dataGridView_CapsMan";
-            this.dataGridView_CapsMan.RowHeadersVisible = false;
-            this.dataGridView_CapsMan.Size = new System.Drawing.Size(350, 244);
-            this.dataGridView_CapsMan.TabIndex = 0;
-            // 
             // User_tab
             // 
             this.User_tab.Controls.Add(this.groupBox5);
@@ -953,6 +925,8 @@ namespace Diplom_2
             // 
             this.dataGridView_User.AllowUserToAddRows = false;
             this.dataGridView_User.AllowUserToDeleteRows = false;
+            this.dataGridView_User.AllowUserToResizeColumns = false;
+            this.dataGridView_User.AllowUserToResizeRows = false;
             this.dataGridView_User.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_User.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NameLogin,
@@ -1014,6 +988,8 @@ namespace Diplom_2
             // 
             this.dataGridView_UserGroup.AllowUserToAddRows = false;
             this.dataGridView_UserGroup.AllowUserToDeleteRows = false;
+            this.dataGridView_UserGroup.AllowUserToResizeColumns = false;
+            this.dataGridView_UserGroup.AllowUserToResizeRows = false;
             this.dataGridView_UserGroup.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_UserGroup.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.GroupName,
@@ -1230,8 +1206,6 @@ namespace Diplom_2
             // firewall_tab
             // 
             this.firewall_tab.Controls.Add(this.dataGridView_firewall);
-            this.firewall_tab.Controls.Add(this.button3);
-            this.firewall_tab.Controls.Add(this.button1);
             this.firewall_tab.Location = new System.Drawing.Point(25, 4);
             this.firewall_tab.Name = "firewall_tab";
             this.firewall_tab.Padding = new System.Windows.Forms.Padding(3);
@@ -1242,52 +1216,35 @@ namespace Diplom_2
             // 
             // dataGridView_firewall
             // 
+            this.dataGridView_firewall.AllowUserToAddRows = false;
+            this.dataGridView_firewall.AllowUserToDeleteRows = false;
+            this.dataGridView_firewall.AllowUserToResizeColumns = false;
+            this.dataGridView_firewall.AllowUserToResizeRows = false;
             this.dataGridView_firewall.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_firewall.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.AddressList_IP,
-            this.AddressList_Timeout});
+            this.Firewall_Action,
+            this.Firewall_chain,
+            this.Firewall_in_interface,
+            this.Firewall_protocol,
+            this.Firewall_Dst_Port,
+            this.Firewall_dst_address_list,
+            this.Firewall_Comment});
             this.dataGridView_firewall.Location = new System.Drawing.Point(20, 19);
             this.dataGridView_firewall.Name = "dataGridView_firewall";
+            this.dataGridView_firewall.ReadOnly = true;
             this.dataGridView_firewall.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.dataGridView_firewall.RowHeadersVisible = false;
-            this.dataGridView_firewall.Size = new System.Drawing.Size(491, 237);
+            this.dataGridView_firewall.Size = new System.Drawing.Size(1072, 466);
             this.dataGridView_firewall.TabIndex = 2;
-            // 
-            // AddressList_IP
-            // 
-            this.AddressList_IP.HeaderText = "IP";
-            this.AddressList_IP.Name = "AddressList_IP";
-            // 
-            // AddressList_Timeout
-            // 
-            this.AddressList_Timeout.HeaderText = "Timeout";
-            this.AddressList_Timeout.Name = "AddressList_Timeout";
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(643, 358);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(146, 36);
-            this.button3.TabIndex = 1;
-            this.button3.Text = "Запретить доступ";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(382, 358);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(146, 36);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Разрешить доступ";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // Tools_tab
             // 
+            this.Tools_tab.Controls.Add(this.button_block_firewall);
             this.Tools_tab.Controls.Add(this.button_save_config);
             this.Tools_tab.Controls.Add(this.button_Shutdown);
             this.Tools_tab.Controls.Add(this.button_Reboot);
-            this.Tools_tab.Controls.Add(this.button6);
-            this.Tools_tab.Controls.Add(this.button5);
+            this.Tools_tab.Controls.Add(this.button_allow_firewall);
+            this.Tools_tab.Controls.Add(this.button_del_firewall);
             this.Tools_tab.Controls.Add(this.button4);
             this.Tools_tab.Location = new System.Drawing.Point(25, 4);
             this.Tools_tab.Name = "Tools_tab";
@@ -1296,6 +1253,16 @@ namespace Diplom_2
             this.Tools_tab.TabIndex = 7;
             this.Tools_tab.Text = "Tools";
             this.Tools_tab.UseVisualStyleBackColor = true;
+            // 
+            // button_block_firewall
+            // 
+            this.button_block_firewall.Location = new System.Drawing.Point(398, 39);
+            this.button_block_firewall.Name = "button_block_firewall";
+            this.button_block_firewall.Size = new System.Drawing.Size(94, 55);
+            this.button_block_firewall.TabIndex = 17;
+            this.button_block_firewall.Text = "Block FireWall";
+            this.button_block_firewall.UseVisualStyleBackColor = true;
+            this.button_block_firewall.Click += new System.EventHandler(this.button_block_firewall_Click);
             // 
             // button_save_config
             // 
@@ -1329,23 +1296,25 @@ namespace Diplom_2
             this.button_Reboot.Text = "Reboot";
             this.button_Reboot.UseVisualStyleBackColor = false;
             // 
-            // button6
+            // button_allow_firewall
             // 
-            this.button6.Location = new System.Drawing.Point(233, 39);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(94, 55);
-            this.button6.TabIndex = 2;
-            this.button6.Text = "Allow FireWall";
-            this.button6.UseVisualStyleBackColor = true;
+            this.button_allow_firewall.Location = new System.Drawing.Point(233, 39);
+            this.button_allow_firewall.Name = "button_allow_firewall";
+            this.button_allow_firewall.Size = new System.Drawing.Size(94, 55);
+            this.button_allow_firewall.TabIndex = 2;
+            this.button_allow_firewall.Text = "Allow FireWall";
+            this.button_allow_firewall.UseVisualStyleBackColor = true;
+            this.button_allow_firewall.Click += new System.EventHandler(this.button_allow_firewall_Click);
             // 
-            // button5
+            // button_del_firewall
             // 
-            this.button5.Location = new System.Drawing.Point(69, 39);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(94, 55);
-            this.button5.TabIndex = 1;
-            this.button5.Text = "Del From FireWall";
-            this.button5.UseVisualStyleBackColor = true;
+            this.button_del_firewall.Location = new System.Drawing.Point(69, 39);
+            this.button_del_firewall.Name = "button_del_firewall";
+            this.button_del_firewall.Size = new System.Drawing.Size(94, 55);
+            this.button_del_firewall.TabIndex = 1;
+            this.button_del_firewall.Text = "Del From FireWall";
+            this.button_del_firewall.UseVisualStyleBackColor = true;
+            this.button_del_firewall.Click += new System.EventHandler(this.button_del_firewall_Click);
             // 
             // button4
             // 
@@ -1586,6 +1555,8 @@ namespace Diplom_2
             // 
             this.dataGridView_log.AllowUserToAddRows = false;
             this.dataGridView_log.AllowUserToDeleteRows = false;
+            this.dataGridView_log.AllowUserToResizeColumns = false;
+            this.dataGridView_log.AllowUserToResizeRows = false;
             this.dataGridView_log.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_log.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Time_Log,
@@ -1660,11 +1631,57 @@ namespace Diplom_2
             this.Internet_connect_status_image.TabIndex = 2;
             this.Internet_connect_status_image.TabStop = false;
             // 
+            // Firewall_Action
+            // 
+            this.Firewall_Action.HeaderText = "Action";
+            this.Firewall_Action.Name = "Firewall_Action";
+            this.Firewall_Action.ReadOnly = true;
+            this.Firewall_Action.Width = 130;
+            // 
+            // Firewall_chain
+            // 
+            this.Firewall_chain.HeaderText = "Chain";
+            this.Firewall_chain.Name = "Firewall_chain";
+            this.Firewall_chain.ReadOnly = true;
+            // 
+            // Firewall_in_interface
+            // 
+            this.Firewall_in_interface.HeaderText = "In interface";
+            this.Firewall_in_interface.Name = "Firewall_in_interface";
+            this.Firewall_in_interface.ReadOnly = true;
+            this.Firewall_in_interface.Width = 120;
+            // 
+            // Firewall_protocol
+            // 
+            this.Firewall_protocol.HeaderText = "Protocol";
+            this.Firewall_protocol.Name = "Firewall_protocol";
+            this.Firewall_protocol.ReadOnly = true;
+            // 
+            // Firewall_Dst_Port
+            // 
+            this.Firewall_Dst_Port.HeaderText = "Dst.Port";
+            this.Firewall_Dst_Port.Name = "Firewall_Dst_Port";
+            this.Firewall_Dst_Port.ReadOnly = true;
+            // 
+            // Firewall_dst_address_list
+            // 
+            this.Firewall_dst_address_list.HeaderText = "Dst. Address List";
+            this.Firewall_dst_address_list.Name = "Firewall_dst_address_list";
+            this.Firewall_dst_address_list.ReadOnly = true;
+            this.Firewall_dst_address_list.Width = 150;
+            // 
+            // Firewall_Comment
+            // 
+            this.Firewall_Comment.HeaderText = "Comment";
+            this.Firewall_Comment.Name = "Firewall_Comment";
+            this.Firewall_Comment.ReadOnly = true;
+            this.Firewall_Comment.Width = 360;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1246, 625);
+            this.ClientSize = new System.Drawing.Size(1183, 625);
             this.Controls.Add(this.label_timer_safemode);
             this.Controls.Add(this.button_SafeMode);
             this.Controls.Add(this.tabControl2);
@@ -1708,9 +1725,6 @@ namespace Diplom_2
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_address)).EndInit();
             this.groupBox6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_ARP)).EndInit();
-            this.tabPage5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_WiFi)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_CapsMan)).EndInit();
             this.User_tab.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_User)).EndInit();
@@ -1760,9 +1774,6 @@ namespace Diplom_2
         private System.Windows.Forms.TabPage ARP_tab;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.DataGridView dataGridView_ARP;
-        private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.DataGridView dataGridView_WiFi;
-        private System.Windows.Forms.DataGridView dataGridView_CapsMan;
         private System.Windows.Forms.TabPage User_tab;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.DataGridView dataGridView_User;
@@ -1777,14 +1788,10 @@ namespace Diplom_2
         private System.Windows.Forms.DataGridView dataGridView_VirtualInterface;
         private System.Windows.Forms.TabPage firewall_tab;
         private System.Windows.Forms.DataGridView dataGridView_firewall;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AddressList_IP;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AddressList_Timeout;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Timer timer_CheckInternet;
         private System.Windows.Forms.TabPage Tools_tab;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button_allow_firewall;
+        private System.Windows.Forms.Button button_del_firewall;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.TabPage Service_tab;
         private System.Windows.Forms.GroupBox groupBox9;
@@ -1877,6 +1884,14 @@ namespace Diplom_2
         private System.Windows.Forms.DataGridViewTextBoxColumn Network_Address;
         private System.Windows.Forms.DataGridViewTextBoxColumn Interface_Address;
         private System.Windows.Forms.SaveFileDialog saveFileDialog2;
+        private System.Windows.Forms.Button button_block_firewall;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Firewall_Action;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Firewall_chain;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Firewall_in_interface;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Firewall_protocol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Firewall_Dst_Port;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Firewall_dst_address_list;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Firewall_Comment;
     }
 }
 
