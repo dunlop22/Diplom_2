@@ -31,6 +31,8 @@ namespace Diplom_2
         }
         Thread thread_check_internet;       //поток для проверки наличия интернета
         Thread thread_read_api_answer;      //поток для чтения ответов api от оборудования
+        Thread thread_read_api_request;
+
 
         List<CheckBox> checkBoxes = new List<CheckBox>();
         List<TextBox> textBoxes = new List<TextBox>();
@@ -102,6 +104,13 @@ namespace Diplom_2
             checkBoxes.Add(checkBox_api);
             checkBoxes.Add(checkBox_winbox);
             checkBoxes.Add(checkBox_apissl);
+
+
+
+            
+
+
+
             //окно для ввода данных сессии
 
             //открыть окно для ввода логин-пароля
@@ -155,8 +164,8 @@ namespace Diplom_2
                     DialogResult res = MessageBox.Show("Произошла внутренняя ошибка!\nПроверьте правильность введенных данных в форме подключения", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            */
             
+            */
 
             /*
             LoadLogoForm LoadLogo = new LoadLogoForm();
@@ -183,9 +192,10 @@ namespace Diplom_2
             //Отдельный поток для прослушивания ответов оборудования
             thread_read_api_answer = new Thread(information.ReadAnswer);
             thread_read_api_answer.Start();
+            thread_read_api_request = new Thread(information.SendRequest);
+            thread_read_api_request.Start();
 
 
-            
             this.timer1.Enabled = true; //постоянное обновление ресурсов
 
             return;
@@ -395,7 +405,7 @@ namespace Diplom_2
                         System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(194)))), ((int)(((byte)(194))))) }; ;
                 }
                 this.label_sector_reboot.Text = "Sector Writes\nAfter Reboot: " + resource[12];
-                this.label_total_sector.Text = "Total Sector Write: " + resource[13];
+                this.label_total_sector.Text = "Total Sector \n            Write: " + resource[13];
                 this.label_bad_blocks.Text = "Bad Blocks: " + resource[14] + "%";
                 this.label_factory_soft.Text = "Factory Software: " + resource[15];
 
@@ -567,7 +577,7 @@ namespace Diplom_2
             List<List<string>> table_user = information.GetTableUser();
             if (table_user.Count() > 0)
             {
-
+                
                 for (int i = 0; i < table_user.Count(); i++)
                 {
                     this.dataGridView_User.Rows.Add();
@@ -575,6 +585,7 @@ namespace Diplom_2
                     this.dataGridView_User.Rows[i].Cells[1].Value = table_user[i][2];
                     this.dataGridView_User.Rows[i].Cells[2].Value = table_user[i][3];
                 }
+                this.dataGridView_User.Rows[0].Selected = false;
             }
 
             /*
@@ -600,6 +611,7 @@ namespace Diplom_2
                     }
 
                 }
+                this.dataGridView_UserGroup.Rows[0].Selected = false;
             }
         }
 
@@ -609,8 +621,10 @@ namespace Diplom_2
             {
                 this.dataGridView_address.Rows.Clear();     //очистка таблицы
                 List<List<string>> table_address = information.GetTableAddress();
-                if (table_address != null)
+                if (table_address.Count() > 0)
                 {
+                    
+                    
                     for (int i = 0; i < table_address.Count(); i++)
                     {
                         this.dataGridView_address.Rows.Add();
@@ -628,13 +642,14 @@ namespace Diplom_2
                         }
                         //status
                     }
+                    this.dataGridView_address.Rows[0].Selected = false;
+                    
                 }
 
                 this.dataGridView_ARP.Rows.Clear();     //очистка таблицы
                 List<List<string>> table_arp = information.GetTableARP();
-                if (table_arp != null)
+                if (table_arp.Count() > 0)
                 {
-                    //this.label1.Text = table_arp[0][0];
                     //заполнение таблицы
                     for (int i = 0; i < table_arp.Count(); i++)
                     {
@@ -659,6 +674,7 @@ namespace Diplom_2
                         this.dataGridView_ARP.Rows[i].Cells[3].Value = table_arp[i][3];         //interface
 
                     }
+                    this.dataGridView_ARP.Rows[0].Selected = false;
                 }
 
             }
@@ -677,6 +693,8 @@ namespace Diplom_2
                 this.dataGridView_PhysicalInterface.Rows.Clear();       //очистка таблицы
                 this.dataGridView_VirtualInterface.Rows.Clear();        //очистка таблицы
 
+                
+                
                 if (table_interface.Count() > 0)
                 {
                     for (int i = 0; i < table_interface.Count(); i++)
@@ -689,13 +707,20 @@ namespace Diplom_2
                             this.dataGridView_PhysicalInterface.Rows[dataGridView_PhysicalInterface.Rows.Count - 1].Cells[2].Value = table_interface[i][2];     //type
                             this.dataGridView_PhysicalInterface.Rows[dataGridView_PhysicalInterface.Rows.Count - 1].Cells[3].Value = table_interface[i][3];     //download
                             this.dataGridView_PhysicalInterface.Rows[dataGridView_PhysicalInterface.Rows.Count - 1].Cells[4].Value = table_interface[i][4];     //upload
-                            if (table_interface[i][5] == "true")        //изменить подсветку строки, если интерфейс не активен
+                            if (table_interface[i][6] == "true")        //изменить подсветку строки, если интерфейс не активен
                             {
                                 this.dataGridView_PhysicalInterface.Rows[dataGridView_PhysicalInterface.Rows.Count - 1].DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
                             }
                             else
                             {
-                                this.dataGridView_PhysicalInterface.Rows[dataGridView_PhysicalInterface.Rows.Count - 1].DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+                                if (table_interface[i][5] != "true")        //изменить цвет, если кабель не подключен к интерфейсу
+                                {
+                                    this.dataGridView_PhysicalInterface.Rows[dataGridView_PhysicalInterface.Rows.Count - 1].DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(186)))), ((int)(((byte)(3)))));
+                                }
+                                else
+                                {
+                                    this.dataGridView_PhysicalInterface.Rows[dataGridView_PhysicalInterface.Rows.Count - 1].DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+                                }
                             }
                         }
                         else
@@ -706,7 +731,7 @@ namespace Diplom_2
                             this.dataGridView_VirtualInterface.Rows[dataGridView_VirtualInterface.Rows.Count - 1].Cells[2].Value = table_interface[i][2];     //type
                             this.dataGridView_VirtualInterface.Rows[dataGridView_VirtualInterface.Rows.Count - 1].Cells[3].Value = table_interface[i][3];     //download
                             this.dataGridView_VirtualInterface.Rows[dataGridView_VirtualInterface.Rows.Count - 1].Cells[4].Value = table_interface[i][4];     //upload
-                            if (table_interface[i][5] == "true")        //изменить подсветку строки, если интерфейс не активен
+                            if (table_interface[i][6] == "true")        //изменить подсветку строки, если интерфейс не активен
                             {
                                 this.dataGridView_VirtualInterface.Rows[dataGridView_VirtualInterface.Rows.Count - 1].DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
 
@@ -718,7 +743,8 @@ namespace Diplom_2
                         }
 
                     }
-
+                    this.dataGridView_VirtualInterface.Rows[0].Selected = false;
+                    this.dataGridView_PhysicalInterface.Rows[0].Selected = false;
                 }
             }
             else if (tabControl2.SelectedTab == tabControl2.TabPages["Service_tab"])
@@ -830,6 +856,8 @@ namespace Diplom_2
                             this.textBox_www_ssl_port.Text = (table_service[i][2]);
                         }
                     }
+
+                    
                 }
             }
             else if (tabControl2.SelectedTab == tabControl2.TabPages["Log_tab"])
@@ -861,22 +889,26 @@ namespace Diplom_2
                 try
                 {
                     List<List<string>> table_firewall = information.GetTableFirewall();
-                    this.dataGridView_firewall.Rows.Clear();        //очистка таблицы
-                    for (int i = 0; i < table_firewall.Count(); i++)
-                    {
-                        this.dataGridView_firewall.Rows.Add();
-                        this.dataGridView_firewall.Rows[i].Cells[0].Value = table_firewall[i][1];       //action
-                        this.dataGridView_firewall.Rows[i].Cells[1].Value = table_firewall[i][2];       //chain
-                        this.dataGridView_firewall.Rows[i].Cells[2].Value = table_firewall[i][3];       //interface
-                        this.dataGridView_firewall.Rows[i].Cells[3].Value = table_firewall[i][4];       //protocol
-                        this.dataGridView_firewall.Rows[i].Cells[4].Value = table_firewall[i][5];       //port
-                        this.dataGridView_firewall.Rows[i].Cells[5].Value = table_firewall[i][6];       //address list
-                        this.dataGridView_firewall.Rows[i].Cells[6].Value = table_firewall[i][7];       //comment
-                        if (table_firewall[i][8] == "true")     //изменение подсветки (deactive)
+                    if (table_firewall.Count > 0)
+                    { 
+                        this.dataGridView_firewall.Rows.Clear();        //очистка таблицы
+                        for (int i = 0; i < table_firewall.Count(); i++)
                         {
-                            this.dataGridView_firewall.Rows[dataGridView_firewall.Rows.Count - 1].DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+                            this.dataGridView_firewall.Rows.Add();
+                            this.dataGridView_firewall.Rows[i].Cells[0].Value = table_firewall[i][1];       //action
+                            this.dataGridView_firewall.Rows[i].Cells[1].Value = table_firewall[i][2];       //chain
+                            this.dataGridView_firewall.Rows[i].Cells[2].Value = table_firewall[i][3];       //interface
+                            this.dataGridView_firewall.Rows[i].Cells[3].Value = table_firewall[i][4];       //protocol
+                            this.dataGridView_firewall.Rows[i].Cells[4].Value = table_firewall[i][5];       //port
+                            this.dataGridView_firewall.Rows[i].Cells[5].Value = table_firewall[i][6];       //address list
+                            this.dataGridView_firewall.Rows[i].Cells[6].Value = table_firewall[i][7];       //comment
+                            if (table_firewall[i][8] == "true")     //изменение подсветки (deactive)
+                            {
+                                this.dataGridView_firewall.Rows[dataGridView_firewall.Rows.Count - 1].DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+                            }
                         }
-
+                        
+                        this.dataGridView_firewall.Rows[0].Selected = false;
                     }
                 }
                 catch { }
@@ -886,12 +918,15 @@ namespace Diplom_2
 
         }
 
+        
         private void UpdateLogTable()
         {
+
             List<List<string>> table_Log = information.GetLog();
             if (table_Log.Count() > 0)
             {
-                this.dataGridView_log.Rows.Clear();
+                this.dataGridView_log.Rows.Clear();     //очистка таблицы
+
                 for (int i = 0; i < table_Log.Count(); i++)
                 {
                     this.dataGridView_log.Rows.Add();
@@ -910,7 +945,7 @@ namespace Diplom_2
                     this.dataGridView_log.Rows[i].Cells[2].Value = table_Log[i][2];     //message
                 }
                 this.dataGridView_log.Sort(this.dataGridView_log.Columns["Time_Log"], ListSortDirection.Descending);
-
+                this.dataGridView_log.Rows[0].Selected = false;
                 //this.dataGridView_log.Sort(this.dataGridView_log.Columns["Column1"]);
             }
         }
@@ -966,10 +1001,7 @@ namespace Diplom_2
                 information.SendCreateNewGroup(new_usergroup);
                 UpdateUserTable();
             }
-
-
         }
-
 
         //проверка наличия интернета
         private void timer_CheckInternet_Tick(object sender, EventArgs e)
@@ -1022,37 +1054,19 @@ namespace Diplom_2
         {
             if (SafeMode == false)
             {
-
                 //Включение режима SafeMode
                 information.SendStartSafeMode();
                 this.button_SafeMode.BackColor = System.Drawing.SystemColors.ButtonShadow;
                 
                 SafeMode = true;        //изменить значение флага
-
-                /*
-                 * Thread tr = new Thread(StartSafeMode);
-                tr.Start();
-                */
                 Countdown(900);  //начало отсчета в обратном порядке (15 минут)
             }
             else
             {
-                /*
-                Thread tr = new Thread(EndSafeMode);
-                tr.Start();
-                */
-                
-                /*
-                SafeMode = false;
-                information.SendEndSafeMode();
-                return;
-                */
-                
-                
                 //Отключение режима SafeMode
                 information.SendEndSafeMode();
                 this.button_SafeMode.BackColor = System.Drawing.SystemColors.ButtonFace;
-                
+                this.label_timer_safemode.Visible = false;
             }
         }
 
@@ -1088,7 +1102,7 @@ namespace Diplom_2
                     temp.Add("=.id=*" + (i).ToString());
                 }
                 temp.Add("=disabled=" + (!(checkBoxes[i].Checked)).ToString().ToLower());
-                //temp.Add("=port=" + textBoxes[i].Text);
+                temp.Add("=port=" + textBoxes[i].Text);
                 send.Add(temp);
             }
             information.SendUpdateService(send);
@@ -1137,6 +1151,7 @@ namespace Diplom_2
         //обновление таблицы лога по нажатию кнопки
         private void button_update_log_Click(object sender, EventArgs e)
         {
+            information.SendLog();
             this.UpdateLogTable();
         }
 
@@ -1222,6 +1237,7 @@ namespace Diplom_2
                 information.SendCreateRuleFirewall(name_address, WorkFirewall.chain, "drop");
             }
         }
+
     }
 
 

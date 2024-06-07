@@ -89,7 +89,9 @@ namespace Diplom_2
                 bool rez = false;
                 try
                 {
-                    tmp[3] = (byte)connection.ReadByte();
+                    //if (tmp[3] == 220) tmp[3] = (byte)connection.ReadByte();
+                    tmp[3] = (byte)connection.ReadByte();     //original
+
                     //if(tmp[3] == 220) tmp[3] = (byte)connection.ReadByte(); it sometimes happend to me that 
                     //mikrotik send 220 as some kind of "bonus" between words, this fixed things, not sure about it though
                     rez = true;
@@ -106,6 +108,11 @@ namespace Diplom_2
                             continue;
                         }
                     }
+                    /*else if (tmp[3] == 0)
+                    {
+                        List<string> temp = new List<string>();
+                        return temp; 
+                    }*/
                     else
                     {
                         if (tmp[3] < 0x80)

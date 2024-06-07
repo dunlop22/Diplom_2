@@ -29,6 +29,7 @@ namespace Diplom_2
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddUserGroupForm));
             this.label1 = new System.Windows.Forms.Label();
             this.textBox_Name = new System.Windows.Forms.TextBox();
             this.checkBox_local = new System.Windows.Forms.CheckBox();
@@ -58,7 +59,7 @@ namespace Diplom_2
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label1.Location = new System.Drawing.Point(151, 76);
+            this.label1.Location = new System.Drawing.Point(34, 40);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(178, 20);
             this.label1.TabIndex = 0;
@@ -67,7 +68,7 @@ namespace Diplom_2
             // textBox_Name
             // 
             this.textBox_Name.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.textBox_Name.Location = new System.Drawing.Point(344, 70);
+            this.textBox_Name.Location = new System.Drawing.Point(241, 37);
             this.textBox_Name.Name = "textBox_Name";
             this.textBox_Name.Size = new System.Drawing.Size(202, 26);
             this.textBox_Name.TabIndex = 1;
@@ -76,7 +77,7 @@ namespace Diplom_2
             // 
             this.checkBox_local.AutoSize = true;
             this.checkBox_local.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.checkBox_local.Location = new System.Drawing.Point(13, 18);
+            this.checkBox_local.Location = new System.Drawing.Point(53, 37);
             this.checkBox_local.Name = "checkBox_local";
             this.checkBox_local.Size = new System.Drawing.Size(60, 24);
             this.checkBox_local.TabIndex = 2;
@@ -87,7 +88,7 @@ namespace Diplom_2
             // 
             this.checkBox_ssh.AutoSize = true;
             this.checkBox_ssh.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.checkBox_ssh.Location = new System.Drawing.Point(13, 58);
+            this.checkBox_ssh.Location = new System.Drawing.Point(53, 81);
             this.checkBox_ssh.Name = "checkBox_ssh";
             this.checkBox_ssh.Size = new System.Drawing.Size(53, 24);
             this.checkBox_ssh.TabIndex = 3;
@@ -98,7 +99,7 @@ namespace Diplom_2
             // 
             this.checkBox_reboot.AutoSize = true;
             this.checkBox_reboot.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.checkBox_reboot.Location = new System.Drawing.Point(13, 101);
+            this.checkBox_reboot.Location = new System.Drawing.Point(53, 125);
             this.checkBox_reboot.Name = "checkBox_reboot";
             this.checkBox_reboot.Size = new System.Drawing.Size(74, 24);
             this.checkBox_reboot.TabIndex = 4;
@@ -109,7 +110,7 @@ namespace Diplom_2
             // 
             this.checkBox_write.AutoSize = true;
             this.checkBox_write.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.checkBox_write.Location = new System.Drawing.Point(13, 150);
+            this.checkBox_write.Location = new System.Drawing.Point(53, 169);
             this.checkBox_write.Name = "checkBox_write";
             this.checkBox_write.Size = new System.Drawing.Size(61, 24);
             this.checkBox_write.TabIndex = 5;
@@ -120,7 +121,7 @@ namespace Diplom_2
             // 
             this.checkBox_test.AutoSize = true;
             this.checkBox_test.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.checkBox_test.Location = new System.Drawing.Point(13, 192);
+            this.checkBox_test.Location = new System.Drawing.Point(53, 213);
             this.checkBox_test.Name = "checkBox_test";
             this.checkBox_test.Size = new System.Drawing.Size(55, 24);
             this.checkBox_test.TabIndex = 6;
@@ -131,7 +132,7 @@ namespace Diplom_2
             // 
             this.checkBox_password.AutoSize = true;
             this.checkBox_password.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.checkBox_password.Location = new System.Drawing.Point(13, 242);
+            this.checkBox_password.Location = new System.Drawing.Point(53, 257);
             this.checkBox_password.Name = "checkBox_password";
             this.checkBox_password.Size = new System.Drawing.Size(96, 24);
             this.checkBox_password.TabIndex = 7;
@@ -142,7 +143,7 @@ namespace Diplom_2
             // 
             this.checkBox_sniff.AutoSize = true;
             this.checkBox_sniff.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.checkBox_sniff.Location = new System.Drawing.Point(13, 282);
+            this.checkBox_sniff.Location = new System.Drawing.Point(53, 301);
             this.checkBox_sniff.Name = "checkBox_sniff";
             this.checkBox_sniff.Size = new System.Drawing.Size(58, 24);
             this.checkBox_sniff.TabIndex = 8;
@@ -153,7 +154,7 @@ namespace Diplom_2
             // 
             this.checkBox_api.AutoSize = true;
             this.checkBox_api.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.checkBox_api.Location = new System.Drawing.Point(13, 325);
+            this.checkBox_api.Location = new System.Drawing.Point(53, 345);
             this.checkBox_api.Name = "checkBox_api";
             this.checkBox_api.Size = new System.Drawing.Size(49, 24);
             this.checkBox_api.TabIndex = 9;
@@ -164,7 +165,7 @@ namespace Diplom_2
             // 
             this.checkBox_dude.AutoSize = true;
             this.checkBox_dude.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.checkBox_dude.Location = new System.Drawing.Point(13, 374);
+            this.checkBox_dude.Location = new System.Drawing.Point(53, 389);
             this.checkBox_dude.Name = "checkBox_dude";
             this.checkBox_dude.Size = new System.Drawing.Size(64, 24);
             this.checkBox_dude.TabIndex = 10;
@@ -175,7 +176,7 @@ namespace Diplom_2
             // 
             this.checkBox_telnet.AutoSize = true;
             this.checkBox_telnet.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.checkBox_telnet.Location = new System.Drawing.Point(192, 13);
+            this.checkBox_telnet.Location = new System.Drawing.Point(224, 37);
             this.checkBox_telnet.Name = "checkBox_telnet";
             this.checkBox_telnet.Size = new System.Drawing.Size(68, 24);
             this.checkBox_telnet.TabIndex = 11;
@@ -186,7 +187,7 @@ namespace Diplom_2
             // 
             this.checkBox_ftp.AutoSize = true;
             this.checkBox_ftp.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.checkBox_ftp.Location = new System.Drawing.Point(192, 58);
+            this.checkBox_ftp.Location = new System.Drawing.Point(224, 81);
             this.checkBox_ftp.Name = "checkBox_ftp";
             this.checkBox_ftp.Size = new System.Drawing.Size(47, 24);
             this.checkBox_ftp.TabIndex = 12;
@@ -197,7 +198,7 @@ namespace Diplom_2
             // 
             this.checkBox_read.AutoSize = true;
             this.checkBox_read.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.checkBox_read.Location = new System.Drawing.Point(192, 101);
+            this.checkBox_read.Location = new System.Drawing.Point(224, 125);
             this.checkBox_read.Name = "checkBox_read";
             this.checkBox_read.Size = new System.Drawing.Size(60, 24);
             this.checkBox_read.TabIndex = 13;
@@ -208,7 +209,7 @@ namespace Diplom_2
             // 
             this.checkBox_policy.AutoSize = true;
             this.checkBox_policy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.checkBox_policy.Location = new System.Drawing.Point(192, 150);
+            this.checkBox_policy.Location = new System.Drawing.Point(224, 169);
             this.checkBox_policy.Name = "checkBox_policy";
             this.checkBox_policy.Size = new System.Drawing.Size(67, 24);
             this.checkBox_policy.TabIndex = 16;
@@ -219,7 +220,7 @@ namespace Diplom_2
             // 
             this.checkBox_winbox.AutoSize = true;
             this.checkBox_winbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.checkBox_winbox.Location = new System.Drawing.Point(192, 192);
+            this.checkBox_winbox.Location = new System.Drawing.Point(224, 213);
             this.checkBox_winbox.Name = "checkBox_winbox";
             this.checkBox_winbox.Size = new System.Drawing.Size(76, 24);
             this.checkBox_winbox.TabIndex = 15;
@@ -230,7 +231,7 @@ namespace Diplom_2
             // 
             this.checkBox_web.AutoSize = true;
             this.checkBox_web.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.checkBox_web.Location = new System.Drawing.Point(192, 242);
+            this.checkBox_web.Location = new System.Drawing.Point(224, 257);
             this.checkBox_web.Name = "checkBox_web";
             this.checkBox_web.Size = new System.Drawing.Size(57, 24);
             this.checkBox_web.TabIndex = 14;
@@ -241,7 +242,7 @@ namespace Diplom_2
             // 
             this.checkBox_sensitive.AutoSize = true;
             this.checkBox_sensitive.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.checkBox_sensitive.Location = new System.Drawing.Point(192, 282);
+            this.checkBox_sensitive.Location = new System.Drawing.Point(224, 301);
             this.checkBox_sensitive.Name = "checkBox_sensitive";
             this.checkBox_sensitive.Size = new System.Drawing.Size(89, 24);
             this.checkBox_sensitive.TabIndex = 19;
@@ -252,7 +253,7 @@ namespace Diplom_2
             // 
             this.checkBox_romon.AutoSize = true;
             this.checkBox_romon.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.checkBox_romon.Location = new System.Drawing.Point(192, 324);
+            this.checkBox_romon.Location = new System.Drawing.Point(224, 345);
             this.checkBox_romon.Name = "checkBox_romon";
             this.checkBox_romon.Size = new System.Drawing.Size(73, 24);
             this.checkBox_romon.TabIndex = 18;
@@ -263,7 +264,7 @@ namespace Diplom_2
             // 
             this.checkBox_tikapp.AutoSize = true;
             this.checkBox_tikapp.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.checkBox_tikapp.Location = new System.Drawing.Point(192, 374);
+            this.checkBox_tikapp.Location = new System.Drawing.Point(224, 389);
             this.checkBox_tikapp.Name = "checkBox_tikapp";
             this.checkBox_tikapp.Size = new System.Drawing.Size(71, 24);
             this.checkBox_tikapp.TabIndex = 17;
@@ -291,9 +292,9 @@ namespace Diplom_2
             this.groupBox1.Controls.Add(this.checkBox_telnet);
             this.groupBox1.Controls.Add(this.checkBox_dude);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.groupBox1.Location = new System.Drawing.Point(170, 124);
+            this.groupBox1.Location = new System.Drawing.Point(38, 85);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(376, 455);
+            this.groupBox1.Size = new System.Drawing.Size(405, 455);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Политики";
@@ -301,7 +302,7 @@ namespace Diplom_2
             // button_createGroup
             // 
             this.button_createGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.button_createGroup.Location = new System.Drawing.Point(272, 585);
+            this.button_createGroup.Location = new System.Drawing.Point(162, 568);
             this.button_createGroup.Name = "button_createGroup";
             this.button_createGroup.Size = new System.Drawing.Size(147, 53);
             this.button_createGroup.TabIndex = 21;
@@ -313,14 +314,17 @@ namespace Diplom_2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(714, 682);
+            this.ClientSize = new System.Drawing.Size(487, 682);
             this.Controls.Add(this.button_createGroup);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textBox_Name);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddUserGroupForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AddUserGroupForm";
             this.Load += new System.EventHandler(this.AddUserGroupForm_Load);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AddUserGroupForm_KeyPress);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

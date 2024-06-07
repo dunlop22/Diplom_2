@@ -88,5 +88,13 @@ namespace Diplom_2
             mass[16] = checkBox_dude;
             mass[17] = checkBox_tikapp;
         }
+
+        private void AddUserGroupForm_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Escape)
+            {
+                this.Close();
+            }
+        }
     }
 }

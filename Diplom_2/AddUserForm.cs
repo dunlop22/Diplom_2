@@ -45,12 +45,13 @@ namespace Diplom_2
         }
 
 
-        private void AddUserForm_Load(object sender, EventArgs e)
+
+        private void AddUserForm_KeyPress(object sender, KeyPressEventArgs e)
         {
-            /*
-            for (int i=0;i<)
-            this.comboBox_Group.Items.Add()
-            */
+            if (e.KeyChar == (char)Keys.Escape)
+            {
+                this.Close();
+            }
         }
     }
 }

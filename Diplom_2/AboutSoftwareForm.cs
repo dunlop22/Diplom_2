@@ -87,5 +87,13 @@ namespace Diplom_2
             
             
         }
+
+        private void AboutSoftwareForm_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Escape)
+            {
+                this.Close();
+            }
+        }
     }
 }

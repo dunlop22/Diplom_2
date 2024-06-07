@@ -29,6 +29,7 @@ namespace Diplom_2
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddUserForm));
             this.button_Create = new System.Windows.Forms.Button();
             this.label_Login = new System.Windows.Forms.Label();
             this.label_Group = new System.Windows.Forms.Label();
@@ -65,7 +66,7 @@ namespace Diplom_2
             // 
             this.label_Group.AutoSize = true;
             this.label_Group.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label_Group.Location = new System.Drawing.Point(73, 97);
+            this.label_Group.Location = new System.Drawing.Point(73, 93);
             this.label_Group.Name = "label_Group";
             this.label_Group.Size = new System.Drawing.Size(61, 20);
             this.label_Group.TabIndex = 2;
@@ -75,7 +76,7 @@ namespace Diplom_2
             // 
             this.label_Pass1.AutoSize = true;
             this.label_Pass1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label_Pass1.Location = new System.Drawing.Point(73, 152);
+            this.label_Pass1.Location = new System.Drawing.Point(73, 147);
             this.label_Pass1.Name = "label_Pass1";
             this.label_Pass1.Size = new System.Drawing.Size(76, 40);
             this.label_Pass1.TabIndex = 3;
@@ -103,7 +104,7 @@ namespace Diplom_2
             // 
             this.comboBox_Group.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.comboBox_Group.FormattingEnabled = true;
-            this.comboBox_Group.Location = new System.Drawing.Point(216, 94);
+            this.comboBox_Group.Location = new System.Drawing.Point(216, 90);
             this.comboBox_Group.Name = "comboBox_Group";
             this.comboBox_Group.Size = new System.Drawing.Size(182, 28);
             this.comboBox_Group.TabIndex = 6;
@@ -111,7 +112,7 @@ namespace Diplom_2
             // textBox_Pass1
             // 
             this.textBox_Pass1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.textBox_Pass1.Location = new System.Drawing.Point(216, 166);
+            this.textBox_Pass1.Location = new System.Drawing.Point(216, 161);
             this.textBox_Pass1.Name = "textBox_Pass1";
             this.textBox_Pass1.PasswordChar = '*';
             this.textBox_Pass1.Size = new System.Drawing.Size(182, 26);
@@ -140,9 +141,11 @@ namespace Diplom_2
             this.Controls.Add(this.label_Group);
             this.Controls.Add(this.label_Login);
             this.Controls.Add(this.button_Create);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddUserForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AddUserForm";
-            this.Load += new System.EventHandler(this.AddUserForm_Load);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AddUserForm_KeyPress);
             this.ResumeLayout(false);
             this.PerformLayout();
 

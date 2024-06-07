@@ -53,6 +53,7 @@ namespace Diplom_2
             internal string mac;
             internal string download;
             internal string upload;
+            internal string connection;
             internal string status;
         }
         private List<Interface> Interfaces = new List<Interface>();
@@ -157,14 +158,8 @@ namespace Diplom_2
         }
         internal void FirstStart()
         {
-
             mikrotik = new MK(conn.host, conn.port);
             mikrotik.Login(conn.login, conn.password);
-
-
-
-
-
         }
         //запрос на обновление ресурсов
 
@@ -173,35 +168,12 @@ namespace Diplom_2
             mikrotik.Send("/system/resource/print");
             mikrotik.Send(".tag=res", true);
 
-            /*
-             MK mikrotik = new MK(conn.host);
-            */
-
-            /*
-            if (mikrotik.Login(conn.login, conn.password))
-            {
-
-                mikrotik.Send("/system/resource/print");
-                mikrotik.Send(".tag=res", true);
-            }
-            else
-            {
-                return;
-            }
-            */
         }
 
         internal void SendInterface()
         {
             mikrotik.Send("/interface/print");
             mikrotik.Send(".tag=interface", true);
-            /*
-            if (mikrotik.Login(conn.login, conn.password))
-            {
-                mikrotik.Send("/interface/print");
-                mikrotik.Send(".tag=interface", true);
-            }
-            */
         }
         internal List<List<string>> GetTableAddress()
         {
@@ -278,6 +250,7 @@ namespace Diplom_2
                 temp.Add(Interfaces[i].type);
                 temp.Add((Math.Round((Convert.ToDouble(Interfaces[i].download) / 1024 / 1024 / 953.7), 2).ToString()) + " GB");
                 temp.Add((Math.Round((Convert.ToDouble(Interfaces[i].upload) / 1024 / 1024 / 953.7), 2).ToString()) + " GB");
+                temp.Add(Interfaces[i].connection);
                 temp.Add(Interfaces[i].status);
                 all.Add(temp);
             }
@@ -535,7 +508,7 @@ namespace Diplom_2
             mikrotik.Send("=name=APISafeMode");
             mikrotik.Send("=source=system backup save name=backup_api\r\n" +
                 //Удаление записи scheduler
-                "/syste scheduler remove \"API_" + time + "\"\r\n\r\n" +
+                "/system scheduler remove \"API_" + time + "\"\r\n\r\n" +
                 ":delay 900\r\n" +
                 "/system backup load name=backup_api", true);
 
@@ -804,7 +777,24 @@ namespace Diplom_2
             }
         }
 
+        internal void SendRequest()
+        {
+            
+            this.SendARP();
+            this.SendAddress();
+            this.SendUser();
+            this.SendInterface();
+            this.SendUserGroup();
+            this.SendService();
+            this.SendLog();
+            this.SendFirewall();
 
+            while (true)
+            {
+                this.SendResource();
+                Thread.Sleep(200);
+            }
+        }
 
         internal void GetGlobalIP()
         {
@@ -881,46 +871,64 @@ namespace Diplom_2
         {
             //bool rez = false;
             int g = 0;
+            
+            //this.SendARP();
+            //this.SendAddress();
+            //this.SendUser();
+            //this.SendInterface();
+            //this.SendUserGroup();
+            //this.SendService();
+            //this.SendLog();
+            //this.SendFirewall();
             while (true)
             {
+                //this.SendResource();        //получение ресурсов
+                /*
+                //this.SendResource();        //получение ресурсов
                 if (g % 7 == 0)
                 {
-                    this.SendResource();        //получение ресурсов
+                    //this.SendResource();        //получение ресурсов
                 }
                 else if (g % 7 == 1)
                 {
-                    this.SendARP();
-                    this.SendAddress();
+                    //this.SendARP();
+                    //this.SendAddress();
                 }
                 else if (g % 7 == 2)
                 {
-                    this.SendUser();
+                    //this.SendUser();
                 }
                 else if (g % 7 == 3)
                 {
-                    this.SendUserGroup();
+                    //this.SendUserGroup();
                 }
                 else if (g % 7 == 4)
                 {
-                    this.SendInterface();
+                    //this.SendInterface();
                 }
                 else if (g % 7 == 5)
                 {
-                    this.SendService();
+                    //this.SendService();
                 }
                 else if (g % 13 == 6)
                 {
-                    this.SendLog();
-                    this.SendFirewall();
+                    //this.SendLog();
+                    //this.SendFirewall();
                 }
-
                 g++;
+                Thread.Sleep(50);
+                */
+
+
                 List<string> answer = new List<string>();
+                //this.mikrotik.Read();
+                
                 foreach (string h in mikrotik.Read())
                 {
                     answer.Add(h);
                     //Console.WriteLine(h);
                 }
+                
                 for (int i = 0; i < answer.Count; i++)
                 {
                     if (answer.Count() > 0)
@@ -1227,6 +1235,10 @@ namespace Diplom_2
                                         else if (words[j] == "tx-byte")
                                         {
                                             temp.upload = words[j + 1];
+                                        }
+                                        else if (words[j] == "running")
+                                        {
+                                            temp.connection = words[j + 1];
                                         }
                                         else if (words[j] == "disabled")
                                         {
