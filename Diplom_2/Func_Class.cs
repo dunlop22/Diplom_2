@@ -602,6 +602,7 @@ namespace Diplom_2
 
     class Func_Class
     {
+        
         //проверка открытости порта
         public bool check_port_open(string host, int port)
         {
@@ -618,6 +619,7 @@ namespace Diplom_2
                 return false;
             }
         }
+        
 
         
         //0 - удачное подключение

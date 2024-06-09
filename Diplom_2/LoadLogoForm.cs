@@ -61,5 +61,13 @@ namespace Diplom_2
         {
             this.Close();
         }
+
+        private void LoadLogoForm_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Space)
+            {
+                this.Close();
+            }
+        }
     }
 }

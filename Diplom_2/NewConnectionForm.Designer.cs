@@ -57,10 +57,13 @@ namespace Diplom_2
             this.radioButton_api_ssl = new System.Windows.Forms.RadioButton();
             this.radioButton_api = new System.Windows.Forms.RadioButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.login_pictureBox = new System.Windows.Forms.PictureBox();
             this.port_pictureBox = new System.Windows.Forms.PictureBox();
             this.test_ip_pictureBox = new System.Windows.Forms.PictureBox();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.button_update_neighbors = new System.Windows.Forms.Button();
+            this.pictureBox_status_internet = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Neighbors)).BeginInit();
             this.groupBox_neighbors.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -68,6 +71,7 @@ namespace Diplom_2
             ((System.ComponentModel.ISupportInitialize)(this.login_pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.port_pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.test_ip_pictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_status_internet)).BeginInit();
             this.SuspendLayout();
             // 
             // ip_label
@@ -75,7 +79,7 @@ namespace Diplom_2
             this.ip_label.AutoSize = true;
             this.ip_label.Location = new System.Drawing.Point(40, 51);
             this.ip_label.Name = "ip_label";
-            this.ip_label.Size = new System.Drawing.Size(91, 20);
+            this.ip_label.Size = new System.Drawing.Size(80, 17);
             this.ip_label.TabIndex = 0;
             this.ip_label.Text = "Connect to:";
             // 
@@ -83,7 +87,7 @@ namespace Diplom_2
             // 
             this.host_textBox.Location = new System.Drawing.Point(137, 48);
             this.host_textBox.Name = "host_textBox";
-            this.host_textBox.Size = new System.Drawing.Size(158, 26);
+            this.host_textBox.Size = new System.Drawing.Size(158, 23);
             this.host_textBox.TabIndex = 1;
             this.host_textBox.TextChanged += new System.EventHandler(this.ip_textBox_TextChanged);
             this.host_textBox.Leave += new System.EventHandler(this.host_textBox_Leave);
@@ -92,7 +96,7 @@ namespace Diplom_2
             // 
             this.port_textBox.Location = new System.Drawing.Point(413, 48);
             this.port_textBox.Name = "port_textBox";
-            this.port_textBox.Size = new System.Drawing.Size(78, 26);
+            this.port_textBox.Size = new System.Drawing.Size(78, 23);
             this.port_textBox.TabIndex = 2;
             this.port_textBox.TextChanged += new System.EventHandler(this.port_textBox_TextChanged);
             this.port_textBox.Leave += new System.EventHandler(this.port_textBox_Leave);
@@ -101,7 +105,7 @@ namespace Diplom_2
             // 
             this.login_textBox.Location = new System.Drawing.Point(137, 108);
             this.login_textBox.Name = "login_textBox";
-            this.login_textBox.Size = new System.Drawing.Size(158, 26);
+            this.login_textBox.Size = new System.Drawing.Size(158, 23);
             this.login_textBox.TabIndex = 3;
             this.login_textBox.Leave += new System.EventHandler(this.login_textBox_Leave);
             // 
@@ -110,7 +114,7 @@ namespace Diplom_2
             this.password_textBox.Location = new System.Drawing.Point(137, 167);
             this.password_textBox.Name = "password_textBox";
             this.password_textBox.PasswordChar = '*';
-            this.password_textBox.Size = new System.Drawing.Size(158, 26);
+            this.password_textBox.Size = new System.Drawing.Size(158, 23);
             this.password_textBox.TabIndex = 4;
             // 
             // port_label
@@ -118,7 +122,7 @@ namespace Diplom_2
             this.port_label.AutoSize = true;
             this.port_label.Location = new System.Drawing.Point(365, 51);
             this.port_label.Name = "port_label";
-            this.port_label.Size = new System.Drawing.Size(42, 20);
+            this.port_label.Size = new System.Drawing.Size(38, 17);
             this.port_label.TabIndex = 5;
             this.port_label.Text = "Port:";
             // 
@@ -127,7 +131,7 @@ namespace Diplom_2
             this.login_label.AutoSize = true;
             this.login_label.Location = new System.Drawing.Point(43, 111);
             this.login_label.Name = "login_label";
-            this.login_label.Size = new System.Drawing.Size(52, 20);
+            this.login_label.Size = new System.Drawing.Size(47, 17);
             this.login_label.TabIndex = 6;
             this.login_label.Text = "Login:";
             // 
@@ -136,15 +140,16 @@ namespace Diplom_2
             this.password_label.AutoSize = true;
             this.password_label.Location = new System.Drawing.Point(43, 170);
             this.password_label.Name = "password_label";
-            this.password_label.Size = new System.Drawing.Size(82, 20);
+            this.password_label.Size = new System.Drawing.Size(73, 17);
             this.password_label.TabIndex = 7;
             this.password_label.Text = "Password:";
             // 
             // test_button
             // 
-            this.test_button.Location = new System.Drawing.Point(240, 284);
+            this.test_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.test_button.Location = new System.Drawing.Point(251, 284);
             this.test_button.Name = "test_button";
-            this.test_button.Size = new System.Drawing.Size(135, 41);
+            this.test_button.Size = new System.Drawing.Size(120, 41);
             this.test_button.TabIndex = 8;
             this.test_button.Text = "Тест";
             this.test_button.UseVisualStyleBackColor = true;
@@ -152,9 +157,10 @@ namespace Diplom_2
             // 
             // connect_button
             // 
+            this.connect_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.connect_button.Location = new System.Drawing.Point(453, 284);
             this.connect_button.Name = "connect_button";
-            this.connect_button.Size = new System.Drawing.Size(135, 41);
+            this.connect_button.Size = new System.Drawing.Size(120, 41);
             this.connect_button.TabIndex = 9;
             this.connect_button.Text = "Подключение";
             this.connect_button.UseVisualStyleBackColor = true;
@@ -162,17 +168,19 @@ namespace Diplom_2
             // 
             // name_textBox
             // 
+            this.name_textBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.name_textBox.Location = new System.Drawing.Point(319, 28);
             this.name_textBox.Name = "name_textBox";
-            this.name_textBox.Size = new System.Drawing.Size(200, 26);
+            this.name_textBox.Size = new System.Drawing.Size(200, 23);
             this.name_textBox.TabIndex = 14;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label1.Location = new System.Drawing.Point(222, 31);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 20);
+            this.label1.Size = new System.Drawing.Size(49, 17);
             this.label1.TabIndex = 15;
             this.label1.Text = "Name:";
             // 
@@ -246,17 +254,18 @@ namespace Diplom_2
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 590);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 586);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(846, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(846, 26);
             this.statusStrip1.TabIndex = 18;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // toolStripStatusLabel1
             // 
+            this.toolStripStatusLabel1.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(59, 17);
-            this.toolStripStatusLabel1.Text = "Интернет";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(82, 21);
+            this.toolStripStatusLabel1.Text = "Интернет:";
             // 
             // label_ip_for_mac
             // 
@@ -284,6 +293,7 @@ namespace Diplom_2
             this.groupBox1.Controls.Add(this.port_pictureBox);
             this.groupBox1.Controls.Add(this.password_label);
             this.groupBox1.Controls.Add(this.test_ip_pictureBox);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.groupBox1.Location = new System.Drawing.Point(114, 70);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(573, 208);
@@ -302,6 +312,7 @@ namespace Diplom_2
             this.radioButton_api_ssl.TabStop = true;
             this.radioButton_api_ssl.Text = "API-SSL";
             this.radioButton_api_ssl.UseVisualStyleBackColor = true;
+            this.radioButton_api_ssl.Visible = false;
             this.radioButton_api_ssl.CheckedChanged += new System.EventHandler(this.radioButton_api_ssl_CheckedChanged);
             // 
             // radioButton_api
@@ -315,7 +326,13 @@ namespace Diplom_2
             this.radioButton_api.TabStop = true;
             this.radioButton_api.Text = "API";
             this.radioButton_api.UseVisualStyleBackColor = true;
+            this.radioButton_api.Visible = false;
             this.radioButton_api.CheckedChanged += new System.EventHandler(this.radioButton_api_CheckedChanged);
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
             // login_pictureBox
             // 
@@ -341,16 +358,32 @@ namespace Diplom_2
             this.test_ip_pictureBox.TabIndex = 10;
             this.test_ip_pictureBox.TabStop = false;
             // 
-            // backgroundWorker1
+            // button_update_neighbors
             // 
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            this.button_update_neighbors.Location = new System.Drawing.Point(735, 302);
+            this.button_update_neighbors.Name = "button_update_neighbors";
+            this.button_update_neighbors.Size = new System.Drawing.Size(75, 23);
+            this.button_update_neighbors.TabIndex = 21;
+            this.button_update_neighbors.Text = "update";
+            this.button_update_neighbors.UseVisualStyleBackColor = true;
+            this.button_update_neighbors.Click += new System.EventHandler(this.button_update_neighbors_Click);
+            // 
+            // pictureBox_status_internet
+            // 
+            this.pictureBox_status_internet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.pictureBox_status_internet.Location = new System.Drawing.Point(83, 593);
+            this.pictureBox_status_internet.Name = "pictureBox_status_internet";
+            this.pictureBox_status_internet.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox_status_internet.TabIndex = 22;
+            this.pictureBox_status_internet.TabStop = false;
             // 
             // NewConnectionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(846, 612);
+            this.Controls.Add(this.pictureBox_status_internet);
+            this.Controls.Add(this.button_update_neighbors);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.groupBox_neighbors);
@@ -361,7 +394,10 @@ namespace Diplom_2
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "NewConnectionForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Новое подключение";
             this.Load += new System.EventHandler(this.NewConnectionForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Neighbors)).EndInit();
@@ -373,6 +409,7 @@ namespace Diplom_2
             ((System.ComponentModel.ISupportInitialize)(this.login_pictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.port_pictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.test_ip_pictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_status_internet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -410,5 +447,8 @@ namespace Diplom_2
         private System.Windows.Forms.RadioButton radioButton_api_ssl;
         private System.Windows.Forms.RadioButton radioButton_api;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button button_update_neighbors;
+        private System.Windows.Forms.PictureBox pictureBox_status_internet;
     }
 }

@@ -63,6 +63,7 @@ namespace Diplom_2
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LoadLogoForm";
             this.Load += new System.EventHandler(this.LoadLogoForm_Load);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.LoadLogoForm_KeyPress);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 

@@ -397,16 +397,20 @@ namespace Diplom_2
                 this.label_factory_soft.Text = "Factory Software: " + resource[15];
 
 
-                //вставка изображения оборудования
-
+                //Попытка вставки изображения оборудования
                 try
                 {
-                    this.pictureBox1.Image= new Bitmap(Properties.Resources.hAP_ac_2);
+                    if (resource[8] == "hAP lite")
+                    {
+                        this.pictureBox1.Image = new Bitmap(Properties.Resources.hAP_lite);
+                    }
+                    else if (resource[8] == "hAP ac^2")
+                    {
+                        this.pictureBox1.Image = new Bitmap(Properties.Resources.hAP_ac_2);
+                    }
                     this.pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
                 }
                 catch { }
-
-
 
 
                 //разбор uptime
@@ -568,9 +572,12 @@ namespace Diplom_2
                 for (int i = 0; i < table_user.Count(); i++)
                 {
                     this.dataGridView_User.Rows.Add();
-                    this.dataGridView_User.Rows[i].Cells[0].Value = table_user[i][1];
-                    this.dataGridView_User.Rows[i].Cells[1].Value = table_user[i][2];
-                    this.dataGridView_User.Rows[i].Cells[2].Value = table_user[i][3];
+                    this.dataGridView_User.Rows[i].Cells[0].Value = table_user[i][1];   //логин
+                    this.dataGridView_User.Rows[i].Cells[1].Value = table_user[i][2];   //группа
+                    if (table_user[i][3] != "false")
+                    {
+                        this.dataGridView_User.Rows[i].Cells[2].Value = table_user[i][3];   //время последнего входа
+                    }
                 }
                 this.dataGridView_User.Rows[0].Selected = false;
             }
@@ -971,23 +978,33 @@ namespace Diplom_2
             //Открытие новой формы
             
             AddUserForm AddUser = new AddUserForm();
-            AddUser.Show();
             AddUser.FillComboBox(information.GetTableUserGroupName());
+            AddUser.ShowDialog();
+            Thread.Sleep(500);
+            information.SendUser();
+            Thread.Sleep(500);
+            this.UpdateUserTable();
+
 
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             List<string> new_usergroup = new List<string>();
-            AddUserGroupForm AddUserGroup = new AddUserGroupForm(new_usergroup);
+            AddUserGroupForm AddUserGroup = new AddUserGroupForm();
             AddUserGroup.ShowDialog();
-
+            /*
             //если хоть одно поле заполнено, то создать группу
             if (new_usergroup.Count() > 0)
             {
                 information.SendCreateNewGroup(new_usergroup);
                 UpdateUserTable();
             }
+            */
+            Thread.Sleep(200);
+            information.SendUserGroup();
+            Thread.Sleep(500);
+            this.UpdateUserTable();
         }
 
         //проверка наличия интернета
@@ -1234,15 +1251,17 @@ namespace Diplom_2
         public static string port { get; set; }
         public static string login { get; set; }
         public static string password { get; set; }
-        
+
     }
+
+
+
     static class WorkFirewall
     {
         public static string host { get ; set; }
         public static string chain { get; set; }
         public static int lifetime{ get; set; }
         public static bool rez { get; set; }
-
     }
 
     //проверка интернет-подключения

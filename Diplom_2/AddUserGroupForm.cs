@@ -12,31 +12,38 @@ namespace Diplom_2
 {
     public partial class AddUserGroupForm : Form
     {
-        public AddUserGroupForm(List <string> info_old)
+        public AddUserGroupForm()
         {
             InitializeComponent();
             //info = information;
-            info = info_old;
         }
-        //Данные для создания группы пользователей (имя, политики)
-        List<string> info = new List<string>();
-
 
         CheckBox[] mass = new CheckBox[18];
                
         private void button_createGroup_Click(object sender, EventArgs e)
         {
+
             //проверка параметров
             if (this.textBox_Name.Text != "")
             {
-                info.Add(textBox_Name.Text);
+                string inform_politics = "";
+                string name = textBox_Name.Text;
                 for (int i = 0; i < 18; i++)
                 {
                     if (mass[i].Checked == true)
                     {
-                        info.Add(mass[i].Text);
+                        if (i != 0)
+                        {
+                            inform_politics = inform_politics + ",";
+                        }
+                        inform_politics = inform_politics + mass[i].Text;
+                        //inform_politics.Add(mass[i].Text);
                     }
                 }
+                Info temp = new Info();
+                temp.FirstStart();
+
+                temp.SendCreateNewGroup(name, inform_politics);
                 this.Close();
 
             }

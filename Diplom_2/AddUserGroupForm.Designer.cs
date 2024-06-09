@@ -322,7 +322,7 @@ namespace Diplom_2
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddUserGroupForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AddUserGroupForm";
+            this.Text = "Новая группа";
             this.Load += new System.EventHandler(this.AddUserGroupForm_Load);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AddUserGroupForm_KeyPress);
             this.groupBox1.ResumeLayout(false);

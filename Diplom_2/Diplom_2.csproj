@@ -223,6 +223,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\favicon.ico" />
+    <None Include="Resources\_default.png" />
     <None Include="Resources\70e21443cc50e98f5db7d44246f508ab.jpg" />
     <None Include="Resources\CRS125-24G-1S.png" />
     <None Include="Resources\default.jpg" />

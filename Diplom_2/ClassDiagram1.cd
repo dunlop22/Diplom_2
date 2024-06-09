@@ -45,7 +45,7 @@
   <Class Name="Diplom_2.Func_Class">
     <Position X="8.25" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAQABAIAACAAAAAgAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAABAIAACAAAAAgAAAA=</HashCode>
       <FileName>Func_Class.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -115,7 +115,7 @@
       </Struct>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>gAQAEQAECC1hBJGJAASJMCICUAIAA0/AUCABgKgGhEE=</HashCode>
+      <HashCode>gAQAEQAFCC1hBJGJAASJMCICUQIAA0/AUCQBgKgGhEE=</HashCode>
       <FileName>NewConnectionForm.cs</FileName>
     </TypeIdentifier>
   </Class>

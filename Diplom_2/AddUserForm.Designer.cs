@@ -144,7 +144,7 @@ namespace Diplom_2
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddUserForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AddUserForm";
+            this.Text = "Новый пользователь";
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AddUserForm_KeyPress);
             this.ResumeLayout(false);
             this.PerformLayout();

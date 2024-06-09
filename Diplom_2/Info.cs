@@ -398,26 +398,29 @@ namespace Diplom_2
             }
         }
 
+        //Создание нового пользователя
+        internal void SendCreateNewUser(List<string> inform)
+        {
+            mikrotik.Send("/user/add");
+            mikrotik.Send("=name=" + inform[0]);
+            mikrotik.Send("=password=" + inform[1]);
+            mikrotik.Send("=group=" + inform[2], true);
+        }
 
         //Создание новой группы пользователей
-        internal void SendCreateNewGroup(List<string> inform)
+        internal void SendCreateNewGroup(string name, string inform_politics)
         {
-            
             mikrotik.Send("/user/group/add");
             //перечисление политик
-            mikrotik.Send("=name=" + inform[0]);
-            for (int i = 1; i < inform.Count(); i++)
-            {
-                mikrotik.Send("=policy=" + inform[i]);
-            }
-
-            mikrotik.Send(".tag=newusergroup", true);
+            mikrotik.Send("=name=" + name);
+            mikrotik.Send("=policy=" + inform_politics);
             /*
-            if (mikrotik.Login(connt.login, connt.password))
+            for (int i = 1; i < inform_politics.Count(); i++)
             {
-                //успешное подключение
+                mikrotik.Send("=policy=" + inform_politics);
             }
             */
+            mikrotik.Send(".tag=newusergroup", true);
         }
 
 
@@ -499,11 +502,8 @@ namespace Diplom_2
             mikrotik.Send("/system/script/run");
             mikrotik.Send("=.id=CreateConfigApi", true);
 
-
             //Загрузка файла через FTP и уведомление пользователя о результате
             return (DownloadConfig());
-
-
         }
 
         //Запуск SafeMode
@@ -545,9 +545,6 @@ namespace Diplom_2
             Thread.Sleep(50);
             mikrotik.Send("/system/script/run");
             mikrotik.Send("=.id=CreateScheduler", true);
-
-
-
 
             /*
             string time = DateTime.Now.ToString("g", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
@@ -972,16 +969,6 @@ namespace Diplom_2
                                         else if (words[j] == "DHCP")
                                         {
                                             temp.dhcp = words[j + 1];
-                                            /*
-                                            if (words[j + 1] == "true")
-                                            {
-                                                temp.dhcp = true;
-                                            }
-                                            else
-                                            {
-                                                temp.dhcp = false;
-                                            }
-                                            */
                                         }
                                         else if (words[j] == "mac-address")
                                         {
@@ -1202,7 +1189,6 @@ namespace Diplom_2
                                         }
 
                                     }
-                                    //temp.policy = temp_policy;
                                     UserGroups.Add(temp);
                                 }
                                 else
@@ -1254,7 +1240,6 @@ namespace Diplom_2
                                         {
                                             temp.status = words[j + 1];
                                         }
-
                                     }
                                     Interfaces.Add(temp);
                                 }
@@ -1402,87 +1387,12 @@ namespace Diplom_2
                                 {
                                     this.FirewallEnd = true;
                                 }
-                                
                             }
                         }
                     }
                 }
-
-                //разбор
             }
-
-
         }
-
-        /*
-        internal void ReadResource()
-        {
-            MK mikrotik = new MK(conn.host, conn.port);
-            if (mikrotik.Login(conn.login, conn.password))
-            {
-                mikrotik.Send("/system/resource/print");
-                mikrotik.Send(".tag=res", true);
-
-
-                string h = mikrotik.Read()[0];
-                Console.WriteLine(h);
-
-
-                string[] words = h.Split(new char[] { '=' });
-                Console.WriteLine(words.Length);
-                Console.WriteLine(words[36]);
-
-                int j = 0;
-                if (words[0] == "!re.tag")        //данные успешно получены
-                {
-
-                    for (int i = 0; i < words.Length; i = i + 2, j++)
-                    {
-                        resource[j, 0] = words[i];
-                        resource[j, 1] = words[i + 1];
-                    }
-                    //return true;
-                }
-                Console.WriteLine(resource[4, 1]);
-            }
-            //подключение не удалось
-            //return false;
-
-
-            List <Machine> th = new List<Machine>();
-            Machine o = new Machine();
-            th.Add(o);
-
-
-
-            Machine thf = th[0];
-            thf.id = "1";
-            //Machine people[];
-
-        }
-        */
-
-        //запрос на обновление таблицы arp
-
-        //запрос на обновление портов
-
-        //запрос на обновление 
-
-
-        //данные об устройстве
-        
-
-        //данные о подключенных устройствах
-        /*class machine
-        {
-            string ip;
-            string mac;
-            bool dhcp;      //true - dhcp, false - static
-
-        }
-        */
-
-
     }
 }
 

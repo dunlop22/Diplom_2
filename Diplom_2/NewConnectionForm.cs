@@ -10,6 +10,9 @@ using System.Windows.Forms;
 using System.Net.NetworkInformation;        //ping хоста
 using MndpTray.Protocol;        //поиск "соседей" mikrotik
 using System.Threading;     //использование и создание потоков
+using System.Net;           //работа с портами (проверка открытости)
+using System.Net.Security;        //поддержка ssl
+using System.Net.Sockets;   //работа с портами (проверка открытости)
 
 namespace Diplom_2
 {
@@ -19,16 +22,25 @@ namespace Diplom_2
         public NewConnectionForm()
         {
             InitializeComponent();
-            this.port_textBox.Text = "8729";  //предустановка
-            this.radioButton_api_ssl.Checked = true;
+            this.port_textBox.Text = "8728";  //предустановка
+            this.radioButton_api.Checked = true;
             thread = new Thread(CheckNeighbors);
             thread.Start();
             this.Visible = false;
+            this.ActiveControl = this.host_textBox;     //фокус на текстовое поле
+
+            //создание дополнительного потока для проверки подключения к интернету
+            thread_check_internet = new Thread(check_internet);
+            thread_check_internet.Start();
         }
 
         Thread thread;
         Func_Class func = new Func_Class();
-        
+
+        ToolTip t = new ToolTip();
+        Thread thread_check_internet;       //поток для проверки наличия интернета
+        //объект класса для проверки подключения интернета
+        internal InternetConnectionChecker check = new InternetConnectionChecker();
 
         internal struct device
         {
@@ -40,7 +52,23 @@ namespace Diplom_2
             internal string uptime;
         }
 
-        static  List<device> Devices = new List<device>();
+        static List<device> Devices = new List<device>();
+        
+        //проверка наличия интернета
+        void check_internet()
+        {
+            if (check.IsConnected())    //подключение есть
+            {
+                this.pictureBox_status_internet.Image = Properties.Resources.green_circle;
+            }
+            else          //подключения нет
+            {
+                this.pictureBox_status_internet.Image = Properties.Resources.red_circle;
+            }
+            pictureBox_status_internet.SizeMode = PictureBoxSizeMode.Zoom;       //ReSize изображения под размер элемента (PictureBox)
+
+            Thread.Sleep(4);  //пауза потока
+        }
 
         private void test_button_Click(object sender, EventArgs e)
         {
@@ -90,7 +118,7 @@ namespace Diplom_2
         //    }
         //}
 
-        
+
         ////Проверка порта подключения
         //bool check_port()
         //{
@@ -107,7 +135,7 @@ namespace Diplom_2
         //                return false;
         //            }
         //        }
-                
+
         //        if ((Int32.Parse(this.port_textBox.Text) > 0) && (Int32.Parse(this.port_textBox.Text) < 65536))
         //        {
         //            return true;
@@ -168,7 +196,7 @@ namespace Diplom_2
 
             MndpListener.Instance.Stop();
             MndpSender.Instance.Stop();
-
+            
             //заполнение таблицы
             TebleNeighbors();
         }
@@ -182,9 +210,9 @@ namespace Diplom_2
                 this.dataGridView_Neighbors.Rows.Add();
                 this.dataGridView_Neighbors.Rows[i].Cells[0].Value = (Devices[i].ip).ToString();
                 //Разбитие на 2 символа
-                for (int j=0;j<6;j++)
+                for (int j = 0; j < 6; j++)
                 {
-                    this.dataGridView_Neighbors.Rows[i].Cells[1].Value = this.dataGridView_Neighbors.Rows[i].Cells[1].Value +  (Devices[i].mac[j * 2]).ToString();
+                    this.dataGridView_Neighbors.Rows[i].Cells[1].Value = this.dataGridView_Neighbors.Rows[i].Cells[1].Value + (Devices[i].mac[j * 2]).ToString();
                     this.dataGridView_Neighbors.Rows[i].Cells[1].Value = this.dataGridView_Neighbors.Rows[i].Cells[1].Value + (Devices[i].mac[j * 2 + 1]).ToString();
                     if (j != 5)
                     {
@@ -192,7 +220,7 @@ namespace Diplom_2
                     }
 
                 }
-                
+
                 this.dataGridView_Neighbors.Rows[i].Cells[2].Value = (Devices[i].identity).ToString();
                 this.dataGridView_Neighbors.Rows[i].Cells[3].Value = (Devices[i].boardname).ToString();
                 this.dataGridView_Neighbors.Rows[i].Cells[4].Value = (Devices[i].version_OS).ToString();
@@ -210,7 +238,7 @@ namespace Diplom_2
                 if (words[9].Contains("Platform:MikroTik"))
                 {
                     Console.WriteLine(words[1]);
-                    
+
                     //проверка на существование в листе по IP адресу
                     for (int i = 0; i < Devices.Count(); i++)
                     {
@@ -235,6 +263,12 @@ namespace Diplom_2
 
         private void NewConnectionForm_Load(object sender, EventArgs e)
         {
+
+            
+            t.SetToolTip(this.host_textBox, "Поле для ввода IP адреса оборудования");
+            t.SetToolTip(this.ip_label, "IP адрес для подключения к оборудованию");
+            
+
             //запуск поиска соседей
             //CheckNeighbors();
 
@@ -293,12 +327,43 @@ namespace Diplom_2
             }
         }
 
+
+        //проверка открытости порта
+        private void check_port_open()
+        {
+            try
+            {
+                using (var tcpClient = new TcpClient())
+                {
+                    tcpClient.Connect(this.host_textBox.Text, Convert.ToInt32(this.port_textBox.Text));
+                    this.port_pictureBox.Image = Properties.Resources.link_ok;
+                }
+            }
+            catch (SocketException)
+            {
+                this.port_pictureBox.Image = Properties.Resources.link_error;
+            }
+            
+            if (this.port_pictureBox.Image == Properties.Resources.link_error)
+            {
+                t.SetToolTip(this.port_pictureBox, "Проблема с доступом по порту");
+            }
+            else if (this.port_pictureBox.Image == Properties.Resources.link_ok)
+            {
+                t.SetToolTip(this.port_pictureBox, "Успешная проверка доступа по порту");
+            }
+        }
+        
         //Моментальная проверка корректности введенного значения порта (после покидания поля "Порт")
         private void port_textBox_Leave(object sender, EventArgs e)
         {
             if (func.CheckPortFormat(this.port_textBox.Text))
             {
-
+                if (this.host_textBox.Text != null)
+                {
+                    Thread myThread = new Thread(check_port_open);
+                    myThread.Start();
+                }
             }
         }
 
@@ -427,16 +492,21 @@ namespace Diplom_2
 
         private void dataGridView_Neighbors_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            this.host_textBox.Text = (this.dataGridView_Neighbors.Rows[e.RowIndex].Cells[0].Value).ToString();
+            /*
             if (e.ColumnIndex == 0 || e.ColumnIndex == 1)
             {
-                this.host_textBox.Text = (this.dataGridView_Neighbors.Rows[e.RowIndex].Cells[e.ColumnIndex].Value).ToString();
+                this.host_textBox.Text = (this.dataGridView_Neighbors.Rows[e.RowIndex].Cells[0].Value).ToString();
+                
                 this.label_ip_for_mac.Visible = false;
                 if (e.ColumnIndex == 1)
                 {
                     this.label_ip_for_mac.Visible = true;
                     this.label_ip_for_mac.Text = "IP: " + this.dataGridView_Neighbors.Rows[e.RowIndex].Cells[0].Value;
                 }
+                
             }
+            */
         }
 
         private void radioButton_api_ssl_CheckedChanged(object sender, EventArgs e)
@@ -472,5 +542,12 @@ namespace Diplom_2
         {
             this.Visible = true;
         }
+
+        private void button_update_neighbors_Click(object sender, EventArgs e)
+        {
+            thread = new Thread(CheckNeighbors);
+            thread.Start();
+        }
     }
+
 }
