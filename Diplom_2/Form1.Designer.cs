@@ -240,6 +240,7 @@ namespace Diplom_2
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
             this.файлToolStripMenuItem.Size = new System.Drawing.Size(53, 23);
             this.файлToolStripMenuItem.Text = "Файл";
+            this.файлToolStripMenuItem.Visible = false;
             // 
             // открытьToolStripMenuItem
             // 
@@ -271,6 +272,7 @@ namespace Diplom_2
             this.new_connection_Main_Menu.Name = "new_connection_Main_Menu";
             this.new_connection_Main_Menu.Size = new System.Drawing.Size(152, 23);
             this.new_connection_Main_Menu.Text = "Новое подключение";
+            this.new_connection_Main_Menu.Visible = false;
             // 
             // справкаToolStripMenuItem
             // 

@@ -19,7 +19,7 @@ namespace Diplom_2
         string config_name = "api_config";
 
 
-
+        /*
         //данные для подключения к устройству
         struct Connection
         {
@@ -30,7 +30,7 @@ namespace Diplom_2
             internal string password;
         }
         Connection conn = new Connection();
-
+        */
         struct Firewall
         {
             internal string id;
@@ -148,18 +148,21 @@ namespace Diplom_2
         }
         List<LogMes> Log = new List<LogMes>();
 
-        internal void SetConnCred(List<string> connt)
+        /*
+        internal void SetConnCred()
         {
-            conn.name = connt[0];
+            conn.name = connt.name;
+            //connt[0];
             conn.host = connt[1];
             conn.port = Convert.ToInt32(connt[2]);
             conn.login = connt[3];
             conn.password = connt[4];
         }
+        */
         internal void FirstStart()
         {
-            mikrotik = new MK(conn.host, conn.port);
-            mikrotik.Login(conn.login, conn.password);
+            mikrotik = new MK(connt.host, Convert.ToInt32(connt.port));
+            mikrotik.Login(connt.login, connt.password);
         }
         //запрос на обновление ресурсов
 
@@ -363,17 +366,18 @@ namespace Diplom_2
             return all;
         }
 
-
+        /*
         internal List<string> GetCred()
         {
             List<string> temp = new List<string>();
-            temp.Add(conn.name);
-            temp.Add(conn.host);
-            temp.Add((conn.port).ToString());
-            temp.Add(conn.login);
-            temp.Add(conn.password);
+            temp.Add(connt.name);
+            temp.Add(connt.host);
+            temp.Add((connt.port).ToString());
+            temp.Add(connt.login);
+            temp.Add(connt.password);
             return temp;
         }
+        */
 
         //Обновление вкладки IP --> Service
         internal async void SendUpdateService(List<List<string>> command)
@@ -398,19 +402,22 @@ namespace Diplom_2
         //Создание новой группы пользователей
         internal void SendCreateNewGroup(List<string> inform)
         {
-            if (mikrotik.Login(conn.login, conn.password))
+            
+            mikrotik.Send("/user/group/add");
+            //перечисление политик
+            mikrotik.Send("=name=" + inform[0]);
+            for (int i = 1; i < inform.Count(); i++)
+            {
+                mikrotik.Send("=policy=" + inform[i]);
+            }
+
+            mikrotik.Send(".tag=newusergroup", true);
+            /*
+            if (mikrotik.Login(connt.login, connt.password))
             {
                 //успешное подключение
-                mikrotik.Send("/user/group/add");
-                //перечисление политик
-                mikrotik.Send("=name=" + inform[0]);
-                for (int i = 1; i < inform.Count(); i++)
-                {
-                    mikrotik.Send("=policy=" + inform[i]);
-                }
-
-                mikrotik.Send(".tag=newusergroup", true);
             }
+            */
         }
 
 
@@ -449,7 +456,7 @@ namespace Diplom_2
                 bool rez = false;
                 try
                 {
-                    request.Credentials = new NetworkCredential(conn.login, conn.password);
+                    request.Credentials = new NetworkCredential(connt.login, connt.password);
                     byte[] fileData = request.DownloadData(ftpfullpath);
 
                     using (FileStream file = File.Create(inputfilepath))
@@ -728,10 +735,13 @@ namespace Diplom_2
         //Выключение роутера
         internal void Shutdown()
         {
-            if (mikrotik.Login(conn.login, conn.password))
+            mikrotik.Send("/system/shutdown", true);
+            /*
+            if (mikrotik.Login(connt.login, connt.password))
             {
-                mikrotik.Send("/system/shutdown", true);
+                
             }
+            */
         }
 
         //Перезагрузка роутера

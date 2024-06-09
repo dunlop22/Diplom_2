@@ -16,12 +16,11 @@ namespace Diplom_2
     public partial class NewConnectionForm : Form
     {
         //Connection conn;
-        public NewConnectionForm(List <string> info)
+        public NewConnectionForm()
         {
             InitializeComponent();
             this.port_textBox.Text = "8729";  //предустановка
             this.radioButton_api_ssl.Checked = true;
-            new_info = info;
             thread = new Thread(CheckNeighbors);
             thread.Start();
             this.Visible = false;
@@ -30,7 +29,6 @@ namespace Diplom_2
         Thread thread;
         Func_Class func = new Func_Class();
         
-        List<string> new_info;      //данные для подключения
 
         internal struct device
         {
@@ -410,11 +408,12 @@ namespace Diplom_2
             {
                 if (TryConnect())
                 {
-                    new_info.Add(this.name_textBox.Text);
-                    new_info.Add(this.host_textBox.Text);
-                    new_info.Add(this.port_textBox.Text);
-                    new_info.Add(this.login_textBox.Text);
-                    new_info.Add(this.password_textBox.Text);
+
+                    connt.name = this.name_textBox.Text;
+                    connt.host = this.host_textBox.Text;
+                    connt.port = this.port_textBox.Text;
+                    connt.login = this.login_textBox.Text;
+                    connt.password = this.password_textBox.Text;
 
                     //закрытие формы
                     thread.Abort();

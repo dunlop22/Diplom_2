@@ -79,12 +79,10 @@ namespace Diplom_2
         {
             //this.backgroundWorker1
             
-            /*
+            
             LoadLogo.TopMost = true;
             LoadLogo.ShowDialog();
-            */
-
-            //this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;     //убрать оформление рамки
+            
 
             //Формирование массивов
             textBoxes.Add(textBox_telnet_port);
@@ -104,12 +102,6 @@ namespace Diplom_2
             checkBoxes.Add(checkBox_api);
             checkBoxes.Add(checkBox_winbox);
             checkBoxes.Add(checkBox_apissl);
-
-
-
-            
-
-
 
             //окно для ввода данных сессии
 
@@ -136,37 +128,28 @@ namespace Diplom_2
 
 
 
-            List<string> connt = new List<string>();
+            //List<string> connt = new List<string>();
             
-            /*
-            NewConnectionForm NewConn = new NewConnectionForm(connt);
+            
+            NewConnectionForm NewConn = new NewConnectionForm();
             NewConn.ShowDialog();
-            if (connt.Count() <1)
+            if (connt.host == null)
             {
                 Application.Exit();
             }
             else
             {
-                if (connt.Count() == 5)
-                {
-                    information.SetConnCred(connt);
+                //information.SetConnCred();
 
                     //TODO:
                     //Запуск таймера с обновлением всех данных (ресурсов)
-                    information.FirstStart();
-                    this.timer1.Enabled = true;     //Постоянное обновление ресурсов
+                information.FirstStart();
+                this.timer1.Enabled = true;     //Постоянное обновление ресурсов
                     
-                    return;
-                }
-                else
-                {
-                    //TODO:
-                    DialogResult res = MessageBox.Show("Произошла внутренняя ошибка!\nПроверьте правильность введенных данных в форме подключения", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
             }
             
-            */
-
+            
+            
             /*
             LoadLogoForm LoadLogo = new LoadLogoForm();
             LoadLogo.ShowDialog();
@@ -174,13 +157,17 @@ namespace Diplom_2
 
             //Принудительная установка значений для подключения
             //List<string> connt = new List<string>();
-            connt.Add("Home");
-            connt.Add("109.195.38.77");
-            connt.Add("8728");
-            connt.Add("test");
-            connt.Add("test");
             
-            information.SetConnCred(connt);
+            /*
+            connt.name = "Home";
+            connt.host = "109.195.38.77";
+            connt.port = "8728";
+            connt.login = "test";
+            connt.password = "test";
+            */
+
+
+            //information.SetConnCred();
             
             
             //mkssl.LoginDeprecated()
@@ -1240,7 +1227,15 @@ namespace Diplom_2
 
     }
 
-
+    static class connt
+    {
+        public static string name { get; set; }
+        public static string host { get; set; }
+        public static string port { get; set; }
+        public static string login { get; set; }
+        public static string password { get; set; }
+        
+    }
     static class WorkFirewall
     {
         public static string host { get ; set; }

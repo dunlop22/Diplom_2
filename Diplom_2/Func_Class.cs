@@ -29,8 +29,12 @@ namespace Diplom_2
         public MK(string ip, int port)
         {
             con = new TcpClient();
-            con.Connect(ip, port);
-            connection = (Stream)con.GetStream();
+            try
+            {
+                con.Connect(ip, port);
+                connection = (Stream)con.GetStream();
+            }
+            catch { }
         }
         public void Close()
         {
