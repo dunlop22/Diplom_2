@@ -66,7 +66,5 @@ namespace Diplom_2
                 this.Close();
             }
         }
-
-
     }
 }

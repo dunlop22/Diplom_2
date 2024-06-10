@@ -15,7 +15,6 @@ namespace Diplom_2
         public AddUserGroupForm()
         {
             InitializeComponent();
-            //info = information;
         }
 
         CheckBox[] mass = new CheckBox[18];

@@ -9,9 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using NETWORKLIST;      //для проверки интернет-подключения
 using System.Threading;     //использование и создание потоков
-
 using Renci.SshNet;
-//using MndpTray.Protocol;    //поиск оборудования Mikrotik в окружении (Neighbours)
 
 namespace Diplom_2
 {
@@ -46,7 +44,6 @@ namespace Diplom_2
 
         //флажок для проверки интернета
         bool work = true;
-        //Connection conn = new Connection();
 
         public string passwordfile = "";   //пароль для доступа к файлу-сессии
 
@@ -67,6 +64,7 @@ namespace Diplom_2
                 Thread.Sleep(4);  //пауза потока
             }
         }
+        
         //Открытие формы для создания нового подключения
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
@@ -78,8 +76,7 @@ namespace Diplom_2
         private void Form1_Load(object sender, EventArgs e)
         {
             //this.backgroundWorker1
-            
-            
+            //Загрузка loader'a
             LoadLogo.TopMost = true;
             LoadLogo.ShowDialog();
             
@@ -103,32 +100,7 @@ namespace Diplom_2
             checkBoxes.Add(checkBox_winbox);
             checkBoxes.Add(checkBox_apissl);
 
-            //окно для ввода данных сессии
 
-            //открыть окно для ввода логин-пароля
-
-
-            /*
-            //ПРОБА SSL
-            MikrotikAPI mkssl = new MikrotikAPI("192.168.0.1", true, 8728);
-            mkssl.Connect();
-            string str;
-            mkssl.Login("test", "test", out str);
-            return;
-            //this.label1.Text = str;
-            /*
-             * mkssl.Connect();
-
-            foreach (string h in mkssl.Receive())
-            {
-                this.label1.Text = h;
-                //mkssl.Receive()
-            }
-            */
-
-
-
-            //List<string> connt = new List<string>();
             
             
             NewConnectionForm NewConn = new NewConnectionForm();
@@ -139,43 +111,15 @@ namespace Diplom_2
             }
             else
             {
-                //information.SetConnCred();
-
-                    //TODO:
-                    //Запуск таймера с обновлением всех данных (ресурсов)
                 information.FirstStart();
                 this.timer1.Enabled = true;     //Постоянное обновление ресурсов
-                    
             }
-            
-            
-            
-            /*
-            LoadLogoForm LoadLogo = new LoadLogoForm();
-            LoadLogo.ShowDialog();
-            */
-
-            //Принудительная установка значений для подключения
-            //List<string> connt = new List<string>();
-            
-            /*
-            connt.name = "Home";
-            connt.host = "109.195.38.77";
-            connt.port = "8728";
-            connt.login = "test";
-            connt.password = "test";
-            */
-
-
-            //information.SetConnCred();
-            
-            
-            //mkssl.LoginDeprecated()
-            //TODO:
+           
             //Запуск таймера с обновлением всех данных (ресурсов)
             information.FirstStart();
 
-            information.GetGlobalIP();
+            //information.GetGlobalIP();      //получение внешнего ip адреса оборудования
+
             //Отдельный поток для прослушивания ответов оборудования
             thread_read_api_answer = new Thread(information.ReadAnswer);
             thread_read_api_answer.Start();
@@ -187,68 +131,13 @@ namespace Diplom_2
 
             return;
 
-
-
-            //Обработка сессии (новая или из файла)
-            file_work file = new file_work();
-            if (file.check_file())
-            {
-                this.label1.Text = "good";
-            }
-            else
-            {
-                this.label1.Text = "bad";
-            }
-
-
-            //Шифровка файла
-            string plainText = "sayonara";
-
-            string passPhrase = "TestPassphrase";        //Может быть любой строкой
-            string saltValue = "TestSaltValue";        // Может быть любой строкой
-            string hashAlgorithm = "SHA256";             // может быть "MD5"
-            int passwordIterations = 2;                //Может быть любым числом
-            string initVector = "!1A3g2D4s9K556g7"; // Должно быть 16 байт
-            int keySize = 256;                // Может быть 192 или 128
-
-            string cipherText = Shifr.Encrypt
-            (
-                plainText,
-                passPhrase,
-                saltValue,
-                hashAlgorithm,
-                passwordIterations,
-                initVector,
-                keySize
-            );
-
-            this.label1.Text = cipherText;
-
-
-            /*
-             * conn.host = "109.195.38.77";
-            conn.login = "test";
-            conn.port = "8728";
-            conn.password = "test";
-            Info gh = new Info();
-            */
-
         }
 
         private  void UpdateGraph()
         {
-            //получение данных
-            /*
-            Func_Class gh = new Func_Class();
-            gh.CPULoad(conn.host, 0, conn.login, conn.password, resource);
-            */
-
-            //information.FirstStart();
             Thread.Sleep(5);
-            //information.SendResource();
-            //information.ReadAnswer();
             List<string> resource = information.GetResource();
-            if (resource[0] != null)
+            if (resource[0] != null)        //проверка на наличие полученных данных
             {
                 //Блок процессор
                 this.chart1.Series.Clear();     //Очистка коллекции
@@ -295,15 +184,11 @@ namespace Diplom_2
                 }
 
 
-
-
-
                 //Блок оперативной памяти
                 this.chart2.Series.Clear();     //Очистка коллекции
                 this.chart2.Series.Add("RAM");          //Добавление нового набора данных
                 chart2.Series["RAM"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
                 double[] yValuesRAM = { ((Convert.ToDouble(resource[2]) - (Convert.ToDouble(resource[1]))) / 1048576), (Convert.ToDouble(resource[1]) / 1048576) };
-                //double[] yValuesRAM = {(Convert.ToDouble(resource[2]) / 1048576),((Convert.ToDouble(resource[2]) - (Convert.ToDouble(resource[1]))) / 1048576) };
                 string[] xValuesRAM = { "", "" };
                 this.chart2.Series["RAM"].Points.DataBindXY(xValuesRAM, yValuesRAM);
                 //resource[2] - 128 (full memory)
@@ -311,10 +196,6 @@ namespace Diplom_2
                 this.label_RAM.Text = "Use: " + Math.Round((Convert.ToDouble(resource[2]) - Convert.ToDouble(resource[1])) / 1048576, 2) + "MiB / " + Math.Round((Convert.ToDouble(resource[2]) / 1048576), 2) + " MiB";
                 double Ram_Percent_Use = ((Convert.ToDouble(resource[2]) - Convert.ToDouble(resource[1])) / Convert.ToDouble(resource[2])) * 100;
                 this.label_RAM_load.Text = (Math.Round(Ram_Percent_Use, 0)).ToString() + "%";
-
-                //this.label_RAM_load.Text = (Math.Round((((Convert.ToDouble(resource[2]) - Convert.ToDouble(resource[1])) / Convert.ToDouble(resource[2])) * 100), 0)).ToString() + "%";
-
-
 
                 //Цвет текста для нагрузки процессора
                 if (Ram_Percent_Use >= 90)
@@ -347,8 +228,6 @@ namespace Diplom_2
                         System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(194)))), ((int)(((byte)(194))))) }; ;
                 }
 
-
-               
 
                 //Блок накопителя
                 this.chart3.Series.Clear();     //Очистка коллекции
@@ -471,41 +350,7 @@ namespace Diplom_2
                         }
                     }
                 }
-                /*
-                for (int i = 0; i < resource[5].Length; i++)
-                {
-                    if (resource[5][i] == 'd')
-                    {
-                        uptime = uptime + "d ";
-                    }
-                    else if (resource[5][i] == 'h' || resource[5][i] == 'm')
-                    {
-                        if (!Char.IsDigit(resource[5][i - 2]))
-                        {
-
-                        }
-                        uptime = uptime + ":";
-                        if ()
-                    }
-                    else if (resource[5][i] == 's') { }
-                    else
-                    {
-                        if (i > 1 && i < resource[5].Length - 2)
-                        {
-                            if (!Char.IsDigit(resource[5][i - 1]) && !Char.IsDigit(resource[5][i + 1]))
-                            {
-                                uptime = uptime + "0";
-                            }
-                            else
-                            {
-                             
-                            }
-                        }
-
-                        uptime = uptime + resource[5][i];
-                    }
-                }
-                */
+               
                 this.label_RouterOS.Text = "RouterOS: " + resource[6];
                 this.label_UpTime.Text = "Время работы: " + uptime;
                 this.label_Arch.Text = "Архитектура: " + resource[7];
@@ -513,7 +358,9 @@ namespace Diplom_2
             }
         }
 
-            private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
+        
+
+        private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             openFileDialog1.Filter = "Text Files | *.txt";
@@ -536,11 +383,11 @@ namespace Diplom_2
             newForm.ShowDialog();
             this.label1.Text = passwordfile;
 
-            //попытка дешифровки
-            
 
         }
+        
 
+        
         private void сохранитьКакToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
@@ -552,6 +399,7 @@ namespace Diplom_2
             string filename = saveFileDialog1.FileName;
             this.label1.Text = filename;
         }
+        
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -582,10 +430,6 @@ namespace Diplom_2
                 this.dataGridView_User.Rows[0].Selected = false;
             }
 
-            /*
-             * information.SendUserGroup();
-            information.ReadAnswer();
-            */
             //Заполнение таблицы групп
             List<List<string>> table_usergroup = information.GetTableUserGroup();
             this.dataGridView_UserGroup.Rows.Clear();    //очистка таблицы
@@ -654,12 +498,6 @@ namespace Diplom_2
                         {
                             this.dataGridView_ARP.Rows[dataGridView_ARP.Rows.Count - 1].DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
                         }
-                        /*
-                        else
-                        {
-                            this.dataGridView_ARP.Rows[dataGridView_ARP.Rows.Count - 1].DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-                        }
-                        */
                         if (table_arp[i][2] == "true")
                         {
                             this.dataGridView_ARP.Rows[i].Cells[2].Value = true;
@@ -678,11 +516,6 @@ namespace Diplom_2
             }
             else if (tabControl2.SelectedTab == tabControl2.TabPages["Interface_tab"])
             {
-                /*
-                information.SendInterface();
-                
-                //information.ReadAnswer();
-                */
                 List<List<string>> table_interface = information.GetTableInterface();
                 this.dataGridView_PhysicalInterface.Rows.Clear();       //очистка таблицы
                 this.dataGridView_VirtualInterface.Rows.Clear();        //очистка таблицы
@@ -743,10 +576,6 @@ namespace Diplom_2
             }
             else if (tabControl2.SelectedTab == tabControl2.TabPages["Service_tab"])
             {
-                /*
-                 * information.SendService();
-                information.ReadAnswer();
-                */
                 List<List<string>> table_service = information.GetTableService();
 
                 if (table_service.Count() > 0)
@@ -857,24 +686,7 @@ namespace Diplom_2
             else if (tabControl2.SelectedTab == tabControl2.TabPages["Log_tab"])
             {
                 this.UpdateLogTable();
-                //information.SendLog();
-                //Показ загрузочного окна (Ожидание)
-                /*List<List<string>> table_Log = information.GetLog();
-                if (table_Log.Count() > 0)
-                {
-                    this.dataGridView_log.Rows.Clear();
-                    for (int i=0;i<table_Log.Count();i++)
-                    {
-                        this.dataGridView_log.Rows.Add();
-                        this.dataGridView_log.Rows[i].Cells[0].Value = table_Log[i][0];     //время
-                        this.dataGridView_log.Rows[i].Cells[1].Value = table_Log[i][1];     //topics
-                        this.dataGridView_log.Rows[i].Cells[2].Value = table_Log[i][2];     //message
-                    }
-                    this.dataGridView_log.Sort(this.dataGridView_log.Columns["Time_Log"], ListSortDirection.Descending);
-
-                    //this.dataGridView_log.Sort(this.dataGridView_log.Columns["Column1"]);
-                }
-                */
+                
 
 
             }
@@ -947,45 +759,41 @@ namespace Diplom_2
         private void button_Shutdown_Click(object sender, EventArgs e)
         {
             DialogResult res = MessageBox.Show("Вы уверены, что хотите выключить оборудование?", "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-            if (res == DialogResult.OK)
+            if (res == DialogResult.OK)     //подтверждение на выключение
             {
-                //MessageBox.Show("You have clicked Ok Button");
                 information.Shutdown();
             }
+            /*
             if (res == DialogResult.Cancel)
             {
-                //MessageBox.Show("You have clicked Cancel Button");
             }
-         
+            */
         }
 
         private void button_Reboot_Click(object sender, EventArgs e)
         {
             DialogResult res = MessageBox.Show("Вы уверены, что хотите перезагрузить оборудование?", "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-            if (res == DialogResult.OK)
+            if (res == DialogResult.OK)     //подтверждение на перезагрузку
             {
-                //MessageBox.Show("You have clicked Ok Button");
                 information.Reboot();
             }
+            /*
             if (res == DialogResult.Cancel)
             {
-                //MessageBox.Show("You have clicked Cancel Button");
             }
+            */
         }
 
         private void button_AddNewUser_Click(object sender, EventArgs e)
         {
-            //Открытие новой формы
-            
             AddUserForm AddUser = new AddUserForm();
             AddUser.FillComboBox(information.GetTableUserGroupName());
             AddUser.ShowDialog();
+         
             Thread.Sleep(500);
-            information.SendUser();
+            information.SendRequestForGetUser(); //отправка запроса на обновление пользователей
             Thread.Sleep(500);
-            this.UpdateUserTable();
-
-
+            this.UpdateUserTable(); //обновление списка пользователей
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -993,18 +801,11 @@ namespace Diplom_2
             List<string> new_usergroup = new List<string>();
             AddUserGroupForm AddUserGroup = new AddUserGroupForm();
             AddUserGroup.ShowDialog();
-            /*
-            //если хоть одно поле заполнено, то создать группу
-            if (new_usergroup.Count() > 0)
-            {
-                information.SendCreateNewGroup(new_usergroup);
-                UpdateUserTable();
-            }
-            */
+
             Thread.Sleep(200);
-            information.SendUserGroup();
+            information.SendRequestForGetUserGroup();    //отправка запроса на обновление групп
             Thread.Sleep(500);
-            this.UpdateUserTable();
+            this.UpdateUserTable(); //обновление списка групп
         }
 
         //проверка наличия интернета
@@ -1013,9 +814,10 @@ namespace Diplom_2
             check_internet();
         }
 
+        //Обратный отсчет работы safemode
+        //time - количество секунд для обратного отсчета
         private async void Countdown(double time)
         {
-            //time - количество секунд для обратного отсчета
             var start = DateTime.UtcNow;
             var end = start.AddSeconds(time);
             var diff = TimeSpan.FromSeconds(time);
@@ -1028,35 +830,13 @@ namespace Diplom_2
                 await Task.Delay(1000);
             }
             this.label_timer_safemode.Visible = false;
-            //Close();
         }
 
-
-        //не используется
-        private async void StartSafeMode()
-        {
-            //выполнить скрипт
-            var client = new SshClient("109.195.38.77", "Admin_Adm_Adm", "GfhjkzYtn1");
-            client.Connect();
-            var command = client.CreateCommand("/system script run safe");
-            command.Execute();
-            client.Disconnect();
-        }
-
-        //не используется
-        private void EndSafeMode()
-        {
-            //выполнить скрипт
-            var client = new SshClient("109.195.38.77", "test", "test");
-            client.Connect();
-            var command = client.CreateCommand("/system script run del_safe");
-            command.Execute();
-            client.Disconnect();
-        }
-
+        
+        //Переключение режима SafeMode
         private void button_SafeMode_Click(object sender, EventArgs e)
         {
-            if (SafeMode == false)
+            if (SafeMode == false)      //флаш состояния safemode
             {
                 //Включение режима SafeMode
                 information.SendStartSafeMode();
@@ -1085,6 +865,7 @@ namespace Diplom_2
         * 8 - winbox
         * 9 - api-ssl
         */
+        //Обновление конфигурации сервисов оборудования
         private void button_save_Click(object sender, EventArgs e)
         {
             
@@ -1116,6 +897,7 @@ namespace Diplom_2
         {
         }
 
+        //Окно вывода информации "О программе"
         private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //Открытие окна "о программе"
@@ -1149,13 +931,12 @@ namespace Diplom_2
             
             }
             DialogResult res = MessageBox.Show("Данные успешно записаны в файл", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
         }
 
         //обновление таблицы лога по нажатию кнопки
         private void button_update_log_Click(object sender, EventArgs e)
         {
-            information.SendLog();
+            information.SendRequestForGetLog();
             this.UpdateLogTable();
         }
 
@@ -1241,9 +1022,9 @@ namespace Diplom_2
                 information.SendCreateRuleFirewall(name_address, WorkFirewall.chain, "drop");
             }
         }
-
     }
 
+    //Данные подключения
     static class connt
     {
         public static string name { get; set; }
@@ -1251,9 +1032,7 @@ namespace Diplom_2
         public static string port { get; set; }
         public static string login { get; set; }
         public static string password { get; set; }
-
     }
-
 
 
     static class WorkFirewall
@@ -1267,7 +1046,6 @@ namespace Diplom_2
     //проверка интернет-подключения
     public class InternetConnectionChecker
     {
-        //bool connect = false;
         private readonly INetworkListManager _networkListManager;
 
         public InternetConnectionChecker()
@@ -1279,6 +1057,5 @@ namespace Diplom_2
         {
             return _networkListManager.IsConnectedToInternet;
         }
-
     }
 }

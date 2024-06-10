@@ -84,68 +84,6 @@ namespace Diplom_2
             }
         }
 
-        ////проверка ip для подключения
-        //bool check_ip()
-        //{
-        //    //проверка на наличие введенных данных
-        //    if (this.ip_textBox.Text.Length > 0)
-        //    {
-        //        //разбивка введенного ip адреса на октеты
-        //        string ip = this.ip_textBox.Text;
-        //        string[] octets = ip.Split(new char[] { '.' });
-
-
-        //        if (octets.Length != 4)
-        //        {
-        //            return false;
-        //        }
-        //        else
-        //        {
-        //            for (int i = 0; i < 4; i++)
-        //            {
-        //                if ((Int32.Parse(octets[i]) < 0) && (Int32.Parse(octets[i]) > 255))
-        //                {
-        //                    return false;
-        //                }
-        //            }
-        //        }
-
-        //        return true; 
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
-
-
-        ////Проверка порта подключения
-        //bool check_port()
-        //{
-        //    if (this.port_textBox.Text.Length > 0)
-        //    {
-        //        //проверка на посторонние символы
-        //        for (int i=0; i< this.port_textBox.Text.Length; i++)
-        //        {
-        //            if (char.IsDigit(this.port_textBox.Text[i]))
-        //            {
-        //            }
-        //            else
-        //            {
-        //                return false;
-        //            }
-        //        }
-
-        //        if ((Int32.Parse(this.port_textBox.Text) > 0) && (Int32.Parse(this.port_textBox.Text) < 65536))
-        //        {
-        //            return true;
-        //        }
-        //        return false;
-        //    }
-        //    return false;
-        //}
-
-        //Проверка форматирования данных в поле "Порт"
 
 
         //проверка ip адреса
@@ -184,15 +122,7 @@ namespace Diplom_2
             MndpListener.Instance.OnDeviceDiscovered += Instance_OnDeviceDiscovered;
             MndpSender.Instance.Start(MndpHostInfo.Instance);
 
-            /*
-             * Console.WriteLine("--- Start ---");
-            Console.WriteLine("Press any key to stop");
-            */
-
-            //while (!Console.KeyAvailable)
             Thread.Sleep(5000);
-
-            //Console.WriteLine("--- Stop ---");
 
             MndpListener.Instance.Stop();
             MndpSender.Instance.Stop();
@@ -243,8 +173,8 @@ namespace Diplom_2
                     for (int i = 0; i < Devices.Count(); i++)
                     {
                         if (words[1].Contains(Devices[i].ip))
-                        {
-                            Console.WriteLine("уже есть в списке");
+                        {   
+                            //уже существует в списке
                             return;
                         }
                     }
@@ -261,33 +191,23 @@ namespace Diplom_2
             }
         }
 
+        //Пресеты для загрузки формы
         private void NewConnectionForm_Load(object sender, EventArgs e)
         {
-
-            
             t.SetToolTip(this.host_textBox, "Поле для ввода IP адреса оборудования");
             t.SetToolTip(this.ip_label, "IP адрес для подключения к оборудованию");
-            
-
-            //запуск поиска соседей
-            //CheckNeighbors();
-
         }
 
 
-
-
-
+        //Уведомление об отсутствии данных в поле login
         private void login_textBox_Leave(object sender, EventArgs e)
         {
-            /*
             if (this.login_textBox.Text.Length == 0)
             {
                 this.login_pictureBox.Image = Properties.Resources.error_connect;
             }
 
             this.login_pictureBox.SizeMode = PictureBoxSizeMode.Zoom;       //ReSize изображения под размер элемента (PictureBox)
-            */
         }
 
 
@@ -469,11 +389,10 @@ namespace Diplom_2
         //Подключение к хосту
         private void connect_button_Click(object sender, EventArgs e)
         {
-            if (CheckConnCred())
+            if (CheckConnCred())        //Проверка введенных данных
             {
-                if (TryConnect())
+                if (TryConnect())       //пробное подключение к оборудованию
                 {
-
                     connt.name = this.name_textBox.Text;
                     connt.host = this.host_textBox.Text;
                     connt.port = this.port_textBox.Text;
@@ -493,20 +412,6 @@ namespace Diplom_2
         private void dataGridView_Neighbors_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             this.host_textBox.Text = (this.dataGridView_Neighbors.Rows[e.RowIndex].Cells[0].Value).ToString();
-            /*
-            if (e.ColumnIndex == 0 || e.ColumnIndex == 1)
-            {
-                this.host_textBox.Text = (this.dataGridView_Neighbors.Rows[e.RowIndex].Cells[0].Value).ToString();
-                
-                this.label_ip_for_mac.Visible = false;
-                if (e.ColumnIndex == 1)
-                {
-                    this.label_ip_for_mac.Visible = true;
-                    this.label_ip_for_mac.Text = "IP: " + this.dataGridView_Neighbors.Rows[e.RowIndex].Cells[0].Value;
-                }
-                
-            }
-            */
         }
 
         private void radioButton_api_ssl_CheckedChanged(object sender, EventArgs e)
@@ -516,7 +421,6 @@ namespace Diplom_2
                 this.radioButton_api.Checked = false;
                 this.port_textBox.Text = "8729";
             }
-
         }
 
         private void radioButton_api_CheckedChanged(object sender, EventArgs e)

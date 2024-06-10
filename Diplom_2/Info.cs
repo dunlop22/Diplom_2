@@ -173,7 +173,7 @@ namespace Diplom_2
 
         }
 
-        internal void SendInterface()
+        internal void SendRequestForGetInterface()
         {
             mikrotik.Send("/interface/print");
             mikrotik.Send(".tag=interface", true);
@@ -411,49 +411,42 @@ namespace Diplom_2
         internal void SendCreateNewGroup(string name, string inform_politics)
         {
             mikrotik.Send("/user/group/add");
-            //перечисление политик
-            mikrotik.Send("=name=" + name);
-            mikrotik.Send("=policy=" + inform_politics);
-            /*
-            for (int i = 1; i < inform_politics.Count(); i++)
-            {
-                mikrotik.Send("=policy=" + inform_politics);
-            }
-            */
-            mikrotik.Send(".tag=newusergroup", true);
+            mikrotik.Send("=name=" + name);     //наименование группы
+            mikrotik.Send("=policy=" + inform_politics);        //перечисление политик, доступных группе (e.g. "ftp,local")
+            mikrotik.Send(".tag=newusergroup", true);           //tag
         }
 
 
         //отправка запроса на получение log
-        internal void SendLog()
+        internal void SendRequestForGetLog()
         {
             mikrotik.Send("/log/print");
             mikrotik.Send(".tag=log", true);
         }
 
         //Получение статусов из IP --> Service
-        internal void SendService()
+        internal void SendRequestForGetService()
         {
             mikrotik.Send("/ip/service/print");
             mikrotik.Send(".tag=ipservice", true);
         }
 
         //Получение списка пользователей
-        internal void SendUser()
+        internal void SendRequestForGetUser()
         {
             mikrotik.Send("/user/print");
             mikrotik.Send(".tag=user", true);
         }
 
+        //Загрузка конфигурационного файла
         internal bool DownloadConfig()
         {
-
             string inputfilepath = @"C:\!___TEST\" + config_name + ".backup";
             string ftphost = "192.168.0.1";
             string ftpfilepath = "/" + config_name + ".backup";
 
             string ftpfullpath = "ftp://" + ftphost + ftpfilepath + ":5100";
-
+            //создание подключения
             using (WebClient request = new WebClient())
             {
                 bool rez = false;
@@ -468,7 +461,6 @@ namespace Diplom_2
                         file.Close();
                     }
                     return true;
-
                 }
                 catch
                 {
@@ -545,76 +537,11 @@ namespace Diplom_2
             Thread.Sleep(50);
             mikrotik.Send("/system/script/run");
             mikrotik.Send("=.id=CreateScheduler", true);
-
-            /*
-            string time = DateTime.Now.ToString("g", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
-            //Создание скрипта (замена SafeMode)
-            mikrotik.Send("/system/script/add");
-            mikrotik.Send("=name=APISafeMode");
-            mikrotik.Send("=source=system backup save name=backup_api\r\n" +
-                //Удаление записи scheduler
-                "/syste scheduler remove \"API_" + time + "\"\r\n\r\n" +
-                ":delay 900\r\n" +
-                "/system backup load name=backup_api", true);
-
-            //Создание записи в планировщиеке для активации safe mode
-            mikrotik.Send("/system/script/add");
-            mikrotik.Send("=name=CreateScheduler");
-            //получение времени
-            mikrotik.Send("=source=:local a ([/sys clock get time] + 00:00:10)\r\n\r\n" +
-                //Создание scheduler
-                "/system scheduler add name=\"API_" + time + "\" start-time=$a on-event=APISafeMode\r\n\r\n" +
-                //удалить текущий скрипт
-                ":local arrIdScr [:toarray [/system script job find where script~\"[a-zA-Z0-9]{1,}\"]]\r\n" +
-                ":local ScriptName [/system script job get ($arrIdScr->([:len $arrIdScr] - 1)) value-name=script]\r\n" +
-                "/system script remove $ScriptName", true);
-
-            Thread.Sleep(50);
-            mikrotik.Send("/system/script/run");
-            mikrotik.Send("=.id=CreateScheduler", true);
-            /*
-            //Thread.Sleep(200);
-
-            //Создание скрипта для деактивации существующего скрипта и удаления записей
-            mikrotik.Send("/system/script/add");
-            mikrotik.Send("=name=del_safe");
-            mikrotik.Send("=source=/system script job remove [find where script=\"safe\"]\r\n\r\nsystem script remove safe\r\nsystem script remove del_safe", true);
-
-            //Создание скрипта для активации safe mode
-            mikrotik.Send("/system/script/add");
-            mikrotik.Send("=name=api_safe_mode");
-            mikrotik.Send("=source=system backup save name=backup_api\r\ndelay 900\r\nsystem backup load name=backup_api", true);
-
-
-            mikrotik.Send("/system/script/run");
-            mikrotik.Send("=.id=api_safe_mode", true);
-            //Thread.Sleep(200);
-
-            /*
-            //выполнить скрипт
-            var client = new SshClient("109.195.38.77", "Admin_Adm_Adm", "GfhjkzYtn1");
-            client.Connect();
-            var command = client.CreateCommand("/system script run safe");
-            command.Execute();
-            client.Disconnect();
-            */
-
-
         }
 
         //Прекращение работы SafeMode
         internal void SendEndSafeMode()
         {
-            /*
-            mikrotik.Send("/system/script/add");
-            mikrotik.Send("=name=del_safe");
-            mikrotik.Send("=source=/system script job remove [find where script=\"APISafeMode\"]\r\n" +
-                ":delay 4\r\n" +
-                "/system script remove APISafeMode\r\n" +
-                "/system script remove del_safe", true);
-            */
-
-            //Thread.Sleep(0);
             mikrotik.Send("/system/script/add");
             mikrotik.Send("=name=delsafe");
             mikrotik.Send("=source=/system script run del_safe\r\n\r\n" +
@@ -624,46 +551,20 @@ namespace Diplom_2
             "/system script remove $ScriptName", true);
 
             Thread.Sleep(100);
+            //Выполнение скрипта
             mikrotik.Send("/system/script/run");
             mikrotik.Send("=.id=delsafe", true);
-            /*
-             * var client = new SshClient(conn.host, conn.login, conn.password);
-            client.Connect();
-            var command = client.CreateCommand("/system script run del_safe");
-            command.Execute();
-            client.Disconnect();
-            */
-
-            //Thread.Sleep(500);
-            /*
-            //добавить скрипт
-            mikrotik.Send("/system/script/add");
-            mikrotik.Send("=name=del_safe");
-            //mikrotik.Send("=source=/system script job remove [ find where script=\"safe\" ]\r\ndelay 4\r\nsystem script remove safe\r\nsystem script remove del_safe", true);
-            mikrotik.Send("=source=/system script job remove [ find where script=\"safe\" ]", true);
-            */
-
-            //Thread.Sleep(500);
-            //mikrotik.Login(conn.login, conn.password);
-
         }
 
-        internal void SendUserGroup()
+        //Отправка запроса на получение списка групп пользователей
+        internal void SendRequestForGetUserGroup()
         {
             mikrotik.Send("/user/group/print");
             mikrotik.Send(".tag=user_group", true);
-            /*
-            if (mikrotik.Login(conn.login, conn.password))
-            {
-
-                mikrotik.Send("/user/group/print");
-                mikrotik.Send(".tag=user_group", true);
-
-            }
-            */
         }
 
-        internal void SendAddress()
+        //Отправка запроса на получение таблицы address
+        internal void SendRequestForGetAddress()
         {
             mikrotik.Send("/ip/address/print");
             mikrotik.Send(".tag=address", true);
@@ -686,7 +587,6 @@ namespace Diplom_2
         {
             mikrotik.Send("/system/script/add");
             mikrotik.Send("=name=del_firewall");
-            ////mikr.Send("=source=/tool fetch mode = http address = \"checkip.dyndns.org\" src - path = \" / \" dst - path = \" / dyndns.checkip.html\" :local result[/ file get dyndns.checkip.html contents] :local resultLen[:len $result] :local startLoc[:find $result \": \" - 1] :set startLoc($startLoc + 2) :local endLoc[:find $result \"</body>\" - 1] :global currentIP[:pick $result $startLoc $endLoc]", true);
             mikrotik.Send("=source=/ip firewall filter remove numbers=[find src-address=\"" + WorkFirewall.host + "\"]\r\n\r\n" +
                 "/ip firewal address-list remove [find address=\"" + WorkFirewall.host + "\"]\r\n\r\n" +
                 //задержка перед удалением скрипта
@@ -696,6 +596,7 @@ namespace Diplom_2
                 ":local ScriptName [/system script job get ($arrIdScr->([:len $arrIdScr] - 1)) value-name=script]\r\n" +
                 "system script remove $ScriptName", true);
             Thread.Sleep(50);
+            //Выполнение скрипта
             mikrotik.Send("/system/script/run");
             mikrotik.Send("=.id=del_firewall", true);
         }
@@ -714,15 +615,16 @@ namespace Diplom_2
             
             mikrotik.Send("=disabled=no", true);
         }
+
         //Получение списка правил Firewall'а
-        internal void SendFirewall()
+        internal void SendRequestForGetFirewall()
         {
             mikrotik.Send("/ip/firewall/filter/print");
             mikrotik.Send(".tag=table_firewall", true);
         }
 
         //Получнение списка-таблицы ARP
-        internal void SendARP()
+        internal void SendRequestForGetARP()
         {
             mikrotik.Send("/ip/arp/print");
             mikrotik.Send(".tag=table_arp", true);
@@ -733,12 +635,6 @@ namespace Diplom_2
         internal void Shutdown()
         {
             mikrotik.Send("/system/shutdown", true);
-            /*
-            if (mikrotik.Login(connt.login, connt.password))
-            {
-                
-            }
-            */
         }
 
         //Перезагрузка роутера
@@ -747,10 +643,9 @@ namespace Diplom_2
             mikrotik.Send("/system/reboot", true);
         }
 
-
+        //первичное заполнение объектов программы на основании данных с оборудования
         internal void SendPreset()
         {
-
             int g = 0;
             while (true)
             {
@@ -760,24 +655,24 @@ namespace Diplom_2
                 }
                 else if (g % 6 == 1)
                 {
-                    this.SendARP();
+                    this.SendRequestForGetARP();
                 }
                 else if (g % 6 == 2)
                 {
-                    this.SendUser();
+                    this.SendRequestForGetUser();
 
                 }
                 else if (g % 6 == 3)
                 {
-                    this.SendUserGroup();
+                    this.SendRequestForGetUserGroup();
                 }
                 else if (g % 6 == 4)
                 {
-                    this.SendInterface();
+                    this.SendRequestForGetInterface();
                 }
                 else if (g % 6 == 5)
                 {
-                    this.SendService();
+                    this.SendRequestForGetService();
                 }
                 g++;
 
@@ -786,15 +681,14 @@ namespace Diplom_2
 
         internal void SendRequest()
         {
-            
-            this.SendARP();
-            this.SendAddress();
-            this.SendUser();
-            this.SendInterface();
-            this.SendUserGroup();
-            this.SendService();
-            this.SendLog();
-            this.SendFirewall();
+            this.SendRequestForGetARP();
+            this.SendRequestForGetAddress();
+            this.SendRequestForGetUser();
+            this.SendRequestForGetInterface();
+            this.SendRequestForGetUserGroup();
+            this.SendRequestForGetService();
+            this.SendRequestForGetLog();
+            this.SendRequestForGetFirewall();
 
             while (true)
             {
@@ -873,67 +767,16 @@ namespace Diplom_2
         }
 
         
-        internal bool stop_send = false;
+        //internal bool stop_send = false;
         internal void ReadAnswer()
         {
-            //bool rez = false;
-            int g = 0;
-            
-            //this.SendARP();
-            //this.SendAddress();
-            //this.SendUser();
-            //this.SendInterface();
-            //this.SendUserGroup();
-            //this.SendService();
-            //this.SendLog();
-            //this.SendFirewall();
             while (true)
             {
-                //this.SendResource();        //получение ресурсов
-                /*
-                //this.SendResource();        //получение ресурсов
-                if (g % 7 == 0)
-                {
-                    //this.SendResource();        //получение ресурсов
-                }
-                else if (g % 7 == 1)
-                {
-                    //this.SendARP();
-                    //this.SendAddress();
-                }
-                else if (g % 7 == 2)
-                {
-                    //this.SendUser();
-                }
-                else if (g % 7 == 3)
-                {
-                    //this.SendUserGroup();
-                }
-                else if (g % 7 == 4)
-                {
-                    //this.SendInterface();
-                }
-                else if (g % 7 == 5)
-                {
-                    //this.SendService();
-                }
-                else if (g % 13 == 6)
-                {
-                    //this.SendLog();
-                    //this.SendFirewall();
-                }
-                g++;
-                Thread.Sleep(50);
-                */
-
-
                 List<string> answer = new List<string>();
-                //this.mikrotik.Read();
                 
                 foreach (string h in mikrotik.Read())
                 {
                     answer.Add(h);
-                    //Console.WriteLine(h);
                 }
                 
                 for (int i = 0; i < answer.Count; i++)
@@ -1088,7 +931,6 @@ namespace Diplom_2
                                     }
                                     UserGroup temp = new UserGroup();
                                     temp.polic = new string[18];
-                                    //temp.policy = "";
 
                                     temp.id = words[3];         //id группы
                                     temp.name = words[5];       //наименование группы
